@@ -68,16 +68,16 @@ public class DatabaseUtils {
 	 */
 	public static String getSongQuery() {
 		return "SELECT " + 
-				"	a.id AS SongID, a.releasedate AS SongReleasedate, a.name AS Songname, " + 
-				"	b.id AS artistid, b.name AS artistname, b.link AS artistlink, " + 
-				"	d.id AS AlbumID, d.name AS AlbumName, d.releasedate AS AlbumReleasedate, " + 
-				"	a.genre AS genreID, " + 
-				"	e.id AS labelID, e.name AS labelName, e.link AS labelLink, " + 
-				"	a.language AS languageID, a.yt_link AS yt_link, a.sf_link AS sf_link, a.sc_link AS sc_link " + 
-				"FROM songs AS a " + 
-				"LEFT JOIN artists AS b ON a.artist = b.id " + 
-				"LEFT JOIN albums AS d ON a.album = d.id " + 
-				"LEFT JOIN labels AS e ON a.label = e.id ";
+				"	songs.id AS SongID, songs.releasedate AS SongReleasedate, songs.name AS Songname, " + 
+				"	artists.id AS artistid, artists.name AS artistname, artists.link AS artistlink, " + 
+				"	albums.id AS AlbumID, albums.name AS AlbumName, albums.releasedate AS AlbumReleasedate, " + 
+				"	songs.genre AS genreID, " + 
+				"	labels.id AS labelID, labels.name AS labelName, labels.link AS labelLink, " + 
+				"	songs.language AS languageID, songs.yt_link AS yt_link, songs.sf_link AS sf_link, songs.sc_link AS sc_link " + 
+				"FROM songs " + 
+				"LEFT JOIN artists ON songs.artist = artists.id " + 
+				"LEFT JOIN albums ON songs.album = albums.id " + 
+				"LEFT JOIN labels ON songs.label = labels.id ";
 	}
 
 	public static boolean checkArtistExists() {
@@ -102,6 +102,17 @@ public class DatabaseUtils {
 			ret[i++] = new Playlist(Integer.parseInt(str[0]), str[1], user);
 		}
 		return ret;
+	}
+
+	public static String generateINqry(int[] arr) {
+		String ret = "IN(";
+		for(int i = 0; i < arr.length; i++) {
+			if(i != 0) {
+				ret += ",";
+			}
+			ret += arr[i];
+		}
+		return ret += ")";
 	}
 
 }

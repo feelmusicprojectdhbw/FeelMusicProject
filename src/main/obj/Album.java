@@ -1,4 +1,4 @@
-package main.obj;
+ package main.obj;
 
 public class Album {
 	private int id;
