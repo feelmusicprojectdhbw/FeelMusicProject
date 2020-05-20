@@ -11,6 +11,7 @@ public class Genre {
 		this.name = name;
 		this.id = id;
 		this.setParentID(parentID);
+		subgenres = new Genre[0];
 	}
 	
 	public int getId() {
