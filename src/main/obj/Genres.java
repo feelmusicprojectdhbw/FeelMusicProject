@@ -1,6 +1,6 @@
 package main.obj;
 
-import main.Database;
+import main.dao.Database;
 
 public class Genres {
 	
@@ -54,5 +54,17 @@ public class Genres {
 		}
 		arr[arr.length-1] = g;
 		genres = arr;
+	}
+
+	public static int getGenreID(String genre) {
+		if(genres != null) {
+			for(Genre g : genres) {
+				int n = g.getGenreID(genre);
+				if(n != 0) {
+					return n;
+				}
+			}
+		}
+		return 0;
 	}
 }

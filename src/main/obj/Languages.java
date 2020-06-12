@@ -1,6 +1,6 @@
 package main.obj;
 
-import main.Database;
+import main.dao.Database;
 
 public class Languages {
 	private static Language[] languages;
@@ -26,5 +26,16 @@ public class Languages {
 
 	public static void setLanguages(Language[] languages) {
 		Languages.languages = languages;
+	}
+
+	public static int getLanguageID(String inputLanguage) {
+		if(languages != null) {
+			for(Language l : languages) {
+				if(l.getName().equals(inputLanguage)) {
+					return l.getId();
+				}
+			}
+		}
+		return 0;
 	}
 }

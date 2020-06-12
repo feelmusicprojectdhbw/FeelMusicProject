@@ -51,6 +51,20 @@ public class Genre {
 		}
 		return g;
 	}
+	
+	public Genre searchParentId(String s) {
+		Genre g = null;
+		if(this.name.equals(s)) {
+			g = this;
+		}else {
+			if(subgenres != null) {
+				for(Genre sg : subgenres) {
+					g = sg.searchParentId(s);
+				}
+			}
+		}
+		return g;
+	}
 
 	public int getParentID() {
 		return parentID;
@@ -58,6 +72,22 @@ public class Genre {
 
 	public void setParentID(int parentID) {
 		this.parentID = parentID;
+	}
+
+	public int getGenreID(String genre) {
+		if(getName().equalsIgnoreCase(genre)) {
+			return this.getId();
+		}else {
+			if(subgenres != null) {
+				for(Genre sg : subgenres) {
+					int n = sg.getGenreID(genre);
+					if(n != 0) {
+						return n;
+					}
+				}
+			}
+		}
+		return 0;
 	}
 	
 }

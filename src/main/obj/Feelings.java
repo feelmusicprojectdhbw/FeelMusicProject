@@ -1,12 +1,23 @@
 package main.obj;
 
-import main.Database;
+import main.dao.Database;
 
 public class Feelings {
 	private static Feeling[] feelings;
 	
 	public static boolean areFeelingsLoaded() {
 		return feelings != null;
+	}
+	
+	public static int getFeelingID(String feeling) {
+		if(feelings != null) {
+			for(Feeling f : feelings) {
+				if(f.getName().equals(feeling)) {
+					return f.getId();
+				}
+			}
+		}
+		return 0;
 	}
 	
 	public static Feeling getFeeling(String feeling) {

@@ -1,6 +1,6 @@
 package main.obj;
 
-import main.Database;
+import main.dao.Database;
 
 public class Styles {
 private static Style[] styles;
@@ -41,5 +41,16 @@ private static Style[] styles;
 
 	public static void setStyles(Style[] styles) {
 		Styles.styles = styles;
+	}
+
+	public static int getStyleID(String style) {
+		if(styles != null) {
+			for(Style f : styles) {
+				if(f.getName().equals(style)) {
+					return f.getId();
+				}
+			}
+		}
+		return 0;
 	}
 }
