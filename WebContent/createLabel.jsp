@@ -1,4 +1,8 @@
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@page import="main.*"%>
+<%@page import="main.obj.*"%>
+<%@page import="main.dao.*"%>
     <!doctype html>
     <html lang="de">
     
@@ -15,7 +19,7 @@
     
     <body>
       <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="player.jsp">FellMusic</a>
+        <a class="navbar-brand" href="player.jsp">FeelMusic</a>
         <a class="nav-link nav-item text-light " href="player.jsp">Home</a>
         <a class="nav-link nav-item text-light" href="createSong.jsp">Create Song</a>  
         <a class="nav-link nav-item text-light" href="createPlaylist.jsp">Create Playlist</a>
@@ -29,20 +33,27 @@
     
     </nav>
 <div class=" container ">
-
-
-      <form class=" form-signin ">
+      <form class=" form-signin " method="post" action="CreateLabel_Servlet">
+      <select name="labelToDelete">  
+      <% MusicLabel[] labels = Database.getAllLabels();
+      	if(labels != null){
+			for (MusicLabel a : labels) {
+				%><option><%= a.getName() %>;<%= a.getId() %></option><%
+			}			
+		}%> 
+        </select>
         <h2 class=" form-signin-heading ">Create Label</h2>
         <label for=" inputLabel" class=" sr-only "> Label</label>
-        <input type=" text " id=" inputLabel " class=" form-control " placeholder=" Artist " required autofocus>
+        <input type=" text " name="inputLabel" id=" inputLabel " class=" form-control " placeholder=" Label " required autofocus>
   
         <label for=" inputLink " class=" sr-only ">Link of the label</label>
-        <input type=" url " id=" inputLink " class=" form-control " placeholder=" Link " required>
+        <input type=" url " name="inputLink" id=" inputLink " class=" form-control " placeholder=" Link " required>
   
          
       
+      <input type="radio" name="createOrDelete" class=" form-control " value="create" checked/>Create
+      <input type="radio" name="createOrDelete" class=" form-control "value="delete" />Delete
       <button class=" btn btn-lg btn-primary btn-block " type=" submit ">Send</button>
-      <button class=" btn btn-lg btn-primary btn-block " type=" reset ">Delete</button>
     </form>
   
     <footer class="footer container-fluid text-center text-md-left bg-dark text-light py-2 bottom-0">

@@ -15,7 +15,7 @@
     
     <body>
       <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="player.jsp">FellMusic</a>
+        <a class="navbar-brand" href="player.jsp">FeelMusic</a>
         <a class="nav-link nav-item text-light " href="player.jsp">Home</a>
         <a class="nav-link nav-item text-light" href="createSong.jsp">Create Song</a>  
         <a class="nav-link nav-item text-light" href="createPlaylist.jsp">Create Playlist</a>
