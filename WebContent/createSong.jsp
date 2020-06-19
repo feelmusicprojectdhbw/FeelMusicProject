@@ -17,7 +17,9 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-	<link rel="stylesheet" href="WebContent/css/style.css">
+
+<!--own css-->
+	<link rel="stylesheet" href="css/style.css">
 
 <title>createSong</title>
 <script>
@@ -58,6 +60,7 @@
 </head>
 
 <body>
+
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 		<a class="navbar-brand" href="player.jsp">FeelMusic</a> <a
 			class="nav-link nav-item text-light " href="player.jsp">Home</a> <a
