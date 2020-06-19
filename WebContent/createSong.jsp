@@ -60,7 +60,7 @@
 </head>
 
 <body>
-
+<div class="container">
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 		<a class="navbar-brand" href="player.jsp">FeelMusic</a> <a
 			class="nav-link nav-item text-light " href="player.jsp">Home</a> <a
@@ -174,14 +174,14 @@
 			
 		<details>
 		<summary>
-		<label class=" "> Feelings </label> 
+		<label> Feelings </label> 
 		</summary>
 			<div>
 	 <% 
       	if(Feelings.getFeelings() != null){
 			for (Feeling f : Feelings.getFeelings()) {
 				if(f.getId() == 1)continue;
-				%><input type="checkbox" name="feeling" value="<%= f.getName() %>"><%= f.getName() %><br>
+				%><input class="orechts"type="checkbox" name="feeling" value="<%= f.getName() %>"><%= f.getName() %><br>
 					<%
 			}			
 		}%>
@@ -191,12 +191,12 @@
 		<summary>
 		<label class=" "> Styles </label> 
 		</summary>
-			<div class="orechts">
+			<div>
 	 <% 
       	if(Styles.getStyles() != null){
 			for (Style s : Styles.getStyles()) {
 				if(s.getId() == 1)continue;
-				%><input type="checkbox" name="style" value="<%= s.getName() %>"><%= s.getName() %><br>
+				%><input class="orechts" type="checkbox" name="style" value="<%= s.getName() %>"><%= s.getName() %><br>
 					<%
 			}			
 		}%>
@@ -217,6 +217,7 @@
 			<button class=" btn btn-lg btn-primary btn-block " type="submit" onClick="processValidations()">Send</button>
 			<button class=" btn btn-lg btn-primary btn-block " type="reset">Delete</button>
 		</form>
+	</div>
 </body>
 
 <footer
