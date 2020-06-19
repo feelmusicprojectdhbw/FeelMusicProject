@@ -1,18 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@page import="main.*"%>
-<!doctype html>
-<html lang="de">
-<%@page import="main.obj.*"%>
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <!--<link rel="stylesheet" href="css/style.css">-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+<%=HtmlDefaults.generateHtmlHeader()%>
     <title>Home</title>
     
 </head>
@@ -63,14 +49,7 @@
       <hr>
       </div>
 
-      <footer class="footer container-fluid text-center text-md-left bg-dark text-light py-2 bottom-0"
-        style="position: fixed; bottom: 0;">
-        <div class="container">
-          <span class="text-muted">
-            <p>&copy; Feel Music 2020 All rights reserved</p>
-          </span>
-        </div>
-      </footer>
+      <%=HtmlDefaults.generateHtmlFooter()%>
 </body>
   <script>
   var playlistState = 0;
