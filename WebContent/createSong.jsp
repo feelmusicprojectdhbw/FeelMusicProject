@@ -17,7 +17,9 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-	<link rel="stylesheet" href="WebContent/css/style.css">
+
+<!--own css-->
+	<link rel="stylesheet" href="css/style.css">
 
 <title>createSong</title>
 <script>
@@ -59,6 +61,23 @@
 
 <body>
 	   <%=HtmlDefaults.generateHtmlNavbar()%>
+<div class="container">
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		<a class="navbar-brand" href="player.jsp">FeelMusic</a> <a
+			class="nav-link nav-item text-light " href="player.jsp">Home</a> <a
+			class="nav-link nav-item text-light" href="createSong.jsp">Create
+			Song</a> <a class="nav-link nav-item text-light"
+			href="createPlaylist.jsp">Create Playlist</a> <a
+			class="nav-link nav-item text-light " href="createArtist.jsp">Create
+			Artist</a> <a class="nav-link nav-item text-light" href="impressum.jsp">Impressum</a>
+		<a class="nav-link nav-item text-light" href="datenschutz.jsp">Datenschutz</a>
+
+
+
+		<button class="btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0"">LogIn</button>
+
+	</nav>
+>>>>>>> 5902c026d36e740d915d35e70ad23a0f9a805248
 		<form id="songcreation" class=" form-signin " method="post" action="CreateSong_Servlet">
 			<h2 class=" form-signin-heading ">Create Song</h2>
 
@@ -157,14 +176,14 @@
 			
 		<details>
 		<summary>
-		<label class=" "> Feelings </label> 
+		<label> Feelings </label> 
 		</summary>
 			<div>
 	 <% 
       	if(Feelings.getFeelings() != null){
 			for (Feeling f : Feelings.getFeelings()) {
 				if(f.getId() == 1)continue;
-				%><input type="checkbox" name="feeling" value="<%= f.getName() %>"><%= f.getName() %><br>
+				%><input class="orechts"type="checkbox" name="feeling" value="<%= f.getName() %>"><%= f.getName() %><br>
 					<%
 			}			
 		}%>
@@ -174,12 +193,12 @@
 		<summary>
 		<label class=" "> Styles </label> 
 		</summary>
-			<div class="orechts">
+			<div>
 	 <% 
       	if(Styles.getStyles() != null){
 			for (Style s : Styles.getStyles()) {
 				if(s.getId() == 1)continue;
-				%><input type="checkbox" name="style" value="<%= s.getName() %>"><%= s.getName() %><br>
+				%><input class="orechts" type="checkbox" name="style" value="<%= s.getName() %>"><%= s.getName() %><br>
 					<%
 			}			
 		}%>
@@ -200,6 +219,7 @@
 			<button class=" btn btn-lg btn-primary btn-block " type="submit" onClick="processValidations()">Send</button>
 			<button class=" btn btn-lg btn-primary btn-block " type="reset">Delete</button>
 		</form>
+	</div>
 </body>
 
 <footer
