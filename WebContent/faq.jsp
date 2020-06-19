@@ -16,7 +16,7 @@
     </head>
     
     <body>
-        <%=HtmlDefaults.generateHtmlHeader()%>
+        <%=HtmlDefaults.generateHtmlNavbar()%>
         <div class="jumbotron">
         <h2>1. Frage </h2>
         <p>

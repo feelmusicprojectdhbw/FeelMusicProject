@@ -18,7 +18,7 @@
     </head>
     
     <body>
-      <%=HtmlDefaults.generateHtmlHeader()%>
+      <%=HtmlDefaults.generateHtmlNavbar()%>
 <div class=" container ">
       <form class=" form-signin " method="post" action="CreateLabel_Servlet">
       <select name="labelToDelete">  

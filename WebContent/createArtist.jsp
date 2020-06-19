@@ -18,7 +18,7 @@
     </head>
     
     <body>
-        <%=HtmlDefaults.generateHtmlHeader()%>
+        <%=HtmlDefaults.generateHtmlNavbar()%>
         <div class="container py-2">
 
      <form class=" form-signin " method="post" action="CreateArtist_Servlet">

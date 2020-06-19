@@ -3,6 +3,7 @@ package main;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,12 +20,14 @@ public class CreateArtist_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private Database db;
-       
+	private static CreateArtist_Servlet me;
+   
     /**
      * @see HttpServlet#HttpServlet()
      */
     public CreateArtist_Servlet() {
         super();
+        CreateArtist_Servlet.me = this;
         if (db == null) {
 			try {
 				db = Database.getDatabase();
@@ -77,6 +80,14 @@ public class CreateArtist_Servlet extends HttpServlet {
 			}
 		}
 		doGet(request, response);
+	}
+	
+	public static ServletContext getServerContext() {
+		return me.getServletContext();
+	}
+	
+	public static CreateArtist_Servlet getMe() {
+		return me;
 	}
 
 }

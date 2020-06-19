@@ -16,7 +16,7 @@ pageEncoding="ISO-8859-1"%>
     </head>
     
     <body>
-        <%=HtmlDefaults.generateHtmlHeader()%>
+        <%=HtmlDefaults.generateHtmlNavbar()%>
  <div class="jumbotron">
     
     <div ><h1>Impressum</h1><p>Angaben gemäß § 5 TMG</p><p>FellMusic<br> 

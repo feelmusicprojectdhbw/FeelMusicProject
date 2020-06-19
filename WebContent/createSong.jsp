@@ -58,7 +58,7 @@
 </head>
 
 <body>
-	   <%=HtmlDefaults.generateHtmlHeader()%>
+	   <%=HtmlDefaults.generateHtmlNavbar()%>
 		<form id="songcreation" class=" form-signin " method="post" action="CreateSong_Servlet">
 			<h2 class=" form-signin-heading ">Create Song</h2>
 

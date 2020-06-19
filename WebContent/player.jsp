@@ -18,7 +18,7 @@
 </head>
 
 <body>
-   <%=HtmlDefaults.generateHtmlHeader()%>
+   <%=HtmlDefaults.generateHtmlNavbar()%>
 
 	<div class=" container">
       <!-- Example row of columns -->

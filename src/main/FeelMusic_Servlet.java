@@ -3,6 +3,7 @@ package main;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,9 +28,11 @@ public class FeelMusic_Servlet extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 	private Database db;
+	private static FeelMusic_Servlet me;
 
 	public FeelMusic_Servlet() {
 		super();
+		FeelMusic_Servlet.me = this;
 		if (db == null) {
 			try {
 				db = Database.getDatabase();
@@ -44,6 +47,10 @@ public class FeelMusic_Servlet extends HttpServlet {
 		} else {
 			System.out.println("Ist bereits erstellt");
 		}
+	}
+	
+	public static ServletContext getServerContext() {
+		return me.getServletContext();
 	}
 	
 
@@ -179,6 +186,10 @@ public class FeelMusic_Servlet extends HttpServlet {
 			}
 			request.getRequestDispatcher("player.jsp").forward(request, response);
 		}
+	}
+	
+	public static FeelMusic_Servlet getMe() {
+		return me;
 	}
 
 	

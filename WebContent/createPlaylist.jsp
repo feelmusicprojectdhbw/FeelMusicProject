@@ -189,7 +189,7 @@ function processLanguages()
 
 </head>
 <body>
-<%=HtmlDefaults.generateHtmlHeader()%>
+<%=HtmlDefaults.generateHtmlNavbar()%>
 	
 <div class=" container ">
 	<form id="playlistcreation" class=" form-signin " method="post" action="FeelMusic_Servlet">

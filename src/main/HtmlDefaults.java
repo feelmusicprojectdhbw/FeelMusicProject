@@ -1,22 +1,55 @@
 package main;
 
-public class HtmlDefaults {
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
-	public static String generateHtmlHeader() {
-		return "<nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">\r\n" + 
-				"	<a class=\"navbar-brand\" href=\"player.jsp\">FeelMusic</a> \r\n" + 
-				"	<a class=\"nav-link nav-item text-light \" href=\"player.jsp\">Home</a> \r\n" + 
-				"	<a class=\"nav-link nav-item text-light\" href=\"createSong.jsp\">Create Song</a> \r\n" + 
-				"	<a class=\"nav-link nav-item text-light\" href=\"createPlaylist.jsp\">Create Playlist</a> \r\n" + 
-				"	<a class=\"nav-link nav-item text-light \"href=\"createArtist.jsp\">Create Artist</a> \r\n" + 
-				"	<a class=\"nav-link nav-item text-light\" href=\"impressum.jsp\">Impressum</a>\r\n" + 
-//				"	<a class=\"nav-link nav-item text-light\" href=\"datenschutz.jsp\">Datenschutz</a>\r\n" + 
-				"\r\n" + 
-				"\r\n" + 
-				"\r\n" + 
-				"	<button class=\"btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0\"\">LogIn</button>\r\n" + 
-				"\r\n" + 
-				"</nav>";
+public class HtmlDefaults {
+	
+	private static String navBar;
+	
+	public static String generateHtmlNavbar() {
+		if(navBar != null) {
+			return navBar;
+		}else {
+			return navBar = readFile("html\\navBar.html");
+		}
+	}
+	
+	public static String readFile(String path) {
+		
+		File f = null;
+		if(FeelMusic_Servlet.getMe() != null) {
+			f = new File(FeelMusic_Servlet.getServerContext().getRealPath(path));			
+		}else if(CreateArtist_Servlet.getMe() != null) {
+			f = new File(CreateArtist_Servlet.getServerContext().getRealPath(path));
+		}else if(CreateLabel_Servlet.getMe() != null) {
+			f = new File(CreateLabel_Servlet.getServerContext().getRealPath(path));
+		}else if(CreateSong_Servlet.getMe() != null) {
+			f = new File(CreateSong_Servlet.getServerContext().getRealPath(path));
+		}
+		String s = "";		
+		if(f != null) {
+			try(BufferedReader br = new BufferedReader(new FileReader(f))) {
+			    StringBuilder sb = new StringBuilder();
+			    String line = br.readLine();
+			    
+			    int linesWritten = 0;
+	
+			    while (line != null) {
+			    	if(linesWritten++ > 0) {
+			    		sb.append(System.lineSeparator());
+			    	}
+			        sb.append(line);
+			        line = br.readLine();
+			    }
+			    s = sb.toString();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+		}
+		return s;
 	}
 	
 }

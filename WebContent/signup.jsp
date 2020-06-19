@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <%=HtmlDefaults.generateHtmlHeader()%>
+    <%=HtmlDefaults.generateHtmlNavbar()%>
 <div class=" container ">
 
     <form class=" form-signin ">
