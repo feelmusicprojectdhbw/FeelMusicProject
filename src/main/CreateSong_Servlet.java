@@ -93,7 +93,6 @@ public class CreateSong_Servlet extends HttpServlet {
 			inputLabel != null && !inputLabel.isBlank() &&
 			inputLanguage != null && !inputLanguage.isBlank() &&
 			feeling != null && !feeling.isBlank() &&
-			style != null && !style.isBlank() &&
 			(ytLink != null && !ytLink.isBlank()||
 			 sfLink != null && !sfLink.isBlank()||
 			 scLink != null && !scLink.isBlank())) {

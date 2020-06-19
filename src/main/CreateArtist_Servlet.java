@@ -55,7 +55,7 @@ public class CreateArtist_Servlet extends HttpServlet {
 				
 				try {
 					if(!db.checkArtistAlreadyExists(name)) {
-						db.insertArtist(name, link);
+						db.insertArtist(name.trim(), link);
 					}else {
 						System.out.println("Artist with that Name already exists.");
 					}

@@ -24,9 +24,9 @@ import main.obj.Usertype;
 public class Database {
 	
 	private static Database thisDB;
-	private Connection connection;
-
+	
 	private String host, database, user, pw;
+	private Connection connection;
 	
 	private boolean mySQL = true;
 
