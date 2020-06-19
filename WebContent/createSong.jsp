@@ -77,7 +77,7 @@
 		<button class="btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0"">LogIn</button>
 
 	</nav>
->>>>>>> 5902c026d36e740d915d35e70ad23a0f9a805248
+
 		<form id="songcreation" class=" form-signin " method="post" action="CreateSong_Servlet">
 			<h2 class=" form-signin-heading ">Create Song</h2>
 
