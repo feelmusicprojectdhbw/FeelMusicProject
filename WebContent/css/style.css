@@ -27,7 +27,17 @@
   height:20px;
   width:35%;
 }
-.orechts{
-  float: right;
-  padding:20px;
+<!--Used for fellings and styles-->
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
 }
+.grid-item {
+  
+  
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+

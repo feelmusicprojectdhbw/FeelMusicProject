@@ -8,6 +8,9 @@ import java.io.IOException;
 public class HtmlDefaults {
 	
 	private static String navBar;
+	private static String header;
+	private static String footer;
+
 	
 	public static String generateHtmlNavbar() {
 		if(navBar != null) {
@@ -15,7 +18,23 @@ public class HtmlDefaults {
 		}else {
 			return navBar = readFile("html\\navBar.html");
 		}
+
 	}
+	public static String generateHtmlHeader() {
+		if(header != null) {
+			return header;
+		}else {
+			return header = readFile("html\\header.html");
+		}
+	}
+	public static String generateHtmlFooter() {
+		if(header != null) {
+			return footer;
+		}else {
+			return footer = readFile("html\\footer.html");
+		}
+	}
+
 	
 	public static String readFile(String path) {
 		

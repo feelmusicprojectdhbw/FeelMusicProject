@@ -3,23 +3,7 @@
 <%@page import="main.*"%>
 <%@page import="main.obj.*"%>
 <%@page import="main.dao.*"%>
-<!doctype html>
-<html lang="de">
-
-<head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-
-<!--own css-->
-	<link rel="stylesheet" href="css/style.css">
+<%=HtmlDefaults.generateHtmlHeader()%>
 
 <title>createSong</title>
 <script>
@@ -162,12 +146,12 @@
 		<summary>
 		<label> Feelings </label> 
 		</summary>
-			<div>
+			<div class="grid-container"> 
 	 <% 
       	if(Feelings.getFeelings() != null){
 			for (Feeling f : Feelings.getFeelings()) {
 				if(f.getId() == 1)continue;
-				%><input class="orechts"type="checkbox" name="feeling" value="<%= f.getName() %>"><%= f.getName() %><br>
+				%><input class="grid-item"type="checkbox" name="feeling" value="<%= f.getName() %>"><%= f.getName() %><br>
 					<%
 			}			
 		}%>
@@ -177,12 +161,12 @@
 		<summary>
 		<label class=" "> Styles </label> 
 		</summary>
-			<div>
+			<div class="grid-container">
 	 <% 
       	if(Styles.getStyles() != null){
 			for (Style s : Styles.getStyles()) {
 				if(s.getId() == 1)continue;
-				%><input class="orechts" type="checkbox" name="style" value="<%= s.getName() %>"><%= s.getName() %><br>
+				%><input class="grid-item" type="checkbox" name="style" value="<%= s.getName() %>"><%= s.getName() %><br>
 					<%
 			}			
 		}%>
@@ -205,14 +189,7 @@
 		</form>
 	</div>
 </body>
+<%=HtmlDefaults.generateHtmlFooter()%>
 
-<footer
-	class="footer container-fluid text-center text-md-left bg-dark text-light py-2 bottom-0">
-	<div class="container">
-		<span class="text-muted">
-			<p>&copy; Feel Music 2020 All rights reserved</p>
-		</span>
-	</div>
-</footer>
 
 </html>

@@ -3,17 +3,7 @@
 <%@page import="main.*"%>
 <%@page import="main.obj.*"%>
 <%@page import="main.dao.*"%>
-    <!doctype html>
-    <html lang="de">
-    
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
+<%=HtmlDefaults.generateHtmlHeader()%>
         <title>createArtist</title>
     </head>
     
@@ -44,11 +34,7 @@
  
      </div>
     </body>
-  <footer class="footer container-fluid text-center text-md-left bg-dark text-light py-2 bottom-0">
-    <div class="container">
-        <span class="text-muted"> <p>&copy; Feel Music 2020    All rights reserved</p></span>
-    </div>
-</footer>
+    <%=HtmlDefaults.generateHtmlFooter()%>
 
 
 
