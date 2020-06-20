@@ -146,12 +146,12 @@
 		<summary>
 		<label> Feelings </label> 
 		</summary>
-			<div>
+			<div class="grid-container"> 
 	 <% 
       	if(Feelings.getFeelings() != null){
 			for (Feeling f : Feelings.getFeelings()) {
 				if(f.getId() == 1)continue;
-				%><input class="orechts"type="checkbox" name="feeling" value="<%= f.getName() %>"><%= f.getName() %><br>
+				%><input class="grid-item"type="checkbox" name="feeling" value="<%= f.getName() %>"><%= f.getName() %><br>
 					<%
 			}			
 		}%>
@@ -161,12 +161,12 @@
 		<summary>
 		<label class=" "> Styles </label> 
 		</summary>
-			<div>
+			<div class="grid-container">
 	 <% 
       	if(Styles.getStyles() != null){
 			for (Style s : Styles.getStyles()) {
 				if(s.getId() == 1)continue;
-				%><input class="orechts" type="checkbox" name="style" value="<%= s.getName() %>"><%= s.getName() %><br>
+				%><input class="grid-item" type="checkbox" name="style" value="<%= s.getName() %>"><%= s.getName() %><br>
 					<%
 			}			
 		}%>
