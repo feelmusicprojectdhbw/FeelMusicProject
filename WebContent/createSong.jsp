@@ -152,14 +152,31 @@
 		<label> Feelings </label> 
 		</summary>
 			<div class="grid-container"> 
-	 <% 
-      	if(Feelings.getFeelings() != null){
-			for (Feeling f : Feelings.getFeelings()) {
-				if(f.getId() == 1)continue;
-				%><input class="grid-item"type="checkbox" name="feeling" value="<%= f.getName() %>"><%= f.getName() %><br>
+			<table>
+			<tbody>
+				<tr>		
+			<% if(Feelings.getFeelings() != null){
+				int i = 0;
+				for (Feeling f : Feelings.getFeelings()) {
+					if(f.getId() == 1)continue;
+					if(i < ((Feelings.getFeelings().length / 5) + ((Feelings.getFeelings().length%5==0)?0:1))){
+					i += 1;%>
+					<td><input type="checkbox" name="feeling" value="<%= f.getName() %>"><%= f.getName() %><br></td>
+					<%}else{
+					i = 1;%>
+					</tr>
+					<tr>
+					<td><input type="checkbox" name="feeling" value="<%= f.getName() %>"><%= f.getName() %><br></td>
 					<%
-			}			
-		}%>
+				  	}
+				}			
+			}%>
+				
+				
+				</tr>
+			</tbody>
+			
+			</table>
 		</div>
 		</details>
 		<details>
@@ -171,7 +188,7 @@
       	if(Styles.getStyles() != null){
 			for (Style s : Styles.getStyles()) {
 				if(s.getId() == 1)continue;
-				%><input class="grid-item" type="checkbox" name="style" value="<%= s.getName() %>"><%= s.getName() %><br>
+				%><span class="grid-item"><input class="grid-item" type="checkbox" name="style" value="<%= s.getName() %>"><%= s.getName() %><br></span>
 					<%
 			}			
 		}%>

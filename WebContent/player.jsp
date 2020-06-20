@@ -16,7 +16,9 @@
       <div class="row">
         <div class="col-md">
           <h2>Player</h2>
-          <div id="player" ></div>
+          <div id="ytplayer" style="visibility: hidden;"></div>
+          <div id="sfplayer" style="visibility: hidden;"></div>
+          <div id="scplayer" style="visibility: hidden;"></div>
           <p><button class="btn btn-outline-warning" id="previous">Previous</button>
             <button class="btn btn-outline-warning" id="next">Next</button></p>
             <p><label id="songname"> </label> - <a id="artist" href="" title="" target="_blank" rel="noopener noreferrer"> </a> <label id="coartists"> </label></p>
@@ -41,7 +43,6 @@
 		              <!--Table head-->
 		              <!--Table body-->
 		              <tbody>
-		              
 		              </tbody>
 		              <!--Table body-->
 		            </table>
@@ -90,7 +91,7 @@
 
       var player;
       function onYouTubeIframeAPIReady() {
-    	  player = new YT.Player('player', {
+    	  player = new YT.Player('ytplayer', {
     	    height: '360',
     	    width: '640',
     	    videoId: playlistMapObject[0].ytlink,
