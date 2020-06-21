@@ -28,7 +28,7 @@ public class HtmlDefaults {
 		}
 	}
 	public static String generateHtmlFooter() {
-		if(header != null) {
+		if(footer != null) {
 			return footer;
 		}else {
 			return footer = readFile("html\\footer.html");
