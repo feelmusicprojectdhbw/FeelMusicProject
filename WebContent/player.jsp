@@ -5,6 +5,7 @@
 <%@page import="main.dao.*"%>
 <%=HtmlDefaults.generateHtmlHeader()%>
     <title>Home</title>
+    <link rel="stylesheet" href="css/styleplayer.css">
 </head>
 
 <body>

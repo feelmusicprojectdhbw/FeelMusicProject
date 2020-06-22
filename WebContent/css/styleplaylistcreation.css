@@ -1,0 +1,25 @@
+.genretd{
+	vertical-align: top;
+}
+.genrediv{
+	height: 350px;
+	overflow: auto;
+}
+
+.genreli{
+	margin: 1px;
+}
+
+.scrollContainer{
+	overflow: auto; 
+	height:250px;
+}
+
+.tlayout{
+	table-layout: initial;
+	padding:2%;
+}
+
+.table-elements{
+	padding: 2px;
+}

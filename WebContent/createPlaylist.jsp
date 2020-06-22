@@ -173,25 +173,29 @@ function processLanguages()
     hiddenBlockedLanguages.value = blockedLanguages.join(";");
 }
 </script>
-
+<link rel="stylesheet" href="css/styleplaylistcreation.css">
 </head>
 <body>
 <%=HtmlDefaults.generateHtmlNavbar()%>
 	
 <div class=" container ">
 	<form id="playlistcreation" class=" form-signin " method="post" action="FeelMusic_Servlet">
-	<div class="treeview-animated w-20 border mx-4 my-4">
-  		<h6 class="pt-3 pl-3">Musicstyles</h6>
- 		<hr>
-		<ul class="treeview-animated-list mb-3" id="genreTreeUlCheckbox">
-			
+  		<h4 class="pt-3 pl-3"><b>Genres</b></h4>
+ 		<hr>		
+		<div class="genrediv">
 		<% 	
-		if(Genres.getGenres() != null){
-			 for (Genre g : Genres.getGenres()) { 
-				 String mainG = g.getName().replace(" ", "");
+		if(Genres.getGenres() != null){%>
+			<table>
+			<tbody>
+			<tr>
+			<%for (Genre g : Genres.getGenres()) {%>
+			<td class="genretd">
+			<ul class="treeview-animated-list mb-3" id="genreTreeUlCheckbox">
+
+				<% String mainG = g.getName().replace(" ", "");
 				%>
 				<li class="treeview-animated-items">
-					<input class="<%= mainG %>radio" type="radio" value="darkgrey" checked hidden>
+					<input class="<%= mainG %>radio" type="radio" value="#6c757d" checked hidden>
 					<input class="<%= mainG %>radio" type="radio" value="green" hidden>
 					<input class="<%= mainG %>radio" type="radio" value="red" hidden>
 					<div id="<%= mainG %>div">
@@ -200,8 +204,8 @@ function processLanguages()
 	    				<ul class="nested">
     					<% for(Genre g1 : g.getSubgenres()){ 
 	    					String secondG = g1.getName().replace(" ", "");%>
-	   			 			<li>
-	   			 			<input class="<%= secondG %>radio" type="radio" value="darkgrey" checked hidden>
+	   			 			<li class="genreli">
+	   			 			<input class="<%= secondG %>radio" type="radio" value="#6c757d" checked hidden>
 							<input class="<%= secondG %>radio" type="radio" value="green" hidden>
 							<input class="<%= secondG %>radio" type="radio" value="red" hidden>
 							<div id="<%= secondG %>div">
@@ -212,8 +216,8 @@ function processLanguages()
 								<%
 					   			 	for(Genre g2 : g1.getSubgenres()){ 
 					   			 		String thirdG = g2.getName().replace(" ", "");%>
-			   			 			<li>
-			   			 				<input class="<%= thirdG %>radio" type="radio" value="darkgrey" checked hidden>
+			   			 			<li class="genreli">
+			   			 				<input class="<%= thirdG %>radio" type="radio" value="#6c757d" checked hidden>
 										<input class="<%= thirdG %>radio" type="radio" value="green" hidden>
 										<input class="<%= thirdG %>radio" type="radio" value="red" hidden>
 										<div id="<%= thirdG %>div">
@@ -230,59 +234,113 @@ function processLanguages()
 					</div>
 	    		<%}%>
 	    		</li>
-	    	<%} 	
-		}%> 
-		</ul>
+	    		</ul>
+	    		</td>
+	    		
+	    	<%} %>
+	    	</tr>
+	    	</tbody>
+			</table>
+		<%}%> 
 		<input type="hidden" name="selectedGenres" id="selectedGenres" />
 		<input type="hidden" name="blockedGenres" id="blockedGenres" />
 		</div>
 	
 	<div class="form-group">
-		<details>
-		<summary>
-		<label for="exampleFormControlSelect2">Core Emotions</label> 
-		</summary>
-		<div style="overflow: auto; height:200px;">
+ 		<hr>
+		<label for="exampleFormControlSelect2">Feelings</label> 
+		<div class="scrollContainer">
+		<table class="tlayout">
+			<tbody>
+			<tr>
 		<% 	
 		if(Feelings.getFeelings() != null){
+			int i = 0;
 			for (Feeling f : Feelings.getFeelings()) {
 				if(f.getId() == 1)continue;
-				String feel = f.getName().replace(" ", "");%>
+				String feel = f.getName().replace(" ", "");
+				if(i < ((Feelings.getFeelings().length / 5) + ((Feelings.getFeelings().length%5==0)?0:1))){
+				i += 1;%>
+				<td class="table-elements">
 			 	<div id="<%= f.getName() %>div">
-					<input class="<%= feel %>radio" type="radio" value="darkgrey" checked hidden>
+					<input class="<%= feel %>radio" type="radio" value="#6c757d" checked hidden>
 					<input class="<%= feel %>radio" type="radio" value="green" hidden>
 					<input class="<%= feel %>radio" type="radio" value="red" hidden>
 			 		<div id="<%= feel %>btn" name="feeling" class="btn btn-secondary" onclick="doFeeling('<%= feel %>')" value="<%= feel %>" selection="0"><%= f.getName() %></div>
-			 	</div><%
+			 	</div>
+			 	</td><%
+				}else{
+					i = 1;%>
+					</tr>
+					<tr>
+					<td class="table-elements">
+					<div id="<%= f.getName() %>div">
+					<input class="<%= feel %>radio" type="radio" value="#6c757d" checked hidden>
+					<input class="<%= feel %>radio" type="radio" value="green" hidden>
+					<input class="<%= feel %>radio" type="radio" value="red" hidden>
+			 		<div id="<%= feel %>btn" name="feeling" class="btn btn-secondary" onclick="doFeeling('<%= feel %>')" value="<%= feel %>" selection="0"><%= f.getName() %></div>
+			 		</div>
+			 		</td>
+				<%
+				}
 			}			
 		}%>
+		</tr>
+		</tbody>
 			
+		</table>	
 			
 		</div>
 		<input type="hidden" name="selectedFeelings" id="selectedFeelings" />
 		<input type="hidden" name="blockedFeelings" id="blockedFeelings" />
-		</details>
 	</div>
 
 	<div class="form-group">
+ 		<hr>
 		<details>
 		<summary>
 		<label for="exampleFormControlSelect3">Style</label> 
 		</summary>
-		<div style="overflow: auto; height:200px;">
+		<div class="scrollContainer">
+		<table class="tlayout">
+			<tbody>
+				<tr>	
 			<%
 			if(Styles.getStyles()!= null) {
+				int i = 0;
 				for (Style s : Styles.getStyles()) {
-					String style = s.getName().replace(" ", "");%>
-			 	<div id="<%= s.getName() %>div">
-					<input class="<%= style %>radio" type="radio" value="darkgrey" checked hidden>
-					<input class="<%= style %>radio" type="radio" value="green" hidden>
-					<input class="<%= style %>radio" type="radio" value="red" hidden>
-			 		<div id="<%= style %>btn" name="style" class="btn btn-secondary" onclick="doStyle('<%= style %>')" value="<%= style %>" selection="0"><%= s.getName() %></div>
-			 	</div><%
-			}	
+					String style = s.getName().replace(" ", "");
+					if(i < ((Styles.getStyles().length / 5) + ((Styles.getStyles().length%5==0)?0:1))){
+						i += 1;%>
+						<td class="table-elements">
+				 	<div id="<%= s.getName() %>div">
+						<input class="<%= style %>radio" type="radio" value="#6c757d" checked hidden>
+						<input class="<%= style %>radio" type="radio" value="green" hidden>
+						<input class="<%= style %>radio" type="radio" value="red" hidden>
+				 		<div id="<%= style %>btn" name="style" class="btn btn-secondary" onclick="doStyle('<%= style %>')" value="<%= style %>" selection="0"><%= s.getName() %></div>
+				 	</div>
+				 	</td>
+				<%}else{
+					i = 1;%>
+					</tr>
+					<tr>
+					<td class="table-elements">
+					<div id="<%= s.getName()%> ">
+						<input class="<%= style %>radio" type="radio" value="#6c757d" checked hidden>
+						<input class="<%= style %>radio" type="radio" value="green" hidden>
+						<input class="<%= style %>radio" type="radio" value="red" hidden>
+				 		<div id="<%= style %>btn" name="style" class="btn btn-secondary" onclick="doStyle('<%= style %>')" value="<%= style %>" selection="0"><%= s.getName() %></div>
+				 	</div>
+					</td>
+					<%
+				  	}
+				}	
 			}
 			%>
+			</tr>
+		</tbody>
+			
+		</table>
 		</div>
 		<input type="hidden" name="selectedStyles" id="selectedStyles" />
 		<input type="hidden" name="blockedStyles" id="blockedStyles" />
@@ -290,24 +348,51 @@ function processLanguages()
 	</div>
 
 	<div class="form-group">
+ 	<hr>		
 	<details>
 	<summary>
 	<label for="exampleFromControlSelect4">Language</label>
 	</summary>	
-	<div style="overflow: auto; height:200px;">
-			<%
-			if(Languages.getLanguages()!=null) {
-				for (Language l : Languages.getLanguages()) {
-					String language = l.getName().replace(" ", "");%>
-			 	<div id="<%= l.getName() %>div">
-					<input class="<%= language %>radio" type="radio" value="darkgrey" checked hidden>
-					<input class="<%= language %>radio" type="radio" value="green" hidden>
-					<input class="<%= language %>radio" type="radio" value="red" hidden>
-			 		<div id="<%= language %>btn" name="language" class="btn btn-secondary" onclick="doLanguage('<%= language %>')" value="<%= language %>" selection="0"><%= l.getName() %></div>
-			 	</div><%
-				}	
-			}
-			%>
+	<div class="scrollContainer"">
+		<table class="tlayout">
+			<tbody>
+				<tr>	
+				<%
+				if(Languages.getLanguages()!=null) {
+					int i = 0;
+					for (Language l : Languages.getLanguages()) {
+						String language = l.getName().replace(" ", "");
+						if(i < ((Languages.getLanguages().length / 2) + ((Languages.getLanguages().length%2==0)?0:1))){
+							i += 1;%>
+					<td class="table-elements">
+					 	<div id="<%= l.getName() %>div">
+							<input class="<%= language %>radio" type="radio" value="#6c757d" checked hidden>
+							<input class="<%= language %>radio" type="radio" value="green" hidden>
+							<input class="<%= language %>radio" type="radio" value="red" hidden>
+					 		<div id="<%= language %>btn" name="language" class="btn btn-secondary" onclick="doLanguage('<%= language %>')" value="<%= language %>" selection="0"><%= l.getName() %></div>
+					 	</div>
+				 	</td>
+					 	<%}else{
+						i = 1;%>						
+				</tr>
+				<tr>
+					<td class="table-elements">
+					 	<div id="<%= l.getName() %>div">
+							<input class="<%= language %>radio" type="radio" value="#6c757d" checked hidden>
+							<input class="<%= language %>radio" type="radio" value="green" hidden>
+							<input class="<%= language %>radio" type="radio" value="red" hidden>
+					 		<div id="<%= language %>btn" name="language" class="btn btn-secondary" onclick="doLanguage('<%= language %>')" value="<%= language %>" selection="0"><%= l.getName() %></div>
+					 	</div>
+				 	</td>
+						<%
+					  	}
+					}	
+				}
+				%>
+				</tr>
+			</tbody>
+			
+		</table>
 		</div>
 		<input type="hidden" name="selectedLanguages" id="selectedLanguages" />
 		<input type="hidden" name="blockedLanguages" id="blockedLanguages" />

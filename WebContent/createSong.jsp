@@ -6,6 +6,7 @@
 <%=HtmlDefaults.generateHtmlHeader()%>
 
 <title>createSong</title>
+<link rel="stylesheet" href="css/stylesongcreation.css">
 <script>
 	function processValidations(){
 		processFeelings();
@@ -164,12 +165,10 @@
 			</select>
 		</div>	
 	</div>
-	<div class="linksdiv">
-	<details>
-	<summary>
-	<label><b>Feelings</b></label> 
-	</summary>
-			
+	<div class="linksdiv">	
+		<label><b>Feelings</b></label> 
+	
+		<div class="tlayoutdiv">
 			<table class="tlayout">
 			<tbody>
 				<tr>		
@@ -192,13 +191,9 @@
 			</tbody>
 			
 			</table>
-		
-		</details>
-		<details>
-		<summary>
-		<label><b>Styles</b></label> 
-		</summary>
-	
+		</div>	
+		<div class="tlayoutdiv">
+		<label><b>Styles</b></label> 	
 				 
 			<table class="tlayout">
 			<tbody>
@@ -222,7 +217,7 @@
 			</tbody>
 			
 			</table>
-			</details>
+		</div>	
 	</div>
 			<input type="hidden" name="selectedFeelings" id="selectedFeelings" />
 			<input type="hidden" name="selectedStyles" id="selectedStyles" />
