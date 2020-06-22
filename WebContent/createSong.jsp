@@ -51,13 +51,12 @@
 			<form id="songcreation" class="form-signin " method="post" action="CreateSong_Servlet">
 			
 
-			<label for=" inputSong" >Song</label> 	
+			<label for=" inputSong" ><b>Song</b></label> 	
 			<input type="text" name="inputSong" id="inputSong " class="form-control" placeholder=" Song " required autofocus>
 	
-		
-		
-			<label for="artist" > Artist </label> 
-			
+	<div class="songmetadatawrapperdiv">
+		<div class="artistsdiv">
+			<label for="artist" > <b>Artist</b> </label>		
 			<select class=" form-control "id="artist" name="artist">
 			<% Artist[] artists = Database.getAllArtists();
      	 	if(artists != null){
@@ -74,8 +73,8 @@
 			
 			
 			
-			<label for="coartist1 coartist2 coartist3 coartist4 " >Co-Artists</label>
-			
+			<label for="coartist1 coartist2 coartist3 coartist4 " ><b>Co-Artists</b></label>
+			<div class="coartistsdiv">
 			<select class=" form-control " id="coartist1" name="coartist1">
 	 		<% if(artists != null){
 			for (Artist a : artists) {
@@ -84,6 +83,8 @@
 			}			
 			}%>
 			</select>
+			</div>
+			<div class="coartistsdiv">
 			<select class=" form-control " id="coartist2" name="coartist2">
 	 		<% if(artists != null){
 			for (Artist a : artists) {
@@ -92,6 +93,8 @@
 			}			
 		}%>
 			</select>
+			</div>
+			<div class="coartistsdiv">
 			<select class=" form-control " id="coartist3" name="coartist3">
 			<% if(artists != null){
 			for (Artist a : artists) {
@@ -100,6 +103,8 @@
 			}			
 		}%>
 			</select>
+			</div>
+			<div class="coartistsdiv">
 			<select class=" form-control " id="coartist4" name="coartist4">
 			<% if(artists != null){
 			for (Artist a : artists) {
@@ -108,14 +113,14 @@
 			}			
 		}%>
 			</select>
+			</div>
+		</div>
+		<div class="songmetadatadiv">	
+			<label for="releaseDate"> <b>Releasedate</b></label> <br>
+			<input type="date" id="releaseDate" name="releaseDate" class=" metadata-control " required> 
 			
-		
-			
-			<label for="releaseDate" >Releasedate</label> 
-			<input type="date" id="releaseDate" name="releaseDate" required> <br>
-			
-			<label for="genre" >Genre</label> 
-			<select class=" form-control " id="genre" name="inputGenre">
+			<label for="genre" ><b>Genre</b></label> 
+			<select class=" metadata-control " id="genre" name="inputGenre">
 			<% for (Genre g : Genres.getGenres()) { 
 				%><option><%= g.getName() %></option>
 				<%	
@@ -136,8 +141,8 @@
 			</select>
 			
 			
-			<label for=" inputLabel " >Label</label> 
-			<select class=" form-control " name="inputLabel">
+			<label for=" inputLabel " ><b>Label</b></label> 
+			<select class=" metadata-control " name="inputLabel">
 			 <% MusicLabel[] labels = Database.getAllLabels();
 			 if(labels != null){
 					for (MusicLabel l : labels) {
@@ -147,8 +152,8 @@
 				}%>
 			</select>
 			
-			<label for=" inputLanguage " >Language</label> 
-			<select class=" form-control " name = inputLanguage>
+			<label for=" inputLanguage " ><b>Language</b></label> 
+			<select class=" metadata-control " name = inputLanguage>
 			 <% 
 			 if(Languages.getLanguages() != null && Languages.getLanguages().length > 0){
 					for (Language l : Languages.getLanguages()) {
@@ -157,11 +162,13 @@
 					}			
 				}%>
 			</select>
-			
-		<details>
-		<summary>
-		<label> Feelings </label> 
-		</summary>
+		</div>	
+	</div>
+	<div class="linksdiv">
+	<details>
+	<summary>
+	<label><b>Feelings</b></label> 
+	</summary>
 			
 			<table class="tlayout">
 			<tbody>
@@ -172,12 +179,12 @@
 					if(f.getId() == 1)continue;
 					if(i < ((Feelings.getFeelings().length / 5) + ((Feelings.getFeelings().length%5==0)?0:1))){
 					i += 1;%>
-					<td class="table-elements"><input  type="checkbox" name="feeling" value="<%= f.getName() %>"><%= f.getName() %><br></td>
+					<td class="table-elements"><input class="selectionboxes" type="checkbox" name="feeling" value="<%= f.getName() %>"><%= f.getName() %><br></td>
 					<%}else{
 					i = 1;%>
 					</tr>
 					<tr>
-					<td class="table-elements"><input  type="checkbox" name="feeling" value="<%= f.getName() %>"><%= f.getName() %><br></td>
+					<td class="table-elements"><input class="selectionboxes" type="checkbox" name="feeling" value="<%= f.getName() %>"><%= f.getName() %><br></td>
 					<%
 				  	}
 				}			
@@ -189,7 +196,7 @@
 		</details>
 		<details>
 		<summary>
-		<label> Styles </label> 
+		<label><b>Styles</b></label> 
 		</summary>
 	
 				 
@@ -202,12 +209,12 @@
 					if(s.getId() == 1)continue;
 					if(i < ((Styles.getStyles().length / 5) + ((Styles.getStyles().length%5==0)?0:1))){
 					i += 1;%>
-					<td class="table-elements"><input type="checkbox" name="style" value="<%= s.getName() %>"><%= s.getName() %><br></td>
+					<td class="table-elements"><input class="selectionboxes" type="checkbox" name="style" value="<%= s.getName() %>"><%= s.getName() %><br></td>
 					<%}else{
 					i = 1;%>
 					</tr>
 					<tr>
-					<td class="table-elements"><input  type="checkbox" name="style" value="<%= s.getName() %>"><%= s.getName() %><br></td>
+					<td class="table-elements"><input class="selectionboxes" type="checkbox" name="style" value="<%= s.getName() %>"><%= s.getName() %><br></td>
 					<%
 				  	}
 				}			
@@ -215,19 +222,18 @@
 			</tbody>
 			
 			</table>
-		
-		
-		</details>
+			</details>
+	</div>
 			<input type="hidden" name="selectedFeelings" id="selectedFeelings" />
 			<input type="hidden" name="selectedStyles" id="selectedStyles" />
 			
-			<label for=" inputytLink " >Youtube Link</label> 
+			<label for=" inputytLink " ><b>Youtube Link</b></label> 
 			<input type=" url " name="inputYtLink" id=" inputLink " class=" form-control " placeholder=" ytLink "> 
 			
-			<label for=" inputSfLink " >Spotify Link</label> 
+			<label for=" inputSfLink " ><b>Spotify Link</b></label> 
 			<input type=" url " name="inputSfLink" id=" inputLink " class=" form-control " placeholder=" sfLink ">
 			
-			<label for=" inputScLink " >Soundcloud Link</label>
+			<label for=" inputScLink " ><b>Soundcloud Link</b></label>
 			<input type=" url " name="inputScLink" id=" inputLink " class=" form-control " placeholder=" scLink ">
 
 			<button class=" btn btn-lg btn-primary btn-block " type="submit" onClick="processValidations()">Send</button>
