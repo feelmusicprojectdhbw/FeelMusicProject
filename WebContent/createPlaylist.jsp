@@ -353,7 +353,7 @@ function processLanguages()
 	<summary>
 	<label for="exampleFromControlSelect4">Language</label>
 	</summary>	
-	<div class="scrollContainer"">
+	<div id="smallContainer" >
 		<table class="tlayout">
 			<tbody>
 				<tr>	
@@ -403,12 +403,13 @@ function processLanguages()
 	<p class="checkcaption">Choose a decade</p>
 	
 			<label for="form">From:</label> 
-			<input type="date" id="fromdate" name="fromdate"> 
+			<input  class="metadata-control"type="date" id="fromdate" name="fromdate"> 
 			<br><br> 
 			<label for="until">Until:</label> 
-			<input type="date" id="untildate" name="untildate">
+			<input  class="metadata-control" type="date" id="untildate" name="untildate">
 			<br><br> 
-			<input type="submit" value="Submit" onClick="playlistValidations()">
+			
+			<button class=" btn btn-lg btn-primary btn-block " type="submit" onClick="processValidations()">Send</button>
 	</form>
 
 
