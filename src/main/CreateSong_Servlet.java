@@ -52,9 +52,7 @@ public class CreateSong_Servlet extends HttpServlet {
 			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
-		} else {
-			System.out.println("Ist bereits erstellt");
-		}
+		} 
     }
 
 	/**

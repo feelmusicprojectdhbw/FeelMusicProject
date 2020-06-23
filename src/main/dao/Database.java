@@ -220,13 +220,35 @@ public class Database {
 	 * @param limit of max search results
 	 * @return Array Of Songs that were found
 	 */
-	public Song[] searchForSongByName(String name, int limit) {
+	private Song[] searchForSongByName(String name, int limit) {
 		String query;
 		if(mySQL) {
 			query = DatabaseUtils.getSongQuery() + " WHERE songs.name LIKE '" + name + "%' ORDER BY songs.name LIMIT " + limit;
 		}else {
-			query = DatabaseUtils.getSongQuery() + " WHERE songs.name LIKE '" + name + "%' ORDER BY songs.name fetch first" 
-					+ limit + "rows only";
+			query = DatabaseUtils.getSongQuery() + " WHERE songs.name LIKE '" + name + "%' ORDER BY songs.name fetch first " + limit + " rows only";
+		}
+		try {
+			return DatabaseUtils.parseSongs(doQuery(query, DatabaseUtils.getSongQueryColumns()), this);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return new Song[0];
+		}
+	}
+	
+	public Song[] searchForSongByNameAndArtist(String name, int artistId) {
+		return searchForSongByNameAndArtist(name, artistId, 25);
+	}
+	
+	private Song[] searchForSongByNameAndArtist(String name, int artistId, int limit) {
+		String query;
+		if(mySQL) {
+			query = DatabaseUtils.getSongQuery() + "LEFT JOIN z_song_co_artist ON songs.id = z_song_co_artist.song_id "
+					+ "WHERE songs.name LIKE '" + name + "%' AND (songs.artist = " + artistId + " OR z_song_co_artist.co_artist_id = " + artistId + ") "
+							+ "ORDER BY songs.name LIMIT " + limit;
+		}else {
+			query = DatabaseUtils.getSongQuery() + "LEFT JOIN z_song_co_artist ON songs.id = z_song_co_artist.song_id "
+					+ "WHERE songs.name LIKE '" + name + "%' AND (songs.artist = " + artistId + " OR z_song_co_artist.co_artist_id = " + artistId + ") "
+							+ "ORDER BY songs.name fetch first " + limit + " rows only";
 		}
 		try {
 			return DatabaseUtils.parseSongs(doQuery(query, DatabaseUtils.getSongQueryColumns()), this);

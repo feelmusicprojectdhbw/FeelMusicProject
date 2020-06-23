@@ -40,7 +40,7 @@ function doSubgenres(genre, newChecked){
 	document.getElementById(genre + "btn").setAttribute("selection", newChecked);
 }
 
-function playlistValidations(){
+function processValidations(){
 	processGenres();
 	processFeelings();
 	processStyles();

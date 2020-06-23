@@ -47,6 +47,8 @@ public class HtmlDefaults {
 			f = new File(CreateLabel_Servlet.getServerContext().getRealPath(path));
 		}else if(CreateSong_Servlet.getMe() != null) {
 			f = new File(CreateSong_Servlet.getServerContext().getRealPath(path));
+		}else if(SearchSong_Servlet.getMe() != null) {
+			f = new File(SearchSong_Servlet.getServerContext().getRealPath(path));
 		}
 		String s = "";		
 		if(f != null) {
