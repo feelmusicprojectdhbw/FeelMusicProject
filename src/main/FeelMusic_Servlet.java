@@ -24,9 +24,6 @@ import main.obj.Styles;
 public class FeelMusic_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	private Database db;
 	private static FeelMusic_Servlet me;
 

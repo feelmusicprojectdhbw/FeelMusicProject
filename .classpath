@@ -12,5 +12,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="C:/Users/Maurice/eclipse-workspace/FeelMusic_Servlet/WebContent/libs/gson-2.8.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Maurice/eclipse-workspace/FeelMusic_Servlet/WebContent/libs/derby.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Maurice/eclipse-workspace/FeelMusic_Servlet/WebContent/libs/javax.security.enterprise-1.1-m02.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Maurice/eclipse-workspace/FeelMusic_Servlet/WebContent/libs/javax.security.enterprise-api-1.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

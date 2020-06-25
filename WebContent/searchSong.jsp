@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" session="true"%>
 <%@page import="main.*"%>
 <%@page import="main.obj.*"%>
 <%@page import="main.dao.*"%>
@@ -10,7 +10,8 @@
 </head>
 
 <body>
-	<%=HtmlDefaults.generateHtmlNavbar()%>
+     <%	User user = (User) session.getAttribute("user");%>
+     <%=HtmlDefaults.generateHtmlNavbar(user != null)%>
 	<div class="wholewrapper">
 	<div class="formwrapper">
 		<h2>Search for a Songname or Artist</h2>
