@@ -12,23 +12,31 @@ public class HtmlDefaults {
 	private static String footer;
 
 	
-	public static String generateHtmlNavbar() {
-		if(navBar != null) {
-			return navBar;
+	public static String generateHtmlNavbar(boolean loggedin) {
+		StringBuilder addition = new StringBuilder(""); 
+		if(loggedin) {
+			addition.append("<a href=\"Logout_Servlet\"><button class=\"btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0\">LogOut</button></a>");
 		}else {
-			return navBar = readFile("html\\navBar.html");
+			addition.append("<a href=\"Login_Servlet\"><button class=\"btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0\">LogIn</button></a>");
+		}
+		
+		addition.append("</nav>");		
+		if(navBar != null && !navBar.isBlank()) {
+			return navBar + addition.toString();
+		}else {
+			return (navBar = readFile("html\\navBar.html")) + addition.toString();
 		}
 
 	}
 	public static String generateHtmlHeader() {
-		if(header != null) {
+		if(header != null && !header.isBlank()) {
 			return header;
 		}else {
 			return header = readFile("html\\header.html");
 		}
 	}
 	public static String generateHtmlFooter() {
-		if(footer != null) {
+		if(footer != null && !footer.isBlank()) {
 			return footer;
 		}else {
 			return footer = readFile("html\\footer.html");
@@ -49,6 +57,12 @@ public class HtmlDefaults {
 			f = new File(CreateSong_Servlet.getServerContext().getRealPath(path));
 		}else if(SearchSong_Servlet.getMe() != null) {
 			f = new File(SearchSong_Servlet.getServerContext().getRealPath(path));
+		}else if(Login_Servlet.getMe() != null) {
+			f = new File(Login_Servlet.getServerContext().getRealPath(path));
+		}else if(Signup_Servlet.getMe() != null) {
+			f = new File(Signup_Servlet.getServerContext().getRealPath(path));
+		}else if(Logout_Servlet.getMe() != null) {
+			f = new File(Logout_Servlet.getServerContext().getRealPath(path));
 		}
 		String s = "";		
 		if(f != null) {

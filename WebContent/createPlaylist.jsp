@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" session="true"%>
 <%@page import="main.*"%>
 <%@page import="main.obj.*"%>
 <%@page import="main.dao.*"%>
@@ -176,7 +176,8 @@ function processLanguages()
 <link rel="stylesheet" href="css/styleplaylistcreation.css">
 </head>
 <body>
-<%=HtmlDefaults.generateHtmlNavbar()%>
+     <%	User user = (User) session.getAttribute("user");%>
+     <%=HtmlDefaults.generateHtmlNavbar(user != null)%>
 	
 <div class=" container ">
 	<form id="playlistcreation" class=" form-signin " method="post" action="FeelMusic_Servlet">

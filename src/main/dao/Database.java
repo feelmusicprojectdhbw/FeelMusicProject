@@ -480,14 +480,14 @@ public class Database {
 		return autoIncArtistIDFromApi;
 	}
 
-	public int insertUser(String name, String password, String email, int birthday, int usertype) throws SQLException {
-		return insertUser(new User(-1, name, password, email, birthday, new Usertype(usertype, "egal")));
+	public int signUpUser(String name, String encryptedPasswordString, String email, int birthday) throws SQLException {
+		return insertUser(new User(-1, name, email, birthday, new Usertype(2, "egal")), encryptedPasswordString);
 	}
 
-	public int insertUser(User u) throws SQLException {
+	private int insertUser(User u, String encryptedPasswordString) throws SQLException {
 		Statement stmt = connection.createStatement();
-		stmt.executeUpdate("INSERT INTO usertbl (name, password, email, birthday, usertype) " + "values ('"
-				+ u.getUsername() + "', '" + u.encryptPassword64Digit(u.getPassword()) + "', '" + u.getEmailAddress()
+		stmt.executeUpdate("INSERT INTO user (name, password, email, birthday, usertype) " + "values ('"
+				+ u.getUsername() + "', '" + encryptedPasswordString + "', '" + u.getEmailAddress()
 				+ "', " + u.getBirthdate() + ", " + u.getUsertype().getId() + ")", Statement.RETURN_GENERATED_KEYS);
 
 		int autoIncArtistIDFromApi = -1;
@@ -698,6 +698,41 @@ public class Database {
 		rs.close();
 		stmt.close();
 		
+		return ret;
+	}
+
+	public User checkUser(String mailaddress, String encryptedPassword64Digit) throws SQLException {
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery("select user.id, user.name, user.email, user.birthday, user.usertype, usertype.name FROM user JOIN usertype on user.usertype = usertype.id"
+				+ " where UPPER(email) = '" + mailaddress.toUpperCase() + "' AND password='" + encryptedPassword64Digit + "' LIMIT 1");
+		User ret = null;
+		if(rs.next()) {
+			ret = new User(rs.getInt("user.id"), rs.getString("user.name"), rs.getString("user.email"), rs.getInt("user.birthday"), new Usertype(rs.getInt("user.usertype"), rs.getString("usertype.name")));		
+		}
+		rs.close();
+		stmt.close();
+		return ret;
+		
+	}
+
+	public boolean checkUsernameAlreadyExists(String username) throws SQLException {
+		if(username.length() < 4 || username.length() > 20) {
+			return true;
+		}
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery("select user.id FROM user where UPPER(user.name) = '" + username + "' LIMIT 1");
+		boolean ret = rs.next();
+		rs.close();
+		stmt.close();
+		return ret;
+	}
+
+	public boolean checkUsermailAlreadyExists(String mailaddress) throws SQLException {
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery("select user.id FROM user where UPPER(user.email) = '" + mailaddress + "' LIMIT 1");
+		boolean ret = rs.next();
+		rs.close();
+		stmt.close();
 		return ret;
 	}
 
