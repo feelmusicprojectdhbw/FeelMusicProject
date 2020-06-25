@@ -11,7 +11,7 @@
 
 <body>
      <%	User user = (User) session.getAttribute("user");%>
-     <%=HtmlDefaults.generateHtmlNavbar(user != null)%>
+     <%=HtmlDefaults.generateHtmlNavbar(user)%>
 	<div class="wholewrapper">
 	<div class="formwrapper">
 		<h2>Search for a Songname or Artist</h2>

@@ -10,7 +10,7 @@
     
     <body>
      <%	User user = (User) session.getAttribute("user");%>
-     <%=HtmlDefaults.generateHtmlNavbar(user != null)%>
+     <%=HtmlDefaults.generateHtmlNavbar(user)%>
 	<div class=" container ">
       	<h2 class="form-signin-heading">You logged out successfully!</h2>
  	 </div> 

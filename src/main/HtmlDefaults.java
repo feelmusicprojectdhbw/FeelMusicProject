@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import main.obj.User;
+
 public class HtmlDefaults {
 	
 	private static String navBar;
@@ -12,9 +14,22 @@ public class HtmlDefaults {
 	private static String footer;
 
 	
-	public static String generateHtmlNavbar(boolean loggedin) {
+	public static String generateHtmlNavbar(User user) {
 		StringBuilder addition = new StringBuilder(""); 
-		if(loggedin) {
+		if(user != null) {
+			if(user.getUsertype().getId() == 1) { //Admin
+				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong_Servlet\">Create Song</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateArtist_Servlet\">Create Artist</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateLabel_Servlet\">Create Label</a>");
+			}else if(user.getUsertype().getId() == 3) { //Moderator
+				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong_Servlet\">Create Song</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateArtist_Servlet\">Create Artist</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateLabel_Servlet\">Create Label</a>");				
+			}else if(user.getUsertype().getId() == 4) { //Artist
+				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong_Servlet\">Create Song</a>");				
+			}else if(user.getUsertype().getId() == 5) { //Label
+				
+			}
 			addition.append("<a href=\"Logout_Servlet\"><button class=\"btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0\">LogOut</button></a>");
 		}else {
 			addition.append("<a href=\"Login_Servlet\"><button class=\"btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0\">LogIn</button></a>");

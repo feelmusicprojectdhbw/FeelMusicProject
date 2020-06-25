@@ -177,7 +177,7 @@ function processLanguages()
 </head>
 <body>
      <%	User user = (User) session.getAttribute("user");%>
-     <%=HtmlDefaults.generateHtmlNavbar(user != null)%>
+     <%=HtmlDefaults.generateHtmlNavbar(user)%>
 	
 <div class=" container ">
 	<form id="playlistcreation" class=" form-signin " method="post" action="FeelMusic_Servlet">

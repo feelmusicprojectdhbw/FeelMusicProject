@@ -15,7 +15,7 @@
     
     <body>
     	<% if(user != null){ %>   
-		     <%=HtmlDefaults.generateHtmlNavbar(true)%>
+		     <%=HtmlDefaults.generateHtmlNavbar(user)%>
 		     <h2 class="form-signin-heading">Welcome back,  <%= user.getUsername() %>!</h2>
 		     
 		     <label>Username: <%= user.getUsername() %></label> <br>

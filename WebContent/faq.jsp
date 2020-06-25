@@ -9,7 +9,7 @@
     
     <body>
      <%	User user = (User) session.getAttribute("user");%>
-     <%=HtmlDefaults.generateHtmlNavbar(user != null)%>
+     <%=HtmlDefaults.generateHtmlNavbar(user)%>
         <div class="jumbotron">
         <h2>1. Frage </h2>
         <p>

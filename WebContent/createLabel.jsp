@@ -9,7 +9,7 @@
     
     <body>
      <%	User user = (User) session.getAttribute("user");%>
-     <%=HtmlDefaults.generateHtmlNavbar(user != null)%>
+     <%=HtmlDefaults.generateHtmlNavbar(user)%>
 <div class=" container ">
       <form class=" form-signin " method="post" action="CreateLabel_Servlet">
       <select name="labelToDelete">  

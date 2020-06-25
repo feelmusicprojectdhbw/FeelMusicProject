@@ -9,7 +9,7 @@
     
     <body>
      <%	User user = (User) session.getAttribute("user");%>
-     <%=HtmlDefaults.generateHtmlNavbar(user != null)%>
+     <%=HtmlDefaults.generateHtmlNavbar(user)%>
  <div class="jumbotron">
     
     <div ><h1>Impressum</h1><p>Angaben gemäß § 5 TMG</p><p>FellMusic<br> 
