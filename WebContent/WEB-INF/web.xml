@@ -11,7 +11,7 @@
 			<url-pattern>/Signup_Servlet</url-pattern>
 		</web-resource-collection>
 		<user-data-constraint>
-			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+			<transport-guarantee>NONE</transport-guarantee><!-- CONFIDENTIAL FÜR SSL -->
 		</user-data-constraint>
 	</security-constraint> 
 </web-app>
