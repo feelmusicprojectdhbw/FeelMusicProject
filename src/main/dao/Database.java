@@ -745,6 +745,32 @@ public class Database {
 		}
 		return new Song[0];
 	}
+
+	public Playlist loadPlaylistByIDs(int playlistid, int userid) throws SQLException {
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery("select name FROM playlists where id = " + playlistid + " AND user = " + userid + " LIMIT 1");
+		Playlist ret = null;
+		if(rs.next()) {
+			ret = new Playlist(playlistid, rs.getString("name"), null, loadSongsByPlaylist(playlistid));		
+		}
+		rs.close();
+		stmt.close();
+		return ret;
+	}
+
+	public boolean deletePlaylist(int playlistid, int userid) throws SQLException {
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery("select name FROM playlists where id = " + playlistid + " AND user = " + userid + " LIMIT 1");		
+		boolean ret = false;
+		if(rs.next()) {
+			stmt.executeUpdate("delete from z_playlist_songs where playlist = " + playlistid);
+			stmt.executeUpdate("delete from playlists where id = " + playlistid + " AND user = " + userid);		
+			ret = true;
+		}
+		rs.close();
+		stmt.close();
+		return ret;
+	}
 	
 
 }

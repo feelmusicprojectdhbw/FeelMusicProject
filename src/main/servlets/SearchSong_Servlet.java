@@ -56,7 +56,6 @@ public class SearchSong_Servlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String searchSong = request.getParameter("inputSearch");
 		String artist = request.getParameter("artist");
 		

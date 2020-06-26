@@ -44,12 +44,18 @@
         <div class="col-md">
           <%if(user != null){%>    	
 		    	<% if(p != null && p.getSongs().length > 0){ %>
-		    	 <label>
-		    		<input type="text" id="playlistname" name="playlistname" maxlength="20" value="<%=p.getName() %>">
-		    		<button id="savebutton" onclick="doSave()" class="btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0">Save</button>
-		    	</label>
+		    	 
+		    		<% if(p.getId() == 0){ %>
+		    		<label>
+		    			<input type="text" id="playlistname" name="playlistname" maxlength="20" value="<%=p.getName() %>">
+		    			<button id="savebutton" onclick="doSave()" class="btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0">Save</button>
+		    		</label>
+					<% }else{%>	
+					<h2><%=p.getName() %></h2>
+					<% }%>	    	
+					
 		    	<% }else{%>
-		    		<h2><%="Empty Playlist"%></h2>
+		    		<h2>Empty Playlist</h2>
 		    	<% }%>
 		    
 		  <%}else{%>
