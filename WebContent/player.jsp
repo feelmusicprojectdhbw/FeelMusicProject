@@ -3,13 +3,17 @@
 <%@page import="main.*"%>
 <%@page import="main.obj.*"%>
 <%@page import="main.dao.*"%>
+<%@page import="main.tools.*"%>
+<%@page import="main.servlets.*"%>
+<%@page import="main.servlets.ajax.*"%>
+
 <%=HtmlDefaults.generateHtmlHeader()%>
     <title>Home</title>
     <link rel="stylesheet" href="css/styleplayer.css">
 </head>
-
 <body>
-     <%	User user = (User) session.getAttribute("user");%>
+     <%	User user = (User) session.getAttribute("user");
+        Playlist p = (Playlist)request.getAttribute("playlist");%>
      <%=HtmlDefaults.generateHtmlNavbar(user)%>
 
 	<div class=" container">
@@ -38,7 +42,19 @@
             <p>Label: <a id="label" href="" title="" target="_blank" rel="noopener noreferrer"> </a></p>
         </div>
         <div class="col-md">
-          <h2>Vorschau</h2>
+          <%if(user != null){%>    	
+		    	<% if(p != null && p.getSongs().length > 0){ %>
+		    	 <label>
+		    		<input type="text" id="playlistname" name="playlistname" maxlength="20" value="<%=p.getName() %>">
+		    		<button id="savebutton" onclick="doSave()" class="btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0">Save</button>
+		    	</label>
+		    	<% }else{%>
+		    		<h2><%="Empty Playlist"%></h2>
+		    	<% }%>
+		    
+		  <%}else{%>
+          	<h2>New Playlist</h2>
+          <%}%>
           <div class='table-responsive'>
             <!--Table-->
             <div id="table-wrapper">
@@ -50,6 +66,7 @@
 		                  <th>ID</th>
 		                  <th>Title</th>
 		                  <th>Artist</th>
+		                  
 		                </tr>
 		              </thead>
 		              <!--Table head-->
@@ -70,13 +87,14 @@
 </body>
 <!--<script type="text/javascript" src="js/scApi.js"></script>-->
 <script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
 <script>
 var playlistMapObject = [
-	<% Playlist p = (Playlist)request.getAttribute("playlist");
- 	if(p != null){
+	<% if(p != null){
+ 		
 		for (Song s : p.getSongs()) { %>
   			{ytlink: "<%= s.getLinks()[0] %>", sflink: "<%= s.getLinks()[1] %>", sclink: "<%= s.getLinks()[2] %>", title: "<%= s.getName() %>", 
-	  		 artist: "<%= s.getArtist().getName() %> %ARTISTLINK% <%= s.getArtist().getLink() %>", 
+	  		 artist: "<%= s.getArtist().getName() %> %ARTISTLINK% <%= s.getArtist().getLink() %>", songid: "<%= s.getId() %>",
 	  		 coartists: "<% if(s.getCoArtists() != null && s.getCoArtists().getCoartists().length > 0){for(Artist a : s.getCoArtists().getCoartists()){ %><%= a.getName()%>%ARTISTLINK%<%= a.getLink()%>;<%}}%>",
 	  		 label: "<%=s.getLabel().getName()%>%LABELLINK%<%=s.getLabel().getLink()%>"
 	  		},
@@ -274,5 +292,35 @@ function refreshInfo(n){
   	  document.getElementById("label").innerHTML = lbl[0];
     }
 }
+
+function doSave(){
+	<% if(user != null){ %>
+	var ajaxreqdata = "";
+
+	playlistMapObject.forEach((el, index) =>{
+		if(index != 0){
+			ajaxreqdata = ajaxreqdata.concat(";");	
+		}
+		ajaxreqdata = ajaxreqdata.concat(el.songid);
+	});
+
+	$.ajax({
+		url : 'SavePlaylist_Ajax_Servlet',
+		data : {
+			userid : <%=user.getId()%>,
+			playlistname : document.getElementById("playlistname").value,
+			playlist : ajaxreqdata
+		},
+		success : function(responseText) {
+			if(responseText === "failed"){
+				console.log("Couldn't save the Playlist.");
+			}else{
+				document.getElementById("savebutton").style.visibility = "hidden"; 
+			}
+		}
+	});
+	<% } %>
+}
+
 </script>
 </html>

@@ -1,11 +1,21 @@
-package main;
+package main.tools;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import main.obj.Artist;
+import main.obj.Song;
 import main.obj.User;
+import main.servlets.CreateArtist_Servlet;
+import main.servlets.CreateLabel_Servlet;
+import main.servlets.CreateSong_Servlet;
+import main.servlets.FeelMusic_Servlet;
+import main.servlets.Login_Servlet;
+import main.servlets.Logout_Servlet;
+import main.servlets.SearchSong_Servlet;
+import main.servlets.Signup_Servlet;
 
 public class HtmlDefaults {
 	
@@ -28,8 +38,8 @@ public class HtmlDefaults {
 			}else if(user.getUsertype().getId() == 4) { //Artist
 				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong_Servlet\">Create Song</a>");				
 			}else if(user.getUsertype().getId() == 5) { //Label
-				
 			}
+			addition.append("<a class=\"nav-link nav-item text-light\" href=\"userpage.jsp\">My Account</a>");
 			addition.append("<a href=\"Logout_Servlet\"><button class=\"btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0\">LogOut</button></a>");
 		}else {
 			addition.append("<a href=\"Login_Servlet\"><button class=\"btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0\">LogIn</button></a>");
@@ -100,6 +110,43 @@ public class HtmlDefaults {
 			}	
 		}
 		return s;
+	}
+	public static String createSongtable(Song[] songs) {
+		 
+			
+     		
+		StringBuilder sb = new StringBuilder();
+		sb.append("<div id=\"table-wrapper\">");
+		sb.append("<div id=\"table-scroll\">");
+		sb.append("<table id=\"tablePreview\" class=\"table table-hover\">");
+		sb.append("<table>");
+		for(Song s : songs)	{
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append(s.getId());
+			sb.append("</td>");
+			sb.append("<td>");			
+			sb.append(s.getName());
+			sb.append("</td>");
+			sb.append("<td>");			
+			sb.append(s.getArtist().getName());
+			int i = 0;
+			for(Artist a : s.getCoArtists().getCoartists()) {
+				if(i++ == 0) {
+					sb.append(" feat. ");
+				}else {
+					sb.append(", ");
+				}
+				sb.append(a.getName());
+			}
+			sb.append("</td>");
+			sb.append("</tr>");
+		}
+		sb.append("</table>");
+		sb.append("</div>");
+		sb.append("</div>");
+		sb.append("</div>");
+		return sb.toString();
 	}
 	
 }

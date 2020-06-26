@@ -1,0 +1,37 @@
+#playlistdiv{
+	width: 100%;
+	height: 570px;	
+}
+#playlistlistdiv{
+	float:left;
+	width: 20%;
+	height: 500px;
+    overflow:auto;  
+}
+#playlistsongsdiv{
+	float:left; 	
+	width: 79%;
+ 	overflow:auto;  
+}
+#table-wrapper {
+	margin: 2px;
+	margin-right: 20px;
+}
+#table-scroll {
+  height:500px;
+  overflow:auto;  
+  margin-top:20px;
+}
+#table-wrapper table {
+  width:100%;
+}
+#table-wrapper table * {
+  background:#ffffff;
+}
+#table-wrapper table thead th .text {
+	position:absolute;   
+	top:-20px;
+	z-index:2;
+	height:20px;
+	width:35%;
+}

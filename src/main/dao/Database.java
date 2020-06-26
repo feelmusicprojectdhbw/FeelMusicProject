@@ -87,20 +87,22 @@ public class Database {
 		return connection;
 	}
 
-	private ArrayList<String[]> doQuery(String sql, String... columnNames) throws SQLException {
+	private static ArrayList<String[]> doQuery(String sql, String... columnNames) throws SQLException {
 		ArrayList<String[]> arr = new ArrayList<String[]>();
-		Statement stmt = getConnection().createStatement();
-		ResultSet rs = stmt.executeQuery(sql);
-
-		while (rs.next()) {
-			String[] str = new String[columnNames.length];
-			for (int i = 0; i < columnNames.length; i++) {
-				str[i] = rs.getString(columnNames[i]);
+		if(thisDB != null) {
+			Statement stmt = thisDB.getConnection().createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+	
+			while (rs.next()) {
+				String[] str = new String[columnNames.length];
+				for (int i = 0; i < columnNames.length; i++) {
+					str[i] = rs.getString(columnNames[i]);
+				}
+				arr.add(str);
 			}
-			arr.add(str);
+			rs.close();
+			stmt.close();
 		}
-		rs.close();
-		stmt.close();
 		return arr;
 	}
 
@@ -281,7 +283,20 @@ public class Database {
 		if(thisDB != null) {
 			String query = "select * from artists ORDER BY name";
 			try {
-				return DatabaseUtils.parseArtists(thisDB.doQuery(query, "id", "name", "link"));
+				return DatabaseUtils.parseArtists(doQuery(query, "id", "name", "link"));
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return new Artist[0];
+			}
+		}
+		return new Artist[0];
+	}
+	
+	public static Artist[] getNoLinkedArtists() {
+		if(thisDB != null) {
+			String query = "select * from artists WHERE id NOT IN(SELECT artist FROM z_userconnector WHERE artist > 0) ORDER BY name";
+			try {
+				return DatabaseUtils.parseArtists(doQuery(query, "id", "name", "link"));
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return new Artist[0];
@@ -294,7 +309,7 @@ public class Database {
 		if(thisDB != null) {
 			String query = "select * from labels ORDER BY name";
 			try {
-				return DatabaseUtils.parseLabels(thisDB.doQuery(query, "id", "name", "link"));
+				return DatabaseUtils.parseLabels(doQuery(query, "id", "name", "link"));
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return new MusicLabel[0];
@@ -327,9 +342,9 @@ public class Database {
 		}
 	}
 
-	public Playlist[] loadPlaylistsByUser(User user) {
+	public static Playlist[] loadPlaylistsByUser(User user) {
 
-		String query = "select * from playlists where userid = '" + user.getId() + "'";
+		String query = "select * from playlists where user = '" + user.getId() + "'";
 		try {
 			return DatabaseUtils.parsePlaylists(doQuery(query, "id", "name"), user);
 		} catch (SQLException e) {
@@ -338,21 +353,7 @@ public class Database {
 		}
 
 	}
-
-	/**
-	 * 
-	 * @param p
-	 */
-	public void loadSongsIntoPlaylist(Playlist p) {
-		String query = DatabaseUtils.getSongQuery() + " RIGHT JOIN z_playlist_songs AS z ON z_playlist_songs.song = songs.id "
-				+ "WHERE z_playlist_songs.playlist = '" + p.getId() + "' ORDER BY z_playlist_songs.ordered";
-		try {
-			p.setSongs(DatabaseUtils.parseSongs(doQuery(query, DatabaseUtils.getSongQueryColumns()), this));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
+	
 	/**
 	 * Inserts an Album and Returns a Album Object with the generated ID
 	 * 
@@ -418,10 +419,10 @@ public class Database {
 	 * @return
 	 * @throws SQLException
 	 */
-	public Playlist insertPlaylist(Playlist pllst) throws SQLException {
+	public int insertPlaylist(String playlistname, int userid, int[] songids) throws SQLException {
 		Statement stmt = connection.createStatement();
-		stmt.executeUpdate("INSERT INTO playlists (name, userid) " + "values ('" + pllst.getName() + "', "
-				+ pllst.getUser().getId() + ")", Statement.RETURN_GENERATED_KEYS);
+		stmt.executeUpdate("INSERT INTO playlists (name, user) " + "values ('" + playlistname + "', "
+				+ userid + ")", Statement.RETURN_GENERATED_KEYS);
 
 		int autoIncPlaylistIDFromApi = -1;
 
@@ -431,14 +432,12 @@ public class Database {
 			autoIncPlaylistIDFromApi = rs.getInt(1);
 		}
 		rs.close();
-		pllst.setId(autoIncPlaylistIDFromApi);
-		int n = 0;
-		for (Song s : pllst.getSongs()) {
+		for (int i = 0; i < songids.length; i++) {
 			stmt.executeUpdate("INSERT INTO z_playlist_songs (playlist, song, ordered) " + "VALUES ("
-					+ autoIncPlaylistIDFromApi + ", " + s.getId() + ", " + n++ + ")");
+					+ autoIncPlaylistIDFromApi + ", " + songids[i] + ", " + i + ")");
 		}
 		stmt.close();
-		return pllst;
+		return autoIncPlaylistIDFromApi;
 	}
 
 	/**
@@ -735,5 +734,17 @@ public class Database {
 		stmt.close();
 		return ret;
 	}
+
+	public Song[] loadSongsByPlaylist(int playlistid) {
+		String query = DatabaseUtils.getSongQuery() + " RIGHT JOIN z_playlist_songs ON z_playlist_songs.song = songs.id "
+				+ "WHERE z_playlist_songs.playlist = " + playlistid + " ORDER BY z_playlist_songs.ordered";
+		try {
+			return DatabaseUtils.parseSongs(doQuery(query, DatabaseUtils.getSongQueryColumns()), this);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return new Song[0];
+	}
+	
 
 }

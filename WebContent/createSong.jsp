@@ -3,6 +3,8 @@
 <%@page import="main.*"%>
 <%@page import="main.obj.*"%>
 <%@page import="main.dao.*"%>
+<%@page import="main.tools.*"%>
+<%@page import="main.servlets.*"%>
 <%=HtmlDefaults.generateHtmlHeader()%>
 
 <title>createSong</title>
@@ -48,7 +50,8 @@
      <%	User user = (User) session.getAttribute("user");%>
      <%=HtmlDefaults.generateHtmlNavbar(user)%>
 <div class="container">
-<h2 class=" form-signin-heading ">Create Song</h2>
+<%if(user != null){ %>
+	<h2 class=" form-signin-heading ">Create Song</h2>
 
 			<form id="songcreation" class="form-signin " method="post" action="CreateSong_Servlet">
 			
@@ -60,27 +63,28 @@
 		<div class="artistsdiv">
 			<label for="artist" > <b>Artist</b> </label>		
 			<select class=" form-control "id="artist" name="artist">
-			<% Artist[] artists = Database.getAllArtists();
+		<% 	Artist[] artists = null; 
+			if(user.getUsertype().getId() == 1 || user.getUsertype().getId() == 3 ||user.getUsertype().getId() == 4){
+				artists = Database.getAllArtists();
+	     	}else{
+	     		artists = Database.getNoLinkedArtists();
+	     	}
      	 	if(artists != null){
-			for (Artist a : artists) {
-				if(a.getId() == 1)continue;
-				%><option><%= a.getName() %>;<%= a.getId() %></option>
-					<%
-			}			
+     	 		
+				for (Artist a : artists) {
+					if(a.getId() == 1)continue;
+					%><option><%= a.getName() %>;<%= a.getId() %></option>
+						<%
+				}			
 			}%>
-			</select>
-	
-			
-			
-			
-			
+			</select>		
 			
 			<label for="coartist1 coartist2 coartist3 coartist4 " ><b>Co-Artists</b></label>
 			<div class="coartistsdiv">
 			<select class=" form-control " id="coartist1" name="coartist1">
 	 		<% if(artists != null){
 			for (Artist a : artists) {
-				%><option><%= a.getName() %><span style="display: hidden;">;<%= a.getId() %></span></option>
+				%><option><%= a.getName() %>;<%= a.getId() %></option>
 					<%
 			}			
 			}%>
@@ -90,7 +94,7 @@
 			<select class=" form-control " id="coartist2" name="coartist2">
 	 		<% if(artists != null){
 			for (Artist a : artists) {
-			%><option><%= a.getName() %><span style="display: hidden;">;<%= a.getId() %></span></option>
+			%><option><%= a.getName() %>;<%= a.getId() %></option>
 					<%
 			}			
 		}%>
@@ -100,7 +104,7 @@
 			<select class=" form-control " id="coartist3" name="coartist3">
 			<% if(artists != null){
 			for (Artist a : artists) {
-				%><option><%= a.getName() %><span style="display: hidden;">;<%= a.getId() %></span></option>
+				%><option><%= a.getName() %>;<%= a.getId() %></option>
 					<%
 			}			
 		}%>
@@ -110,7 +114,7 @@
 			<select class=" form-control " id="coartist4" name="coartist4">
 			<% if(artists != null){
 			for (Artist a : artists) {
-				%><option><%= a.getName() %><span style="display: hidden;">;<%= a.getId() %></span></option>
+				%><option><%= a.getName() %>;<%= a.getId() %></option>
 					<%
 			}			
 		}%>
@@ -235,6 +239,10 @@
 			<button class=" btn btn-lg btn-primary btn-block " type="submit" onClick="processValidations()">Send</button>
 			<button class=" btn btn-lg btn-primary btn-block " type="reset">Delete</button>
 		</form>
+		<%}else{%>
+			<h2 class=" form-signin-heading ">We are very Sorry!</h2>
+			<label>You need to Log in to create a Song.</label>
+		<%}%>
 	</div>
 
 <%=HtmlDefaults.generateHtmlFooter()%>

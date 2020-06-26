@@ -3,6 +3,8 @@
 <%@page import="main.*"%>
 <%@page import="main.obj.*"%>
 <%@page import="main.dao.*"%>
+<%@page import="main.tools.*"%>
+<%@page import="main.servlets.*"%>
 <%=HtmlDefaults.generateHtmlHeader()%>
 <title>createPlaylist</title>
 

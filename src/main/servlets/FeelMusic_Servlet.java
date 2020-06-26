@@ -1,4 +1,4 @@
-package main;
+package main.servlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
