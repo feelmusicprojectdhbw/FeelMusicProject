@@ -240,8 +240,7 @@
 			<button class=" btn btn-lg btn-primary btn-block " type="reset">Delete</button>
 		</form>
 		<%}else{%>
-			<h2 class=" form-signin-heading ">We are very Sorry!</h2>
-			<label>You need to Log in to create a Song.</label>
+			<%=HtmlDefaults.generateNotLoggedInMessage()%>
 		<%}%>
 	</div>
 

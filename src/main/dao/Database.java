@@ -20,6 +20,7 @@ import main.obj.Song;
 import main.obj.Style;
 import main.obj.User;
 import main.obj.Usertype;
+import main.obj.Usertypes;
 
 public class Database {
 	
@@ -537,7 +538,13 @@ public class Database {
 				+ " AND song = " + songID);
 		stmt.close();
 	}
-
+	
+	/**
+	 * Einfuegen der Co-Artists zu einem Song
+	 * @param songID
+	 * @param coArtistIDs
+	 * @throws SQLException
+	 */
 	public void insertCoartistsForSong(long songID, int... coArtistIDs) throws SQLException {
 		if (coArtistIDs != null && coArtistIDs.length > 0) {
 			Statement stmt = connection.createStatement();
@@ -551,6 +558,12 @@ public class Database {
 		}
 	}
 
+	/**
+	 * Laden der Styles, die fest auf eine Musikrichtung gemappt sind
+	 * @param genreID
+	 * @return
+	 * @throws SQLException
+	 */
 	public int[] getStyleIDsByGenre(int genreID) throws SQLException {
 
 		String qry = "Select style FROM z_genre_style AS z" + " WHERE z.genre = " + genreID;
@@ -569,6 +582,12 @@ public class Database {
 		return ret;
 	}
 
+	/**
+	 * Stile fuer einen Song eintragen
+	 * @param generatedSongId
+	 * @param styleIDs
+	 * @throws SQLException
+	 */
 	public void insertStylesForSong(long generatedSongId, int... styleIDs) throws SQLException {
 		if (styleIDs != null && styleIDs.length > 0) {
 			Statement stmt = connection.createStatement();
@@ -581,6 +600,12 @@ public class Database {
 		}
 	}
 	
+	/**
+	 * Gefuehle fuer einen Song eintragen
+	 * @param generatedSongId
+	 * @param feelingIDs
+	 * @throws SQLException
+	 */
 	public void insertFeelingsForSong(long generatedSongId, int... feelingIDs) throws SQLException {
 		if (feelingIDs != null && feelingIDs.length > 0) {
 			Statement stmt = connection.createStatement();
@@ -593,6 +618,20 @@ public class Database {
 		}
 	}
 
+	/**
+	 * Playlist generieren
+	 * @param releasedateArr
+	 * @param includedGenres
+	 * @param excludedGenres
+	 * @param includedFeelings
+	 * @param excludedFeelings
+	 * @param includedStyles
+	 * @param excludedStyles
+	 * @param includedLanguages
+	 * @param excludedLanguages
+	 * @return
+	 * @throws SQLException
+	 */
 	public Song[] getPlaylistcreationSongs(int releasedateArr[], int[] includedGenres, int[] excludedGenres, 
 				int[] includedFeelings, int[] excludedFeelings,
 				int[] includedStyles, int[] excludedStyles,
@@ -657,12 +696,25 @@ public class Database {
 
 	}
 	
+	/**
+	 * Artist loeschen
+	 * @param id
+	 * @param name
+	 * @throws SQLException
+	 */
 	public void deleteArtist(int id, String name) throws SQLException {
 		Statement stmt = connection.createStatement();
 		stmt.executeUpdate("Delete from artists where id = " + id + " AND name = '" + name + "'");
 		stmt.close();
 	}
 
+	/**
+	 * Label einfuegen
+	 * @param name
+	 * @param link
+	 * @return
+	 * @throws SQLException
+	 */
 	public MusicLabel insertLabel(String name, String link) throws SQLException {
 		Statement stmt = connection.createStatement();
 		stmt.executeUpdate("INSERT INTO labels (name, link) " + "values ('" + name + "', '" + link + "')",
@@ -684,12 +736,24 @@ public class Database {
 		}
 	}
 
+	/**
+	 * Label loeschen
+	 * @param id
+	 * @param name
+	 * @throws SQLException
+	 */
 	public void deleteLabel(int id, String name) throws SQLException {
 		Statement stmt = connection.createStatement();
 		stmt.executeUpdate("Delete from labels where id = " + id + " AND name = '" + name + "'");
 		stmt.close();
 	}
 	
+	/**
+	 * Ueberpruefen ob bereits ein Artist mit diesem Namen existiert
+	 * @param name
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean checkArtistAlreadyExists(String name) throws SQLException {
 		Statement stmt = connection.createStatement();
 		ResultSet rs = stmt.executeQuery("select * FROM artists where UPPER(name) = '" + name.toUpperCase() + "'");
@@ -700,6 +764,13 @@ public class Database {
 		return ret;
 	}
 
+	/**
+	 * Ueberpruefen ob ein User mit dieser Mailadresse und Passwort existiert (Login)
+	 * @param mailaddress
+	 * @param encryptedPassword64Digit
+	 * @return
+	 * @throws SQLException
+	 */
 	public User checkUser(String mailaddress, String encryptedPassword64Digit) throws SQLException {
 		Statement stmt = connection.createStatement();
 		ResultSet rs = stmt.executeQuery("select user.id, user.name, user.email, user.birthday, user.usertype, usertype.name FROM user JOIN usertype on user.usertype = usertype.id"
@@ -714,6 +785,12 @@ public class Database {
 		
 	}
 
+	/**
+	 * Ueberpruefen ob der Username bereits belegt ist (Sign up)
+	 * @param username
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean checkUsernameAlreadyExists(String username) throws SQLException {
 		if(username.length() < 4 || username.length() > 20) {
 			return true;
@@ -726,15 +803,26 @@ public class Database {
 		return ret;
 	}
 
+	/**
+	 * Ueberpruefen ob die Mailaddresse bereits in hinterlegt ist (Sign up)
+	 * @param mailaddress
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean checkUsermailAlreadyExists(String mailaddress) throws SQLException {
 		Statement stmt = connection.createStatement();
-		ResultSet rs = stmt.executeQuery("select user.id FROM user where UPPER(user.email) = '" + mailaddress + "' LIMIT 1");
+		ResultSet rs = stmt.executeQuery("select user.id FROM user where UPPER(user.email) = '" + mailaddress.toUpperCase() + "' LIMIT 1");
 		boolean ret = rs.next();
 		rs.close();
 		stmt.close();
 		return ret;
 	}
-
+	
+	/**
+	 * Lade Songs aus einer gespeicherten Playlist
+	 * @param playlistid
+	 * @return
+	 */
 	public Song[] loadSongsByPlaylist(int playlistid) {
 		String query = DatabaseUtils.getSongQuery() + " RIGHT JOIN z_playlist_songs ON z_playlist_songs.song = songs.id "
 				+ "WHERE z_playlist_songs.playlist = " + playlistid + " ORDER BY z_playlist_songs.ordered";
@@ -745,7 +833,14 @@ public class Database {
 		}
 		return new Song[0];
 	}
-
+	
+	/**
+	 * Lade eine gespeicherte Playlist nach ID
+	 * @param playlistid
+	 * @param userid
+	 * @return
+	 * @throws SQLException
+	 */
 	public Playlist loadPlaylistByIDs(int playlistid, int userid) throws SQLException {
 		Statement stmt = connection.createStatement();
 		ResultSet rs = stmt.executeQuery("select name FROM playlists where id = " + playlistid + " AND user = " + userid + " LIMIT 1");
@@ -758,6 +853,13 @@ public class Database {
 		return ret;
 	}
 
+	/**
+	 * Gespeicherte Playlist loeschen
+	 * @param playlistid
+	 * @param userid
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean deletePlaylist(int playlistid, int userid) throws SQLException {
 		Statement stmt = connection.createStatement();
 		ResultSet rs = stmt.executeQuery("select name FROM playlists where id = " + playlistid + " AND user = " + userid + " LIMIT 1");		
@@ -771,6 +873,141 @@ public class Database {
 		stmt.close();
 		return ret;
 	}
-	
 
+	/**
+	 * Lade alle existierenden Usertypen
+	 * @return
+	 */
+	public static Usertype[] getAllUsertypes() {
+		if(thisDB != null) {
+			String query = "select * from usertype ORDER BY id";
+			try {
+				return DatabaseUtils.parseUsertypes(doQuery(query, "id", "name"));
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return new Usertype[0];
+			}
+		}
+		return new Usertype[0];
+	}
+	
+	/**
+	 * Suche User anhand der Mailadresse
+	 * @param searchMail
+	 * @return
+	 * @throws SQLException
+	 */
+	public User searchUserByMail(String searchMail) throws SQLException {
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery("select * FROM user where UPPER(user.email) = '" + searchMail.toUpperCase() + "' LIMIT 1");
+		User ret = null;
+		if(rs.next()) {
+			ret = new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getInt("birthday"), Usertypes.getUsertypeById(rs.getInt("usertype")));
+		}
+		rs.close();
+		stmt.close();
+		return ret;
+	}
+
+	/**
+	 * Suche User anhand der ID
+	 * @param foundUserId
+	 * @return
+	 * @throws SQLException
+	 */
+	public User searchUserById(int foundUserId) throws SQLException {
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery("select * FROM user where user.id = '" + foundUserId + "' LIMIT 1");
+		User ret = null;
+		if(rs.next()) {
+			ret = new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getInt("birthday"), Usertypes.getUsertypeById(rs.getInt("usertype")));
+		}
+		rs.close();
+		stmt.close();
+		return ret;
+	}
+
+	/**
+	 * Finde die Label ID, die einer BenutzerID zugeordnet ist
+	 * @param userID
+	 * @return 0 wenn nicht gefunden
+	 * @throws SQLException
+	 */
+	public int getUserLabelZuordnung(int userID) throws SQLException {
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery("select label FROM z_userconnector where user = " + userID + " LIMIT 1");
+		int ret = 0;
+		if(rs.next()) {
+			ret = rs.getInt("label");
+		}
+		rs.close();
+		stmt.close();
+		return ret;
+	}
+	
+	/**
+	 * finde die Artist ID, die einer BenutzerID zugeordnet ist
+	 * @param userID
+	 * @return 0 wenn nicht gefunden
+	 * @throws SQLException
+	 */
+	public int getUserArtistZuordnung(int userID) throws SQLException {
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery("select artist FROM z_userconnector where user = " + userID + " LIMIT 1");
+		int ret = 0;
+		if(rs.next()) {
+			ret = rs.getInt("artist");
+		}
+		rs.close();
+		stmt.close();
+		return ret;
+	}
+
+	/**
+	 * Loescht Verlinkungen zwischen User und einem Artist oder Label
+	 * @param userid
+	 * @throws SQLException
+	 */
+	public void deleteUserConnections(int userid) throws SQLException {
+		Statement stmt = connection.createStatement();
+		stmt.executeUpdate("delete from z_userconnector where user = " + userid);
+		stmt.close();		
+	}
+
+	/**
+	 * Updated einen User -> Sollte dann erweitert werden, falls man noch andere sachen aendern koennte wie z.b. Geburtsdatum oder den Benutzernamen
+	 * @param userid
+	 * @param neuerUsertype
+	 * @throws SQLException
+	 */
+	public void updateUsersUsertype(int userid, int neuerUsertype) throws SQLException {
+		Statement stmt = connection.createStatement();
+		stmt.executeUpdate("update user set usertype = " + neuerUsertype + " where id = " + userid);
+		stmt.close();		
+	}
+
+	/**
+	 * Erstelle eine Verlinkung zwischen einem User und einem Artist
+	 * @param userid
+	 * @param artistToConnect
+	 * @throws SQLException
+	 */
+	public void establishUserArtistConnection(int userid, int artistToConnect) throws SQLException {
+		Statement stmt = connection.createStatement();
+		stmt.executeUpdate("insert into z_userconnector(user, artist) VALUES(" + userid + ", " + artistToConnect + ")");
+		stmt.close();	
+	}
+
+	/**
+	 * Erstelle eine Verlinkung zwischen einem User und einem Label
+	 * @param userid
+	 * @param labelToConnect
+	 * @throws SQLException
+	 */
+	public void establishUserLabelConnection(int userid, int labelToConnect) throws SQLException {
+		Statement stmt = connection.createStatement();
+		stmt.executeUpdate("insert into z_userconnector(user, label) VALUES(" + userid + ", " + labelToConnect + ")");
+		stmt.close();
+	}
+	
 }

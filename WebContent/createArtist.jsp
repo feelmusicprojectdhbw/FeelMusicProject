@@ -19,7 +19,7 @@
       <% Artist[] artists = Database.getAllArtists();
       	if(artists != null){
 			for (Artist a : artists) {
-				%><option><%= a.getName() %>;<%= a.getId() %></option><%
+				%><option value="<%= a.getId() %>"><%= a.getName() %>;<%= a.getId() %></option><%
 			}			
 		}%> 
         </select>

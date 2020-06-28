@@ -17,9 +17,8 @@
 	<div class="wholewrapper">
 	<div class="formwrapper">
 		<h2>Search for a Songname or Artist</h2>
-		<form id="songcreation" class="form-signin " method="post" action="SearchSong_Servlet">		
 			<p><label for=" inputSearch" ><b>Search:</b></label>	
-			<input type="text" name="inputSearch" id="inputSearch " class="form-control" placeholder=" Songname " autofocus></p>
+			<input type="text" name="inputSearch" id="inputSearch" class="form-control" placeholder=" Songname " autofocus></p>
 			<br>	 
 			<p><label for="artist" > <b>Artist</b> </label>		
 			<select class=" form-control "id="artist" name="artist">
@@ -36,62 +35,18 @@
 			}%>
 			</select> </p>
 			<p>
-			<button class=" btn btn-lg btn-primary btn-block " type="submit" onClick="processValidations()">Search</button> </p>
+			<button class=" btn btn-lg btn-primary btn-block " onClick="searchSongs()">Search</button> </p>
 			<br>
 			<br>
-		</form>  
 		</div>
-		
-	 <%
-	 Song[] songs = (Song[])request.getAttribute("results");
-	 if(songs != null){
-		%>		
-		<div class="resultwrapper">			
-		<p>
-			<h3>Results: </h3>
-		</p><%
-		 if(songs.length > 0){
-			 for(Song s : songs){
-				 %>
-			 	<div class="resultsongdiv">
-			 		<label><%=s.getName()%> - 
-			 		<%if(s.getArtist().getLink() != null && s.getArtist().getLink() != "null"){ %>
-			 			<a href="<%=s.getArtist().getLink()%>" title="<%=s.getArtist().getName()%>" target="_blank" rel="noopener noreferrer"><%=s.getArtist().getName()%></a>
-			 		<%}else{%>
-			 			<%=s.getArtist().getName()%>
-			 		<%}
-			 		  if(s.getCoArtists().getCoartists() != null && s.getCoArtists().getCoartists().length != 0){	
-			 			int i = 0;
-			 			for(Artist a : s.getCoArtists().getCoartists()){
-				 			if(i == 0){
-				 				i++;%>
-				 				<%=" feat. "%> 
-				 			<%}else{ %>
-				 				<%=", "%> 
-				 			<%}%>
-				 			<%if(a.getLink() != null && a.getLink() != "null"){ %>
-				 				<a href="<%=a.getLink()%>" title="<%=a.getName()%>" target="_blank" rel="noopener noreferrer"><%=a.getName()%></a>
-				 			<%}else{%>
-				 				<%=a.getName() %>
-				 			<%}
-							}
-			 		  }%>					 		
-			 		</label>
-			 	</div>
-			 <%}
-			 
-		 }%>
-		 <label>Don't we have your favourite songs yet? Add them <a href="createSong.jsp" title="Add Song">here</a>!</label>	 			 
+		<div id ="resultwrapper" class="resultwrapper">			
+		 			 
 		 </div>
-	 <%}%>	 
 	 </div>
 </body>
 <%=HtmlDefaults.generateHtmlFooter()%>
 
-<script>
-function processValidations(){
-
-}
-</script>
+<script src="https://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="js/searchSong.js" type="text/javascript"></script>
 
 </html>

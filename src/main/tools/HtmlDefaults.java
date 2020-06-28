@@ -16,12 +16,14 @@ import main.servlets.Login_Servlet;
 import main.servlets.Logout_Servlet;
 import main.servlets.SearchSong_Servlet;
 import main.servlets.Signup_Servlet;
+import main.servlets.UserControl_Servlet;
 
 public class HtmlDefaults {
 	
 	private static String navBar;
 	private static String header;
 	private static String footer;
+	private static String notLoggedIn;
 
 	
 	public static String generateHtmlNavbar(User user) {
@@ -31,10 +33,12 @@ public class HtmlDefaults {
 				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong_Servlet\">Create Song</a>");
 				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateArtist_Servlet\">Create Artist</a>");
 				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateLabel_Servlet\">Create Label</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"UserControl_Servlet\">User Control</a>");
 			}else if(user.getUsertype().getId() == 3) { //Moderator
 				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong_Servlet\">Create Song</a>");
 				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateArtist_Servlet\">Create Artist</a>");
 				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateLabel_Servlet\">Create Label</a>");				
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"UserControl_Servlet\">User Control</a>");
 			}else if(user.getUsertype().getId() == 4) { //Artist
 				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong_Servlet\">Create Song</a>");				
 			}else if(user.getUsertype().getId() == 5) { //Label
@@ -88,6 +92,8 @@ public class HtmlDefaults {
 			f = new File(Signup_Servlet.getServerContext().getRealPath(path));
 		}else if(Logout_Servlet.getMe() != null) {
 			f = new File(Logout_Servlet.getServerContext().getRealPath(path));
+		}else if(UserControl_Servlet.getMe() != null) {
+			f = new File(UserControl_Servlet.getServerContext().getRealPath(path));
 		}
 		String s = "";		
 		if(f != null) {
@@ -111,10 +117,8 @@ public class HtmlDefaults {
 		}
 		return s;
 	}
-	public static String createSongtable(Song[] songs) {
-		 
-			
-     		
+	
+	public static String createSongtable(Song[] songs) {     		
 		StringBuilder sb = new StringBuilder();
 		sb.append("<div id=\"table-wrapper\">");
 		sb.append("<div id=\"table-scroll\">");
@@ -148,5 +152,56 @@ public class HtmlDefaults {
 		sb.append("</div>");
 		return sb.toString();
 	}
+	
+	public static String generateSongSearchResults(Song[] songs) {
+		StringBuilder strb = new StringBuilder();
+		strb.append("<p>");
+		strb.append("<h3>Results: </h3>");
+		strb.append("</p>");
+		 if(songs.length > 0){
+			 for(Song s : songs){
+			 	strb.append("<div class=\"resultsongdiv\">");
+			 	strb.append("<label>" + s.getName() + " - ");
+		 		if(s.getArtist().getLink() != null && s.getArtist().getLink() != "null"){ 
+		 			strb.append("<a href=\"" + s.getArtist().getLink() + "\" title=\"" + s.getArtist().getName() + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + s.getArtist().getName() + "</a>");
+	 			}else{
+	 				strb.append(s.getArtist().getName());
+ 				}
+		 		  if(s.getCoArtists().getCoartists() != null && s.getCoArtists().getCoartists().length != 0){	
+		 			int i = 0;
+		 			for(Artist a : s.getCoArtists().getCoartists()){
+			 			if(i == 0){
+			 				i++;
+			 				strb.append(" feat. "); 
+			 			}else{ 
+			 				strb.append(", "); 
+			 			}
+			 			if(a.getLink() != null && a.getLink() != "null"){ 
+			 				strb.append("<a href=\"" + a.getLink() + "\" title=\"" + a.getName() +"\" target=\"_blank\" rel=\"noopener noreferrer\">" + a.getName() + "</a>");
+			 			}else{
+			 				strb.append(a.getName());				 			}
+						}
+		 		  }					 		
+		 		 strb.append("</label>");
+		 		strb.append("</div>");
+			 }
+			 
+		 }else {
+			 //No songs found!
+		 }
+		 strb.append("<label>Don\'t we have your favourite songs yet? Add them <a href=\"createSong.jsp\" title=\"Add Song\">here</a>!</label>");	
+		 return strb.toString();
+
+	}
+	
+	public static String generateNotLoggedInMessage() {
+		if(notLoggedIn != null && !notLoggedIn.isBlank()) {
+			return notLoggedIn;
+		}else {
+			return notLoggedIn = readFile("html\\notLoggedIn.html");
+		}
+	}
+	
+	
 	
 }
