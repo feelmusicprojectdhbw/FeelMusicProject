@@ -32,7 +32,7 @@
 
       <input type="radio" name="createOrDelete" class=" form-control " value="create" checked/>Create
       <input type="radio" name="createOrDelete" class=" form-control "value="delete" />Delete
-      <button class=" btn btn-lg btn-primary btn-block " type="submit">Send</button>
+      <button class=" btn btn-block btn-outline-success btn-lg " type="submit">Send</button>
      </form>
  
      </div>

@@ -6,12 +6,13 @@
 <%@page import="main.tools.*"%>
 <%@page import="main.servlets.*"%>
 <%=HtmlDefaults.generateHtmlHeader()%>
-        <title>Datenschutz</title>
+    <title>Datenschutz</title>
     </head>
     
     <body>
      <%	User user = (User) session.getAttribute("user");%>
      <%=HtmlDefaults.generateHtmlNavbar(user)%>
+<div class="container">
  <div class="jumbotron">
     <h1>Datenschutz </h1>
     <span><p>
@@ -27,6 +28,7 @@
 
 
   </body>
+  </div>
   </div>
   <%=HtmlDefaults.generateHtmlFooter()%>
 

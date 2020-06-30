@@ -14,6 +14,7 @@
 <body>
      <%	User user = (User) session.getAttribute("user");%>
      <%=HtmlDefaults.generateHtmlNavbar(user)%>
+     <div class="container">
 	<div class="wholewrapper">
 	<div class="formwrapper">
 		<h2>Search for a Songname or Artist</h2>
@@ -35,7 +36,7 @@
 			}%>
 			</select> </p>
 			<p>
-			<button class=" btn btn-lg btn-primary btn-block " onClick="searchSongs()">Search</button> </p>
+			<button class=" btn btn-success btn-l " onClick="searchSongs()">Search</button> </p>
 			<br>
 			<br>
 		</div>
@@ -43,8 +44,10 @@
 		 			 
 		 </div>
 	 </div>
+	 </div>
+	 <%=HtmlDefaults.generateHtmlFooter()%>
 </body>
-<%=HtmlDefaults.generateHtmlFooter()%>
+
 
 <script src="https://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
 <script src="js/searchSong.js" type="text/javascript"></script>

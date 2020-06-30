@@ -12,6 +12,7 @@
     <body>
      <%	User user = (User) session.getAttribute("user");%>
      <%=HtmlDefaults.generateHtmlNavbar(user)%>
+     <div class="container">
  <div class="jumbotron">
     
     <div ><h1>Impressum</h1><p>Angaben gemäß § 5 TMG</p><p>FellMusic<br> 
@@ -38,7 +39,7 @@
         Impressum vom <a href="https://www.impressum-generator.de">Impressum Generator</a> der <a href="https://www.kanzlei-hasselbach.de/standorte/bonn/">Kanzlei Hasselbach, Bonn</a> </div>
          
     </div>
-
+	</div>
 
 
 

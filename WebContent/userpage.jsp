@@ -17,10 +17,12 @@
     </head>
     
     <body>
+    
     	<% if(user != null){ %>   
 			<%=HtmlDefaults.generateHtmlNavbar(user)%>
+			<div class="container">	
 			<h2 class="form-signin-heading">Welcome back,  <%= user.getUsername() %>!</h2>
-			
+		
 			<label>Username: <%= user.getUsername() %></label> <br>
 			<label>E-Mail: <%= user.getEmailAddress() %></label> <br>
 			<label>Birthdate: <%= user.getBirthdate() %></label> <br>
@@ -41,13 +43,16 @@
 				<div id="playlistsongsdiv">
 				</div>
 			</div>
+			</div>
 			<%}%>
  	 	<% }else{ %>
         	 <h2 class="form-signin-heading">Error! you are not logged in!</h2>
         	 <label>Klick <a href="Login_Servlet">here </a> to log in.</label>
         <% } %>
-	<%=HtmlDefaults.generateHtmlFooter()%>
+	
+</div>
 </body>
+<%=HtmlDefaults.generateHtmlFooter()%>
 <script src="https://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
 <script src="js/userpage.js" type="text/javascript" ></script>
 </html>
