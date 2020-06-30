@@ -1,8 +1,9 @@
-package main;
+package main.servlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,12 +20,14 @@ public class CreateLabel_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private Database db;
-	
+	private static CreateLabel_Servlet me;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
     public CreateLabel_Servlet() {
         super();
+        CreateLabel_Servlet.me = this;
         if (db == null) {
 			try {
 				db = Database.getDatabase();
@@ -72,6 +75,14 @@ public class CreateLabel_Servlet extends HttpServlet {
 			}
 		}
 		doGet(request, response);
+	}
+	
+	public static ServletContext getServerContext() {
+		return me.getServletContext();
+	}
+	
+	public static CreateLabel_Servlet getMe() {
+		return me;
 	}
 
 }

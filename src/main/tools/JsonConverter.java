@@ -108,7 +108,6 @@ public class JsonConverter {
 		JsonObject ret = new JsonObject();
 		ret.addProperty("id", u.getId());
 		ret.addProperty("username", u.getUsername());
-		ret.addProperty("password", u.getPassword());
 		ret.addProperty("emailAddress", u.getEmailAddress());
 		ret.addProperty("birthdate", u.getBirthdate());
 		ret.add("usertype", convertUsertype(u.getUsertype()));

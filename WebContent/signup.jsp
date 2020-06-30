@@ -1,60 +1,61 @@
-<!doctype html>
-<html lang="de">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1" session="true"%>
+<%@page import="main.*"%>
+<%@page import="main.obj.*"%>
+<%@page import="main.dao.*"%>
+<%@page import="main.tools.*"%>
+<%@page import="main.servlets.*"%>
+<%=HtmlDefaults.generateHtmlHeader()%>
     <title>SingUp</title>
+	<link rel="stylesheet" href="css/login.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="player.jsp">FeelMusic</a>
-        <a class="nav-link nav-item text-light " href="player.jsp">Home</a>
-        <a class="nav-link nav-item text-light" href="createSong.jsp">Create Song</a>  
-        <a class="nav-link nav-item text-light" href="createPlaylist.jsp">Create Playlist</a>
-        <a class="nav-link nav-item text-light " href="createArtist.jsp">Create Artist</a> 
-        <a class="nav-link nav-item text-light" href="impressum.jsp">Impressum</a>
-        <a class="nav-link nav-item text-light"  href="datenschutz.jsp">Datenschutz</a>
-                      
-           
-    
-            <button class="btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0" ">LogIn</button>
-    
-    </nav>
-<div class=" container ">
+     <%	User user = (User) session.getAttribute("user");%>
+     <%=HtmlDefaults.generateHtmlNavbar(user)%>
+	<div class=" container ">
+	
+	<%
+	Boolean useralreadyexists = (Boolean) request.getAttribute("useralreadyexists");
+	Boolean mailalreadyexists = (Boolean) request.getAttribute("mailalreadyexists");
+	Boolean loginfailed = (Boolean) request.getAttribute("loginfailed");
+	String username = (String) request.getAttribute("username");
+	String mailaddress = (String) request.getAttribute("mailaddress");
+	String birthdate = (String) request.getAttribute("birthdate");
+	%>
 
-    <form class=" form-signin ">
-      <h2 class=" form-signin-heading ">Please Sign up</h2>
+    <form class=" form-signin " method="post" action="Signup_Servlet">
+		<h2 class=" form-signin-heading ">Please Sign up</h2>
                                        
-      <label for=" inputName " class=" sr-only ">Frist -Lastname</label>
-     <input type="text" required autocomplete="name" id=" inputName " class=" form-control " placeholder=" Name " required autofocus>                              
+		<label for="username">Username</label>
+		<input type="text" required autocomplete="username" id="username" name="inputusername" class=" form-control " placeholder="Username" minlength="4" maxlength="20" value="<%=((username!=null)?username:"") %>" required autofocus>                              
                                        
-      <label for=" inputEmail " class=" sr-only ">Email address</label>
-      <input type=" email " required  autocomplete="email" autocorrect="on" id=" inputEmail " class=" form-control " placeholder="name@example.com" required autofocus>
+		<label for="inputEmail">Email address</label>
+		<input type="email" required  autocomplete="email" autocorrect="on" id="inputEmail" name="inputemail" class=" form-control " placeholder="name@example.com" value="<%=((mailaddress!=null)?mailaddress:"") %>" required>
+		
+		<label for="inputPassword">Password</label>
+		<input type="password" id="inputPassword" name="inputpassword" class="form-control" placeholder="Password" minlength="8" required>
       
-      <label for=" inputPassword " autocorrect="off" class=" sr-only ">Password</label>
-      <input type=" password " id=" inputPassword " class=" form-control " placeholder=" Password " required>
-      <input type="hidden"  id=" fristName " class=" form-control " placeholder=" Name " required autofocus> <!-- Spam Schutz muss erweitert werden.-->
-      
-      <button class=" btn btn-lg btn-primary btn-block " type="reset">Delete</button>
-                                                                                     
-      <button class=" btn btn-lg btn-primary btn-block " type=" submit ">Sign up</button>
-     
+		<label for="birthdate">Birthdate</label> 
+		<input class="form-control"type="date" id="birthdate" name="inputbirthdate" value="<%=((birthdate!=null)?birthdate:"") %>" required>                                                                                     
+     <% if(useralreadyexists != null && useralreadyexists == Boolean.TRUE){%>
+			<div class="loginfaildiv">
+				<label class="loginfaillabel"><b>Username does already exist!</b></label>
+			</div>
+		<%}%>
+		<% if(mailalreadyexists != null && mailalreadyexists == Boolean.TRUE){%>
+			<div class="loginfaildiv">
+				<label class="loginfaillabel"><b>Mailaddress is already in use!</b></label>
+			</div>
+		<%}%>
+		<% if(loginfailed != null && loginfailed == Boolean.TRUE){%>
+			<div class="loginfaildiv">
+				<label class="loginfaillabel"><b>Error in Database, try again later!</b></label>
+			</div>
+		<%}%>
+      <button class=" btn btn-lg btn-primary btn-block " type="submit">Sign up</button>     
     </form>
-  </body>
   </div>
-  <footer class="footer container-fluid text-center text-md-left bg-dark text-light py-2 bottom-0">
-    <div class="container">
-        <span class="text-muted"> <p>&copy; Feel Music 2020    All rights reserved</p></span>
-    </div>
-</footer>
-
+  <%=HtmlDefaults.generateHtmlFooter()%>
 </body>
-
 </html>

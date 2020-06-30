@@ -1,5 +1,4 @@
-
-.classpath
+*.classpath
 .classpath
 *.log
 *.lck
@@ -9,3 +8,5 @@ feelmusic/log/README_DO_NOT_TOUCH_FILES.txt
 feelmusic/README_DO_NOT_TOUCH_FILES.txt
 feelmusic/seg0/README_DO_NOT_TOUCH_FILES.txt
 feelmusic/service.properties
+*.class
+*.prefs

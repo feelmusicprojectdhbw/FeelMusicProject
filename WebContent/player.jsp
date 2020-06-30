@@ -1,47 +1,66 @@
-<!doctype html>
-<html lang="de">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1" session="true"%>
+<%@page import="main.*"%>
 <%@page import="main.obj.*"%>
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<%@page import="main.dao.*"%>
+<%@page import="main.tools.*"%>
+<%@page import="main.servlets.*"%>
+<%@page import="main.servlets.ajax.*"%>
 
-    <!-- Bootstrap CSS -->
-    <!--<link rel="stylesheet" href="css/style.css">-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+<%=HtmlDefaults.generateHtmlHeader()%>
     <title>Home</title>
-    
+    <link rel="stylesheet" href="css/styleplayer.css">
 </head>
-
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="player.jsp">FeelMusic</a>
-        <a class="nav-link nav-item text-light " href="player.jsp">Home</a>
-        <a class="nav-link nav-item text-light" href="createSong.jsp">Create Song</a>  
-        <a class="nav-link nav-item text-light" href="createPlaylist.jsp">Create Playlist</a>
-        <a class="nav-link nav-item text-light " href="createArtist.jsp">Create Artist</a> 
-        <a class="nav-link nav-item text-light" href="impressum.jsp">Impressum</a>
-        <a class="nav-link nav-item text-light"  href="datenschutz.jsp">Datenschutz</a>
-                                
-        <button class="btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0" ">LogIn</button>
-    
-    </nav>
+     <%	User user = (User) session.getAttribute("user");
+        Playlist p = (Playlist)request.getAttribute("playlist");%>
+     <%=HtmlDefaults.generateHtmlNavbar(user)%>
 
 	<div class=" container">
+	<p>
+	    <label for="chooseYtPlayer"> Youtube</label>
+		<input type="radio" id="chooseYtPlayer" name="playerChooser" value="YoutubePlayer"checked>
+	    <label for="chooseScPlayer"> Soundcloud</label> 
+	    <input type="radio" id="chooseScPlayer" name="playerChooser" value="SoundcloudPlayer">
+    </p>
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md">
           <h2>Player</h2>
-          <div id="player" ></div>
+          <div id="ytplayerdiv">
+          	<div id="ytplayer"></div>
+          </div>
+          <div id="scplayerdiv">
+           <iframe id="scplayer" width="640px" height="360px" scrolling="no" frameborder="no" allow="autoplay"src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/152316976&color=%23ff5500&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+      	  </div>
+        <!--    <div id="sfplayer" style="visibility: hidden;">
+          <iframe src="https://open.spotify.com/embed/track/1CFv4FqqeaZkNViwWSdk47" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+          </div>-->
           <p><button class="btn btn-outline-warning" id="previous">Previous</button>
             <button class="btn btn-outline-warning" id="next">Next</button></p>
             <p><label id="songname"> </label> - <a id="artist" href="" title="" target="_blank" rel="noopener noreferrer"> </a> <label id="coartists"> </label></p>
             <p>Label: <a id="label" href="" title="" target="_blank" rel="noopener noreferrer"> </a></p>
         </div>
-
         <div class="col-md">
-          <h2>Vorschau</h2>
+          <%if(user != null){%>    	
+		    	<% if(p != null && p.getSongs().length > 0){ %>
+		    	 
+		    		<% if(p.getId() == 0){ %>
+		    		<label>
+		    			<input type="text" id="playlistname" name="playlistname" maxlength="20" value="<%=p.getName() %>">
+		    			<button id="savebutton" onclick="doSave()" class="btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0">Save</button>
+		    		</label>
+					<% }else{%>	
+					<h2><%=p.getName() %></h2>
+					<% }%>	    	
+					
+		    	<% }else{%>
+		    		<h2>Empty Playlist</h2>
+		    	<% }%>
+		    
+		  <%}else{%>
+          	<h2>New Playlist</h2>
+          <%}%>
           <div class='table-responsive'>
             <!--Table-->
             <div id="table-wrapper">
@@ -53,12 +72,12 @@
 		                  <th>ID</th>
 		                  <th>Title</th>
 		                  <th>Artist</th>
+		                  
 		                </tr>
 		              </thead>
 		              <!--Table head-->
 		              <!--Table body-->
 		              <tbody>
-		              
 		              </tbody>
 		              <!--Table body-->
 		            </table>
@@ -70,156 +89,244 @@
       </div>
       <hr>
       </div>
-
-      <footer class="footer container-fluid text-center text-md-left bg-dark text-light py-2 bottom-0"
-        style="position: fixed; bottom: 0;">
-        <div class="container">
-          <span class="text-muted">
-            <p>&copy; Feel Music 2020 All rights reserved</p>
-          </span>
-        </div>
-      </footer>
+      <%=HtmlDefaults.generateHtmlFooter()%>
 </body>
-  <script>
-  var playlistState = 0;
-  var playlistMapObject = [
-     <% Playlist p = (Playlist)request.getAttribute("playlist");
-     if(p != null){
-  		for (Song s : p.getSongs()) { %>
-  		{ytlink: "<%= s.getLinks()[0] %>", sflink: "<%= s.getLinks()[1] %>", sclink: "<%= s.getLinks()[2] %>", title: "<%= s.getName() %>", 
-  		 artist: "<%= s.getArtist().getName() %> %ARTISTLINK% <%= s.getArtist().getLink() %>", 
-  		 coartists: "<% if(s.getCoArtists() != null && s.getCoArtists().getCoartists().length > 0){for(Artist a : s.getCoArtists().getCoartists()){ %><%= a.getName()%>%ARTISTLINK%<%= a.getLink()%>;<%}}%>",
-  		 label: "<%=s.getLabel().getName()%>%LABELLINK%<%=s.getLabel().getLink()%>"},
+<!--<script type="text/javascript" src="js/scApi.js"></script>-->
+<script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
+<script>
+var playlistMapObject = [
+	<% if(p != null){
+ 		
+		for (Song s : p.getSongs()) { %>
+  			{ytlink: "<%= s.getLinks()[0] %>", sflink: "<%= s.getLinks()[1] %>", sclink: "<%= s.getLinks()[2] %>", title: "<%= s.getName() %>", 
+	  		 artist: "<%= s.getArtist().getName() %> %ARTISTLINK% <%= s.getArtist().getLink() %>", songid: "<%= s.getId() %>",
+	  		 coartists: "<% if(s.getCoArtists() != null && s.getCoArtists().getCoartists().length > 0){for(Artist a : s.getCoArtists().getCoartists()){ %><%= a.getName()%>%ARTISTLINK%<%= a.getLink()%>;<%}}%>",
+	  		 label: "<%=s.getLabel().getName()%>%LABELLINK%<%=s.getLabel().getLink()%>"
+	  		},
      <% } 
-  	} %>
+	  	} %>
    ]
-  
-  /*https://www.youtube.com/embed/VIDEOID/?enablejsapi=1&autoplay=1
+var playlistState = 0;  
+var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-  // playlist map
-/*  let playlistMapObject = [
-    {link: "https://open.spotify.com/embed/track/02HJo9cBRCO12opAKdcZcJ", title: "Spotify Lied", artist: "Someone"},
-    {link: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/723315721&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true", title: "Soundcloud lied", artist: "Someone"},
-    {link: "https://www.youtube.com/embed/aYJStepXdbc?&autoplay=1", title: "Youtube Lied", artist: "Someone"},
-  ]*/
-
-  // if player finished song -> next song
-  
-  
-  
-  	var tag = document.createElement('script');
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-      var player;
-      function onYouTubeIframeAPIReady() {
-    	  player = new YT.Player('player', {
-    	    height: '360',
-    	    width: '640',
-    	    videoId: playlistMapObject[0].ytlink,
-    	    events: {
-    	      'onReady': onPlayerReady,
-    	      'onStateChange': onPlayerStateChange
-    	    }
-    	  });
-    	  }
-    function onPlayerReady(event) {
-    	event.target.playVideo();
-    }
+var player;
+function onYouTubeIframeAPIReady() {
+	player = new YT.Player('ytplayer', {
+		height: '360',
+		width: '640',
+		videoId: playlistMapObject[0].ytlink,
+		events: {
+			'onReady': onPlayerReady,
+			'onStateChange': onPlayerStateChange
+		}
+	});
+}
     
-    function onPlayerStateChange(event) {
-        if (event.data == 0) {
-      	  playlistState = (playlistState + 1) % playlistMapObject.length;
-      	  event.target.loadVideoById(playlistMapObject[playlistState].ytlink, 0, "large");
-      	  refreshInfo(playlistState);
-        }
-      }
-    function stopVideo() {
-        player.stopVideo();
-      }
-
- // let player = document.getElementById('playeriFrame');
- /*  player.addEventListener("onloadstart", function (state) {
-	  console.log(state);
-	  console.log(state.data);
-    if (event.data === 0) {
-      playlistState = (playlistState + 1) % playlistMapObject.length;
-      player.src = playlistMapObject[playlistState].link;
-    }
-  }); */
-
-  // add functionallity to prev and next buttons
-  let previousButton = document.getElementById('previous');
-  let nextBoutton = document.getElementById('next');
-  previousButton.addEventListener('click', function (e) {
-	  if(playlistState > 0){
-	      playlistState = (playlistState - 1) % playlistMapObject.length;
-	      player.loadVideoById(playlistMapObject[playlistState].ytlink, 0, "large");
-	  }
-  });
-  nextBoutton.addEventListener('click', function (e) {
-      playlistState = (playlistState + 1) % playlistMapObject.length;
-      player.loadVideoById(playlistMapObject[playlistState].ytlink, 0, "large");
-  });
-
-  // construct preview table
-  let previewTabel = document.getElementById('tablePreview');
-  playlistMapObject.forEach((el, index) =>{
-    let row = previewTabel.insertRow(index + 1);
-    let cell = row.insertCell(0);
-    let cell2 = row.insertCell(1);
-    let cell3 = row.insertCell(2);
-    
-    cell.innerHTML = index;
-    cell2.innerHTML = el.title;
-    cell3.innerHTML = el.artist.split("%ARTISTLINK%")[0];
-
-    row.style = 'cursor: pointer;';
-    row.addEventListener('click', function () {
-    	player.loadVideoById(playlistMapObject[index].ytlink, 0, "large");
-    	playlistState = index;
-    	refreshInfo(index);
-    })
-  });
-
-  // autoplay first song in row
-  (function () {
-//    player.src = playlistMapObject[playlistState].link;
-    refreshInfo(playlistState);
-  })()
-   
-  function refreshInfo(n){
-      document.getElementById("songname").innerHTML = playlistMapObject[n].title;
-      let arti =  playlistMapObject[n].artist.split("%ARTISTLINK%");      
-      if(arti[1]){
-          document.getElementById("artist").innerHTML = "<a href=\"" + arti[1] + "\" title=\"" + arti[0] + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + arti[0] + "</a>";	  
-      }else{
-    	  document.getElementById("artist").innerHTML = arti[0];
-      }
-      
-      let coartistcell = "";
-      let coart = playlistMapObject[n].coartists;
-      if(coart !== ""){
-    	  coart.split(";").forEach((item, index) =>{
-  	    	let art = item.split("%ARTISTLINK%");
-  	    	if(art[1] !== "" && art[0] !== ""){
-  	    		coartistcell = coartistcell.concat(((index == 0)?"feat. ":", ") + "<a href=\"" + art[1] + "\" title=\"" + art[0] + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + art[0] + "</a>");
-  	    	}else if(art[0] !== ""){
-  	    		coartistcell = coartistcell.concat(((index == 0)?"feat. ":", ") + art[0]);
-  	    	}
-  	    });
-   	}
-      
-      document.getElementById("coartists").innerHTML = coartistcell;
-      
-      
-      let lbl =  playlistMapObject[n].label.split("%LABELLINK%");      
-      if(lbl[1]){
-          document.getElementById("label").innerHTML = "<a href=\"" + lbl[1] + "\" title=\"" + lbl[0] + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + lbl[0] + "</a>";	  
-      }else{
-    	  document.getElementById("label").innerHTML = lbl[0];
-      }
+function onPlayerReady(event) {
+	if(document.getElementById('chooseYtPlayer').checked) {
+		hideAllPlayers();
+		document.getElementById("ytplayerdiv").style.visibility = "visible";
+		document.getElementById("ytplayerdiv").style.display = "block";
+		event.target.playVideo();
+		refreshInfo(playlistState);
 	}
+}
+  
+function onPlayerStateChange(event) {
+	if (event.data == 0) {
+		playlistState = (playlistState + 1) % playlistMapObject.length;
+		loadNextSong(playlistState, 0);
+	}
+}
+function stopVideo() {
+	player.stopVideo();
+}
+  
+var soundcloud = SC.Widget(document.getElementById('scplayer'));
+	soundcloud.bind(SC.Widget.Events.FINISH, function() {
+		playlistState = (playlistState + 1) % playlistMapObject.length;
+		loadNextSong(playlistState, 0);
+	});
+
+
+// add functionallity to prev and next buttons
+let previousButton = document.getElementById('previous');
+	previousButton.addEventListener('click', function (e) {
+		if(playlistState > 0){
+			playlistState = (playlistState - 1) % playlistMapObject.length;
+			loadNextSong(playlistState, 0);
+		}
+	});
+let nextBoutton = document.getElementById('next');
+	nextBoutton.addEventListener('click', function (e) {
+		playlistState = (playlistState + 1) % playlistMapObject.length;
+		loadNextSong(playlistState, 0);
+	});
+
+// construct preview table
+let previewTabel = document.getElementById('tablePreview');
+
+playlistMapObject.forEach((el, index) =>{
+	let row = previewTabel.insertRow(index + 1);
+	let cell = row.insertCell(0);
+	let cell2 = row.insertCell(1);
+	let cell3 = row.insertCell(2);
+  
+	cell.innerHTML = index;
+	cell2.innerHTML = el.title;
+	cell3.innerHTML = el.artist.split("%ARTISTLINK%")[0];
+
+	row.style = 'cursor: pointer;';
+	row.addEventListener('click', function () {
+		loadNextSong(index, 0);
+		playlistState = index;
+  	});
+});
+
+// autoplay first song in row
+(function () {
+	loadNextSong(playlistState, 0);
+})()
+
+function loadNextSong(index, trycounter){
+	hideAllPlayers();
+	if(!isEmpty(player)){
+		player.pauseVideo();
+	}
+	soundcloud.pause();
+	if(document.getElementById('chooseYtPlayer').checked) {
+		if(!isEmpty(playlistMapObject[index].ytlink)){
+			document.getElementById("ytplayerdiv").style.visibility = "visible";
+			document.getElementById("ytplayerdiv").style.display = "block";
+	 		player.loadVideoById(playlistMapObject[index].ytlink, 0, "large");
+		}else{
+			trycounter++;
+			if(trycounter >= document.getElementsByName('playerChooser').length){
+				playlistState = (playlistState + 1) % playlistMapObject.length;
+	  			loadNextSong(playlistState, 0);
+			}else{				
+	  			document.getElementById('chooseScPlayer').checked = true;
+	  			loadNextSong(index, trycounter);
+			}
+		}
+	}else if(document.getElementById('chooseScPlayer').checked) {
+		if(!isEmpty(playlistMapObject[index].sclink)){
+			document.getElementById("scplayerdiv").style.visibility = "visible";
+			document.getElementById("scplayerdiv").style.display = "block";
+			soundcloud.load('https%3A//api.soundcloud.com/tracks/' + playlistMapObject[index].sclink);
+			soundcloud.bind(SC.Widget.Events.READY, function() {
+				soundcloud.play();
+				soundcloud.unbind(SC.Widget.Events.READY);
+			});
+		}else{
+			trycounter++;
+			if(trycounter >= document.getElementsByName('playerChooser').length){
+				playlistState = (playlistState + 1) % playlistMapObject.length;
+	  			loadNextSong(playlistState, 0);
+			}else{				
+	  			document.getElementById('chooseYtPlayer').checked = true;
+	  			loadNextSong(index, trycounter);
+			}
+		}
+	}
+	refreshInfo(index);
+}
+
+function hideAllPlayers(){
+	document.getElementById("ytplayerdiv").style.visibility = "hidden";
+	document.getElementById("scplayerdiv").style.visibility = "hidden";
+	document.getElementById("ytplayerdiv").style.display = "none";
+	document.getElementById("scplayerdiv").style.display = "none";
+}
+
+function isEmpty(e) {
+	switch (e) {
+		case "":
+	    	return true;
+	    case "null":
+	    	return true;
+	    case 0:
+	    	return true;
+	    case "0":
+	    	return true;
+	    case null: 
+	    	return true;
+	    case false:
+	    	return true;
+	    case typeof e == "undefined":
+	    	return true;
+	    case typeof e === "undefined":
+	      	return true;
+	    default:
+	      	return false;
+	}
+}
+ 
+function refreshInfo(n){
+    document.getElementById("songname").innerHTML = playlistMapObject[n].title;
+    let arti =  playlistMapObject[n].artist.split("%ARTISTLINK%");      
+    if(arti[1]){
+        document.getElementById("artist").innerHTML = "<a href=\"" + arti[1] + "\" title=\"" + arti[0] + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + arti[0] + "</a>";	  
+    }else{
+  	  document.getElementById("artist").innerHTML = arti[0];
+    }
+    
+    let coartistcell = "";
+    let coart = playlistMapObject[n].coartists;
+    if(coart !== ""){
+  	  coart.split(";").forEach((item, index) =>{
+	    	let art = item.split("%ARTISTLINK%");
+	    	if(art[1] !== "" && art[0] !== ""){
+	    		coartistcell = coartistcell.concat(((index == 0)?"feat. ":", ") + "<a href=\"" + art[1] + "\" title=\"" + art[0] + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + art[0] + "</a>");
+	    	}else if(art[0] !== ""){
+	    		coartistcell = coartistcell.concat(((index == 0)?"feat. ":", ") + art[0]);
+	    	}
+	    });
+ 	}
+    
+    document.getElementById("coartists").innerHTML = coartistcell;
+    
+    
+    let lbl =  playlistMapObject[n].label.split("%LABELLINK%");      
+    if(lbl[1]){
+        document.getElementById("label").innerHTML = "<a href=\"" + lbl[1] + "\" title=\"" + lbl[0] + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + lbl[0] + "</a>";	  
+    }else{
+  	  document.getElementById("label").innerHTML = lbl[0];
+    }
+}
+
+function doSave(){
+	<% if(user != null){ %>
+	var ajaxreqdata = "";
+
+	playlistMapObject.forEach((el, index) =>{
+		if(index != 0){
+			ajaxreqdata = ajaxreqdata.concat(";");	
+		}
+		ajaxreqdata = ajaxreqdata.concat(el.songid);
+	});
+
+	$.ajax({
+		url : 'SavePlaylist_Ajax_Servlet',
+		data : {
+			userid : <%=user.getId()%>,
+			playlistname : document.getElementById("playlistname").value,
+			playlist : ajaxreqdata
+		},
+		success : function(responseText) {
+			if(responseText === "failed"){
+				console.log("Couldn't save the Playlist.");
+			}else{
+				document.getElementById("savebutton").style.visibility = "hidden"; 
+			}
+		}
+	});
+	<% } %>
+}
+
 </script>
 </html>

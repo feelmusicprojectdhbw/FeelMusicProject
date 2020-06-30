@@ -13,6 +13,7 @@ import main.obj.MusicLabel;
 import main.obj.Playlist;
 import main.obj.Song;
 import main.obj.User;
+import main.obj.Usertype;
 
 public class DatabaseUtils {
 
@@ -124,5 +125,13 @@ public class DatabaseUtils {
 				
 		return ret;
 	}
-
+	public static Usertype[] parseUsertypes(ArrayList<String[]> arr) {
+		Usertype[] ret = new Usertype[arr.size()];
+		int i = 0;
+		for(String[] str : arr) {
+			ret[i++] = new Usertype(Integer.parseInt(str[0]), str[1]);
+		}
+				
+		return ret;
+	}
 }

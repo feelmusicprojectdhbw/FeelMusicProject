@@ -1,0 +1,50 @@
+.resultsongdiv{
+	border-style: solid;
+	border-width: 1px;
+	border-color: grey;
+	margin: 2px;
+}
+
+.formwrapper{
+	float: left;
+	width: 45%;
+	margin-right: 20px;
+}
+
+.resultwrapper{
+	overflow: auto;
+	float: left;
+	width: 45%;
+	height: 370px;
+	margin-left: 20px;
+}
+
+.wholewrapper{
+	margin-left: 50px;
+	margin-right: 50px;
+	height: 400px;
+}
+
+html{ 
+	height:100%; 
+}
+
+body{
+	position: relative;
+	min-height: 100%;
+	padding:0; 
+	margin:0; 
+}
+
+body::after {
+  content: '';
+  display: block;
+  height: 56px; /* Set same as footer's height */
+}
+
+footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 56px;
+}

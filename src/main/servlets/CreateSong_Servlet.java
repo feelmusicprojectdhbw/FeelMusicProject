@@ -1,10 +1,11 @@
-package main;
+package main.servlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,8 +29,11 @@ public class CreateSong_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     private Database db;
+	private static CreateSong_Servlet me;
+    
     public CreateSong_Servlet() {
         super();
+        CreateSong_Servlet.me = this;
         if (db == null) {
 			try {
 				db = Database.getDatabase();
@@ -48,9 +52,7 @@ public class CreateSong_Servlet extends HttpServlet {
 			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
-		} else {
-			System.out.println("Ist bereits erstellt");
-		}
+		} 
     }
 
 	/**
@@ -167,10 +169,16 @@ public class CreateSong_Servlet extends HttpServlet {
 						System.out.println("Song SongID generated.");
 					}
 				}			
-		}
-		
-		
+		}				
 		doGet(request, response);
+	}
+	
+	public static ServletContext getServerContext() {
+		return me.getServletContext();
+	}
+	
+	public static CreateSong_Servlet getMe() {
+		return me;
 	}
 
 }
