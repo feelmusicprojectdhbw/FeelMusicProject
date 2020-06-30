@@ -15,8 +15,8 @@ public class Genres {
 			}else {
 				try {
 					searchGenreById(g.getParentID()).addSubgenre(g);
-				}catch(NullPointerException e) {
-					System.out.println("Fehler in der Genredatenbank");
+				}catch(NullPointerException e) {				
+					System.out.println("Fehler in der Genredatenbank " + g.getId() + " wurde nicht in " + g.getParentID() + " gefunden.");
 				}
 			}
 		}
@@ -29,11 +29,9 @@ public class Genres {
 					return g;
 				}else {			
 					Genre tmp = g.searchParentId(n);
-					if(tmp == null) {
-						return null;
-					}else {
+					if(tmp != null) {
 						return tmp;
-					}				
+					}			
 				}
 			}
 		}

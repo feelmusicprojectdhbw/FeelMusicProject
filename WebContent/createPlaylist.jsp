@@ -225,11 +225,29 @@ function processLanguages()
 										<input class="<%= thirdG %>radio" type="radio" value="red" hidden>
 										<div id="<%= thirdG %>div">
 			   			 					<genre id="<%= thirdG %>btn" name="genre" class="btn btn-secondary" onclick="doGenre('<%= thirdG %>')" value="<%= thirdG %>" selection="0"><%= g2.getName()%></genre>
-			   			 				</div>
+			   			 				<% if(g2.getSubgenres() != null){
+											%>
+											<ul class="nested">
+											<%
+								   			 	for(Genre g3 : g2.getSubgenres()){ 
+								   			 		String fourthG = g3.getName().replace(" ", "");%>
+						   			 			<li class="genreli">
+						   			 				<input class="<%= fourthG %>radio" type="radio" value="#6c757d" checked hidden>
+													<input class="<%= fourthG %>radio" type="radio" value="green" hidden>
+													<input class="<%= fourthG %>radio" type="radio" value="red" hidden>
+													<div id="<%= fourthG %>div">
+						   			 					<genre id="<%= fourthG %>btn" name="genre" class="btn btn-secondary" onclick="doGenre('<%= fourthG %>')" value="<%= fourthG %>" selection="0"><%= g3.getName()%></genre>
+						   			 				</div>
+												</li>		       		 	
+												<%}%>
+											</ul>
+											</div>
+					    					<%}%>
+			   			 				
 									</li>		       		 	
 									<%}%>
-								</ul>
-								</div>
+								</ul>	
+								</div>						
 		    					<%}%>
 		    				</li>
 						<%}%>
@@ -419,7 +437,6 @@ function processLanguages()
 
 </div>
 <%=HtmlDefaults.generateHtmlFooter()%>
-
 </body>
 
 </html>

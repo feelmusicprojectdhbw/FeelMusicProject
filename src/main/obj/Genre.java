@@ -41,15 +41,18 @@ public class Genre {
 	public Genre searchParentId(int n) {
 		Genre g = null;
 		if(this.id == n) {
-			g = this;
+			return this;
 		}else {
 			if(subgenres != null) {
 				for(Genre sg : subgenres) {
 					g = sg.searchParentId(n);
+					if(g != null) {
+						return g;
+					}
 				}
 			}
 		}
-		return g;
+		return null;
 	}
 	
 	public Genre searchParentId(String s) {
