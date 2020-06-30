@@ -34,9 +34,9 @@
 				<div id="playlistlistdiv">
 				<% for(Playlist p : pls){%>
 					<div id="pllstdiv<%= p.getId() %>">
-						<label onclick="focusPlaylist(<%= p.getId() %>)"><%= p.getName() %></label>
-						<label><a onClick="playPlaylist(<%= p.getId() %>,<%= p.getUser().getId() %>)"> Play </a></label>
-						<label><a onclick="deletePlaylist(<%= p.getId() %>,<%= p.getUser().getId() %>)">Delete</a></label>
+						<label class="btn btn-link"onclick="focusPlaylist(<%= p.getId() %>)"><%= p.getName() %></label>
+						<label><a class="btn btn-warning" onClick="playPlaylist(<%= p.getId() %>,<%= p.getUser().getId() %>)">Play </a></label>
+						<label><a class="btn btn-danger" onclick="deletePlaylist(<%= p.getId() %>,<%= p.getUser().getId() %>)">Delete</a></label>
 					</div>
 				<%}%>
 				</div>

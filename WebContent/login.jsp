@@ -32,7 +32,7 @@
 				<label class="loginfaillabel"><b>Benutzername oder Kennwort falsch!</b></label>
 			</div>
 		<%}%>
-      	<button class=" btn btn-lg btn-primary btn-block " type="submit">Login</button>
+      	<button class="btn btn-block btn-outline-success btn-lg " type="submit">Login</button>
 		<label>You don't have a Account yet? Klick here to <a style="margin: 1px;" href="Signup_Servlet">Register</a></label>
     </form>
 

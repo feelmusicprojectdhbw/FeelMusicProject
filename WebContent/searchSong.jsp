@@ -36,7 +36,7 @@
 			}%>
 			</select> </p>
 			<p>
-			<button class=" btn btn-success btn-l " onClick="searchSongs()">Search</button> </p>
+			<button class=" btn btn-success btn-lg " onClick="searchSongs()">Search</button> </p>
 			<br>
 			<br>
 		</div>
