@@ -13,7 +13,7 @@
     <body>
      <%	User user = (User) session.getAttribute("user");%>
      <%=HtmlDefaults.generateHtmlNavbar(user)%>
- 	<div class="bigWrapper">
+ 	<div class="bigWrapper, container">
         <div class="headerContainerImage">
             <div class="headerContainerContent">
                 <h1 class="text-center">Unsere Impressumsangaben</h1><br>

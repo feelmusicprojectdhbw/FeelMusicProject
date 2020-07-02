@@ -181,7 +181,7 @@ function processLanguages()
      <%	User user = (User) session.getAttribute("user");%>
      <%=HtmlDefaults.generateHtmlNavbar(user)%>
 	
-<div class=" container ">
+<div class="container">
 	<form id="playlistcreation" class=" form-signin " method="post" action="FeelMusic_Servlet">
   		<h4 class="pt-3 pl-3"><b>Genres</b></h4>
  		<hr>		
