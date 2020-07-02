@@ -6,20 +6,31 @@
 <%@page import="main.tools.*"%>
 <%@page import="main.servlets.*"%>
 <%=HtmlDefaults.generateHtmlHeader()%>
-        <title>Datenschutz</title>
+    <title>Datenschutz</title>
+    <link rel="stylesheet" href="css/stylesongcreation.css">
     </head>
     
     <body>
      <%	User user = (User) session.getAttribute("user");%>
      <%=HtmlDefaults.generateHtmlNavbar(user)%>
- <div class="bigWrapper" style="letter-spacing: .1em">
+	<div class="bigWrapper" style="letter-spacing: .1em">
         <div class="headerContainerImage">
             <div class="headerContainerContent">
                 <h1 class="text-center">Unsere Datenschutzerklärung</h1><br>
                 <h5 class="text-center">gemäß der Vorgaben der Datenschutz-Grundverordnung (EU)</h5><br><br>
             </div>
         </div>
-
+		<div class="container">
+			<h1>Datenschutz </h1>
+			<span><p>
+				Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam volupt</br>
+				vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor</br>
+				sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et</br>
+				accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,</br>
+				consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et</br>
+				justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </br>
+			</p></span>
+		</div>
         <!-- Allgemein Container -->
         <div class="informationContainer">
             <div class="informationContainerChild">

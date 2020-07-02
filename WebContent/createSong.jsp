@@ -236,8 +236,8 @@
 			<label for=" inputScLink " ><b>Soundcloud Link</b></label>
 			<input type=" url " name="inputScLink" id=" inputLink " class=" form-control " placeholder=" scLink ">
 
-			<button class=" btn btn-lg btn-primary btn-block " type="submit" onClick="processValidations()">Send</button>
-			<button class=" btn btn-lg btn-primary btn-block " type="reset">Delete</button>
+			<button class="  btn btn-block btn-outline-success btn-lg " type="submit" onClick="processValidations()">Send</button>
+			<button class="  btn btn-block btn-outline-success btn-lg " type="reset">Delete</button>
 		</form>
 		<%}else{%>
 			<%=HtmlDefaults.generateNotLoggedInMessage()%>

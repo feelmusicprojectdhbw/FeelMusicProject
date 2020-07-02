@@ -15,12 +15,13 @@
 	<body>
     	<% if(user != null){ %>   
 			<%=HtmlDefaults.generateHtmlNavbar(user)%>
+			<div class="container">
 			<%if (user.getUsertype().getId() == 1 || user.getUsertype().getId() == 3){%>
 				<h1 class="form-signin-heading">Benutzerverwaltung</h1>
 				<h2>Search for E-Mail Address</h2>
 				<p><label for="inputSearch"><b>Search:</b></label>	
 				<input type="text" name="inputSearch" id="inputSearch" class="form-control" placeholder="Users mailaddress or UserId" autofocus>
-				<button onclick="searchUser(<%=user.getUsertype().getId()%>)">Suchen</button></p>
+				<button class="btn btn-success btn-lg" onclick="searchUser(<%=user.getUsertype().getId()%>)">Suchen</button></p>
 				<div id="userpagewrapper" style="display: none">
 					<form id="usercontrol" class=" form-signin " method="post" action="UserControl_Servlet">
 						<label>User ID: <span id="userIdSpan"></span> <input type="text" id="hiddenid" name=hiddenid style="display:none"/></label> <br>					
@@ -56,7 +57,7 @@
 						        </select>
 					        </label>
 						</div>
-						<button class=" btn btn-lg btn-primary btn-block " type="submit">Save Changes</button>
+						<button class="btn btn-primary btn-lg" type="submit">Save Changes</button>
 					</form>
 				</div>				
 			<%}else{%>
@@ -66,8 +67,10 @@
 			<!-- Kein zugriff auf die Seite (User ist nicht angemeldet) -->
 			<%=HtmlDefaults.generateNotLoggedInMessage()%>
         <% } %>
+	</div>
 	<%=HtmlDefaults.generateHtmlFooter()%>
 </body>
+
 <script src="https://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
 <script src="js/usercontrol.js" type="text/javascript" ></script>
 </html>

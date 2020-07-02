@@ -7,6 +7,7 @@
 <%@page import="main.servlets.*"%>
 <%=HtmlDefaults.generateHtmlHeader()%>
         <title>createArtist</title>
+         <link rel="stylesheet" href="css/nstyle.css">
     </head>
     
     <body>
@@ -15,7 +16,7 @@
         <div class="container py-2">
 
      <form class=" form-signin " method="post" action="CreateArtist_Servlet">
-      <select name="artistToDelete">  
+      <select class="form-control" name="artistToDelete">  
       <% Artist[] artists = Database.getAllArtists();
       	if(artists != null){
 			for (Artist a : artists) {
@@ -32,7 +33,7 @@
 
       <input type="radio" name="createOrDelete" class=" form-control " value="create" checked/>Create
       <input type="radio" name="createOrDelete" class=" form-control "value="delete" />Delete
-      <button class=" btn btn-lg btn-primary btn-block " type="submit">Send</button>
+      <button class=" btn btn-block btn-outline-success btn-lg " type="submit">Send</button>
      </form>
  
      </div>

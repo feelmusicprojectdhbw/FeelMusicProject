@@ -7,6 +7,7 @@
 <%@page import="main.servlets.*"%>
 <%=HtmlDefaults.generateHtmlHeader()%>
         <title>createLabel</title>
+          <link rel="stylesheet" href="css/nstyle.css">
 	</head>
     
 	<body>
@@ -14,13 +15,14 @@
      	<%=HtmlDefaults.generateHtmlNavbar(user)%>
 		<div class="container">
 			<form class=" form-signin " method="post" action="CreateLabel_Servlet">
-				<select name="labelToDelete">  
-			      <% MusicLabel[] labels = Database.getAllLabels();
-			      	if(labels != null){
-						for (MusicLabel a : labels) {
-							%><option><%= a.getName() %>;<%= a.getId() %></option><%
-						}			
-					}%> 
+				<select class="form-control" name="artistToDelete">  
+      
+      <% MusicLabel[] labels = Database.getAllLabels();
+    	if(labels != null){
+			for (MusicLabel a : labels) {
+				%><option><%= a.getName() %>;<%= a.getId() %></option><%
+			}			
+		}%> 
 				</select>
 				<h2 class=" form-signin-heading ">Create Label</h2>
 				<label for=" inputLabel" class=" sr-only "> Label</label>
@@ -31,7 +33,7 @@
        
 				<input type="radio" name="createOrDelete" class=" form-control " value="create" checked/>Create
 				<input type="radio" name="createOrDelete" class=" form-control "value="delete" />Delete
-				<button class=" btn btn-lg btn-primary btn-block " type="submit">Send</button>
+				<button class="  btn btn-block btn-outline-success btn-lg " type="submit">Send</button>
    			</form>
 		</div>  
     	<%=HtmlDefaults.generateHtmlFooter()%>

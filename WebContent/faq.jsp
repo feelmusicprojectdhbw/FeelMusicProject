@@ -12,6 +12,7 @@
     <body>
      <%	User user = (User) session.getAttribute("user");%>
      <%=HtmlDefaults.generateHtmlNavbar(user)%>
+     	<div class="container">
         <div class="jumbotron">
         <h2>1. Frage </h2>
         <p>
@@ -50,6 +51,7 @@
             consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et</br>
             justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </br>
         </p>
+    </div>
     </div>
 
 
