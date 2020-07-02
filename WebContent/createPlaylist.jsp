@@ -430,7 +430,7 @@ function processLanguages()
 			<input  class="metadata-control" type="date" id="untildate" name="untildate">
 			<br><br> 
 			
-			<button class=" btn btn-lg btn-primary btn-block " type="submit" onClick="processValidations()">Send</button>
+			<button class=" btn btn-block btn-outline-success btn-lg " type="submit" onClick="processValidations()">Send</button>
 	</form>
 
 
