@@ -10,6 +10,7 @@ import main.obj.Song;
 import main.obj.User;
 import main.servlets.CreateArtist_Servlet;
 import main.servlets.CreateLabel_Servlet;
+import main.servlets.CreatePlaylist_Servlet;
 import main.servlets.CreateSong_Servlet;
 import main.servlets.FeelMusic_Servlet;
 import main.servlets.Login_Servlet;
@@ -30,17 +31,17 @@ public class HtmlDefaults {
 		StringBuilder addition = new StringBuilder(""); 
 		if(user != null) {
 			if(user.getUsertype().getId() == 1) { //Admin
-				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong_Servlet\">Create Song</a>");
-				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateArtist_Servlet\">Create Artist</a>");
-				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateLabel_Servlet\">Create Label</a>");
-				addition.append("<a class=\"nav-link nav-item text-light\"href=\"UserControl_Servlet\">User Control</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong\">Create Song</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateArtist\">Create Artist</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateLabel\">Create Label</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"UserControl\">User Control</a>");
 			}else if(user.getUsertype().getId() == 3) { //Moderator
-				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong_Servlet\">Create Song</a>");
-				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateArtist_Servlet\">Create Artist</a>");
-				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateLabel_Servlet\">Create Label</a>");				
-				addition.append("<a class=\"nav-link nav-item text-light\"href=\"UserControl_Servlet\">User Control</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong\">Create Song</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateArtist\">Create Artist</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateLabel\">Create Label</a>");				
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"UserControl\">User Control</a>");
 			}else if(user.getUsertype().getId() == 4) { //Artist
-				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong_Servlet\">Create Song</a>");				
+				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong\">Create Song</a>");				
 			}else if(user.getUsertype().getId() == 5) { //Label
 			}
 			addition.append("<a class=\"nav-link nav-item text-light\" href=\"userpage.jsp\">My Account</a>");
@@ -78,6 +79,8 @@ public class HtmlDefaults {
 		File f = null;
 		if(FeelMusic_Servlet.getMe() != null) {
 			f = new File(FeelMusic_Servlet.getServerContext().getRealPath(path));			
+		}else if(CreatePlaylist_Servlet.getMe() != null) {
+			f = new File(CreatePlaylist_Servlet.getServerContext().getRealPath(path));
 		}else if(CreateArtist_Servlet.getMe() != null) {
 			f = new File(CreateArtist_Servlet.getServerContext().getRealPath(path));
 		}else if(CreateLabel_Servlet.getMe() != null) {

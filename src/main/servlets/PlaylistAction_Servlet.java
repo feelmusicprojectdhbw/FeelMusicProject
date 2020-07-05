@@ -16,7 +16,7 @@ import main.obj.User;
 /**
  * Servlet implementation class LoadPlaylist_Servlet
  */
-@WebServlet("/PlaylistAction_Servlet")
+@WebServlet("/PlaylistAction")
 public class PlaylistAction_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -7,7 +7,6 @@
 <%@page import="main.servlets.*"%>
 <%=HtmlDefaults.generateHtmlHeader()%>
         <title>createArtist</title>
-         <link rel="stylesheet" href="css/nstyle.css">
     </head>
     
     <body>
@@ -15,7 +14,7 @@
      <%=HtmlDefaults.generateHtmlNavbar(user)%>
         <div class="container py-2">
 
-     <form class=" form-signin " method="post" action="CreateArtist_Servlet">
+     <form class=" form-signin " method="post" action="CreateArtist">
       <select class="form-control" name="artistToDelete">  
       <% Artist[] artists = Database.getAllArtists();
       	if(artists != null){

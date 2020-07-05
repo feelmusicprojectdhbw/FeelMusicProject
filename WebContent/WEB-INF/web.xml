@@ -3,10 +3,10 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	version="4.0">
-	<display-name>FeelMusic_Servlet</display-name>
+	<display-name>FeelMusic</display-name>
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>FeelMusic_Servlet</web-resource-name>
+			<web-resource-name>FeelMusic</web-resource-name>
 			<url-pattern>/Login_Servlet</url-pattern>
 			<url-pattern>/Signup_Servlet</url-pattern>
 		</web-resource-collection>

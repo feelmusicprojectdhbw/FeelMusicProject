@@ -10,7 +10,6 @@
   <%	User user = (User) session.getAttribute("user"); %>
         	<title>Usercontrol</title>
    	    <link rel="stylesheet" href="css/styleuserpage.css">
-  	    <link rel="stylesheet" href="css/styleusercontrol.css">
     </head>
 	<body>
     	<% if(user != null){ %>   

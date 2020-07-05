@@ -15,7 +15,7 @@ import main.dao.Database;
 /**
  * Servlet implementation class CreateArtist_Servlet
  */
-@WebServlet("/CreateArtist_Servlet")
+@WebServlet("/CreateArtist")
 public class CreateArtist_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

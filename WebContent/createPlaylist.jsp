@@ -16,7 +16,7 @@
      <%=HtmlDefaults.generateHtmlNavbar(user)%>
 	
 <div class="container">
-	<form id="playlistcreation" class=" form-signin " method="post" action="FeelMusic_Servlet">
+	<form id="playlistcreation" class=" form-signin " method="post" action="FeelMusic">
   		<!-- <h4 class="pt-3 pl-3"><b>Genres</b></h4> -->
   		<label for="exampleFormControlSelect2">Genres</label>
  		<hr>		

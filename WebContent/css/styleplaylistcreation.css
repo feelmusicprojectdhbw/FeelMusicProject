@@ -72,30 +72,6 @@ select.metadata-control:focus::-ms-value {
 	background-color: #fff;
 } 
 
-html{ 
-	height:100%; 
-}
-
-body{
-	position: relative;
-	min-height: 100%;
-	padding:0; 
-	margin:0;
-}
-
-body::after {
-  content: '';
-  display: block;
-  height: 56px; /* Set same as footer's height */
-}
-
-footer{
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 56px;
-}
-
 ul.tree li {
     list-style-type: none;
     position: relative;

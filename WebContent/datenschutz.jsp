@@ -7,7 +7,6 @@
 <%@page import="main.servlets.*"%>
 <%=HtmlDefaults.generateHtmlHeader()%>
     <title>Datenschutz</title>
-    <link rel="stylesheet" href="css/style.css">
     </head>
     
     <body>

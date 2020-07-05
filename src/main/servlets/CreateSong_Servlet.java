@@ -24,7 +24,7 @@ import main.tools.Validations;
 /**
  * Servlet implementation class CreateSong_Servlet
  */
-@WebServlet("/CreateSong_Servlet")
+@WebServlet("/CreateSong")
 public class CreateSong_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -15,7 +15,7 @@ import main.dao.Database;
 /**
  * Servlet implementation class CreateLabel_Servlet
  */
-@WebServlet("/CreateLabel_Servlet")
+@WebServlet("/CreateLabel")
 public class CreateLabel_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -48,30 +48,14 @@ public class CreateLabel_Servlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		String creation = request.getParameter("createOrDelete");
-		String labelToDelete = request.getParameter("labelToDelete");
 		String name = request.getParameter("inputLabel");
 		String link = request.getParameter("inputLink");
 		
-		if(creation != null) {
-			if(creation.equalsIgnoreCase("create")) {
-				try {
-					db.insertLabel(name, link);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}else if(creation.equalsIgnoreCase("delete")){			
-				if(labelToDelete != null && db != null) {
-					String[] spl = labelToDelete.split(";");
-					if(spl.length == 2) {
-						try {
-							db.deleteLabel(Integer.parseInt(spl[1]), spl[0]);
-						}catch(Exception e) {
-							e.printStackTrace();
-						};
-						
-					}
-				}
+		if(name != null && !name.trim().isEmpty() && link != null && !link.trim().isEmpty()) {
+			try {
+				db.insertLabel(name, link);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		doGet(request, response);

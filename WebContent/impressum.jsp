@@ -7,7 +7,6 @@
 <%@page import="main.servlets.*"%>
 <%=HtmlDefaults.generateHtmlHeader()%>
         <title>Impressum</title>
-   		<link rel="stylesheet" href="css/style.css">
     </head>
     
     <body>

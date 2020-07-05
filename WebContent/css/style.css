@@ -69,3 +69,32 @@
     height: 2px;
     background-color: #5c6971;
 }
+
+html{ 
+	height:100%; 
+}
+body{
+	position: relative;
+	min-height: 100%;
+	padding:0; 
+	margin:0; 
+}
+
+body::after {
+  content: '';
+  display: block;
+  height: 56px; /* Set same as footer's height */
+}
+
+footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 56px;
+}
+
+nav{
+    position: fixed;
+    top: 0px;
+    width: 100%;
+}​
