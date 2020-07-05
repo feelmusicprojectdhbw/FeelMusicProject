@@ -80,7 +80,7 @@ body{
 	position: relative;
 	min-height: 100%;
 	padding:0; 
-	margin:0; 
+	margin:0;
 }
 
 body::after {

@@ -17,7 +17,8 @@
 	
 <div class="container">
 	<form id="playlistcreation" class=" form-signin " method="post" action="FeelMusic_Servlet">
-  		<h4 class="pt-3 pl-3"><b>Genres</b></h4>
+  		<!-- <h4 class="pt-3 pl-3"><b>Genres</b></h4> -->
+  		<label for="exampleFormControlSelect2">Genres</label>
  		<hr>		
 		<div class="genrediv">
 		<% 	
