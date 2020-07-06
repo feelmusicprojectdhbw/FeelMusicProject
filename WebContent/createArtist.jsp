@@ -15,24 +15,14 @@
         <div class="container py-2">
 
      <form class=" form-signin " method="post" action="CreateArtist">
-      <select class="form-control" name="artistToDelete">  
-      <% Artist[] artists = Database.getAllArtists();
-      	if(artists != null){
-			for (Artist a : artists) {
-				%><option value="<%= a.getId() %>"><%= a.getName() %>;<%= a.getId() %></option><%
-			}			
-		}%> 
-        </select>
-      <h2 class=" form-signin-heading ">Create Artists</h2>
-      <label for=" inputArtist " class=" sr-only ">Artist</label>
-      <input type="text" name = "inputArtist" id=" inputArtist " class=" form-control " placeholder=" Artist " required autofocus>
+      <h2 class=" form-signin-heading ">K&uumlnstler anlegen</h2>
+      <label for=" inputArtist " class=" sr-only ">K&uumlnstler</label>
+      <input type="text" name = "inputArtist" id=" inputArtist " class=" form-control " placeholder="Künstler" required autofocus>
 
-      <label for=" inputLink " class=" sr-only ">Link of the artist</label>
-      <input type="url" name = "inputLink" id=" inputLink " class=" form-control " placeholder=" Link " required>
+      <label for=" inputLink " class=" sr-only ">Link zum K&uumlnstler</label>
+      <input type="url" name = "inputLink" id=" inputLink " class=" form-control " placeholder="Link" required>
 
-      <input type="radio" name="createOrDelete" class=" form-control " value="create" checked/>Create
-      <input type="radio" name="createOrDelete" class=" form-control "value="delete" />Delete
-      <button class=" btn btn-block btn-outline-success btn-lg " type="submit">Send</button>
+      <button class=" btn btn-block btn-outline-success btn-lg " type="submit">Senden</button>
      </form>
  
      </div>

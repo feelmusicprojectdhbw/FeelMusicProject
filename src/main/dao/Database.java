@@ -773,8 +773,16 @@ public class Database {
 	 */
 	public User checkUser(String mailaddress, String encryptedPassword64Digit) throws SQLException {
 		Statement stmt = connection.createStatement();
-		ResultSet rs = stmt.executeQuery("select user.id, user.name, user.email, user.birthday, user.usertype, usertype.name FROM user JOIN usertype on user.usertype = usertype.id"
-				+ " where UPPER(email) = '" + mailaddress.toUpperCase() + "' AND password='" + encryptedPassword64Digit + "' LIMIT 1");
+		ResultSet rs = null; 
+		
+		if(mySQL) {
+			rs = stmt.executeQuery("select user.id, user.name, user.email, user.birthday, user.usertype, usertype.name FROM user JOIN usertype on user.usertype = usertype.id"
+					+ " where UPPER(email) = '" + mailaddress.toUpperCase() + "' AND password='" + encryptedPassword64Digit + "' LIMIT 1");
+		}else {
+			rs = stmt.executeQuery("select user.id, user.name, user.email, user.birthday, user.usertype, usertype.name FROM user JOIN usertype on user.usertype = usertype.id"
+					+ " where UPPER(email) = '" + mailaddress.toUpperCase() + "' AND password='" + encryptedPassword64Digit + "' FETCH FIRST 1 ROWS ONLY");
+		}
+		
 		User ret = null;
 		if(rs.next()) {
 			ret = new User(rs.getInt("user.id"), rs.getString("user.name"), rs.getString("user.email"), rs.getInt("user.birthday"), new Usertype(rs.getInt("user.usertype"), rs.getString("usertype.name")));		
@@ -796,7 +804,13 @@ public class Database {
 			return true;
 		}
 		Statement stmt = connection.createStatement();
-		ResultSet rs = stmt.executeQuery("select user.id FROM user where UPPER(user.name) = '" + username + "' LIMIT 1");
+		ResultSet rs = null;
+		if(mySQL) {
+			rs = stmt.executeQuery("select user.id FROM user where UPPER(user.name) = '" + username + "' LIMIT 1");
+		}else {
+			rs = stmt.executeQuery("select user.id FROM user where UPPER(user.name) = '" + username + "' FETCH FIRST 1 ROWS ONLY");
+		}
+		
 		boolean ret = rs.next();
 		rs.close();
 		stmt.close();
@@ -811,7 +825,12 @@ public class Database {
 	 */
 	public boolean checkUsermailAlreadyExists(String mailaddress) throws SQLException {
 		Statement stmt = connection.createStatement();
-		ResultSet rs = stmt.executeQuery("select user.id FROM user where UPPER(user.email) = '" + mailaddress.toUpperCase() + "' LIMIT 1");
+		ResultSet rs = null;
+		if(mySQL) {
+			rs = stmt.executeQuery("select user.id FROM user where UPPER(user.email) = '" + mailaddress.toUpperCase() + "' LIMIT 1");
+		}else {
+			rs = stmt.executeQuery("select user.id FROM user where UPPER(user.email) = '" + mailaddress.toUpperCase() + "' FETCH FIRST 1 ROWS ONLY");
+		}
 		boolean ret = rs.next();
 		rs.close();
 		stmt.close();
@@ -843,7 +862,12 @@ public class Database {
 	 */
 	public Playlist loadPlaylistByIDs(int playlistid, int userid) throws SQLException {
 		Statement stmt = connection.createStatement();
-		ResultSet rs = stmt.executeQuery("select name FROM playlists where id = " + playlistid + " AND user = " + userid + " LIMIT 1");
+		ResultSet rs = null;
+		if(mySQL) {
+			rs = stmt.executeQuery("select name FROM playlists where id = " + playlistid + " AND user = " + userid + " LIMIT 1");
+		}else {
+			rs = stmt.executeQuery("select name FROM playlists where id = " + playlistid + " AND user = " + userid + "' FETCH FIRST 1 ROWS ONLY");
+		}
 		Playlist ret = null;
 		if(rs.next()) {
 			ret = new Playlist(playlistid, rs.getString("name"), null, loadSongsByPlaylist(playlistid));		
@@ -862,7 +886,12 @@ public class Database {
 	 */
 	public boolean deletePlaylist(int playlistid, int userid) throws SQLException {
 		Statement stmt = connection.createStatement();
-		ResultSet rs = stmt.executeQuery("select name FROM playlists where id = " + playlistid + " AND user = " + userid + " LIMIT 1");		
+		ResultSet rs = null;
+		if(mySQL) {
+			rs = stmt.executeQuery("select name FROM playlists where id = " + playlistid + " AND user = " + userid + " LIMIT 1");	
+		}else {
+			rs = stmt.executeQuery("select name FROM playlists where id = " + playlistid + " AND user = " + userid + "' FETCH FIRST 1 ROWS ONLY");
+		}	
 		boolean ret = false;
 		if(rs.next()) {
 			stmt.executeUpdate("delete from z_playlist_songs where playlist = " + playlistid);
@@ -899,7 +928,12 @@ public class Database {
 	 */
 	public User searchUserByMail(String searchMail) throws SQLException {
 		Statement stmt = connection.createStatement();
-		ResultSet rs = stmt.executeQuery("select * FROM user where UPPER(user.email) = '" + searchMail.toUpperCase() + "' LIMIT 1");
+		ResultSet rs = null;
+		if(mySQL) {
+			rs = stmt.executeQuery("select * FROM user where UPPER(user.email) = '" + searchMail.toUpperCase() + "' LIMIT 1");
+		}else {
+			rs = stmt.executeQuery("select * FROM user where UPPER(user.email) = '" + searchMail.toUpperCase() + "' FETCH FIRST 1 ROWS ONLY");
+		}	
 		User ret = null;
 		if(rs.next()) {
 			ret = new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getInt("birthday"), Usertypes.getUsertypeById(rs.getInt("usertype")));
@@ -917,7 +951,12 @@ public class Database {
 	 */
 	public User searchUserById(int foundUserId) throws SQLException {
 		Statement stmt = connection.createStatement();
-		ResultSet rs = stmt.executeQuery("select * FROM user where user.id = '" + foundUserId + "' LIMIT 1");
+		ResultSet rs = null;
+		if(mySQL) {
+			rs = stmt.executeQuery("select * FROM user where user.id = '" + foundUserId + "' LIMIT 1");
+		}else {
+			rs = stmt.executeQuery("select * FROM user where user.id = '" + foundUserId + "' FETCH FIRST 1 ROWS ONLY");
+		}	
 		User ret = null;
 		if(rs.next()) {
 			ret = new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getInt("birthday"), Usertypes.getUsertypeById(rs.getInt("usertype")));
@@ -935,7 +974,12 @@ public class Database {
 	 */
 	public int getUserLabelZuordnung(int userID) throws SQLException {
 		Statement stmt = connection.createStatement();
-		ResultSet rs = stmt.executeQuery("select label FROM z_userconnector where user = " + userID + " LIMIT 1");
+		ResultSet rs = null;
+		if(mySQL) {
+			rs = stmt.executeQuery("select label FROM z_userconnector where user = " + userID + " LIMIT 1");
+		}else {
+			rs = stmt.executeQuery("select label FROM z_userconnector where user = " + userID + "' FETCH FIRST 1 ROWS ONLY");
+		}
 		int ret = 0;
 		if(rs.next()) {
 			ret = rs.getInt("label");
@@ -953,7 +997,12 @@ public class Database {
 	 */
 	public int getUserArtistZuordnung(int userID) throws SQLException {
 		Statement stmt = connection.createStatement();
-		ResultSet rs = stmt.executeQuery("select artist FROM z_userconnector where user = " + userID + " LIMIT 1");
+		ResultSet rs = null;
+		if(mySQL) {
+			rs = stmt.executeQuery("select artist FROM z_userconnector where user = " + userID + " LIMIT 1");
+		}else {
+			rs = stmt.executeQuery("select artist FROM z_userconnector where user = " + userID + "' FETCH FIRST 1 ROWS ONLY");
+		}
 		int ret = 0;
 		if(rs.next()) {
 			ret = rs.getInt("artist");

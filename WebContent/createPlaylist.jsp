@@ -16,7 +16,7 @@
      <%=HtmlDefaults.generateHtmlNavbar(user)%>
 	
 <div class="container">
-	<form id="playlistcreation" class=" form-signin " method="post" action="FeelMusic">
+	<form id="playlistcreation" class=" form-signin " method="post" action="CreatePlaylist">
   		<!-- <h4 class="pt-3 pl-3"><b>Genres</b></h4> -->
   		<label for="exampleFormControlSelect2">Genres</label>
  		<hr>		
@@ -104,7 +104,7 @@
 	
 	<div class="form-group">
  		<hr>
-		<label for="exampleFormControlSelect2">Feelings</label> 
+		<label for="exampleFormControlSelect2">Gef&uumlhle</label> 
 		<div class="scrollContainer">
 		<table class="tlayout">
 			<tbody>
@@ -155,7 +155,7 @@
  		<hr>
 		<details>
 		<summary>
-		<label for="exampleFormControlSelect3">Style</label> 
+			<label for="exampleFormControlSelect3">Styles</label> 
 		</summary>
 		<div class="scrollContainer">
 		<table class="tlayout">
@@ -207,7 +207,7 @@
  	<hr>		
 	<details>
 	<summary>
-	<label for="exampleFromControlSelect4">Language</label>
+	<label for="exampleFromControlSelect4">Sprache</label>
 	</summary>	
 	<div id="smallContainer" >
 		<table class="tlayout">
@@ -256,16 +256,16 @@
 	</details>
 	</div>
 
-	<p class="checkcaption">Choose a decade</p>
+	<p class="checkcaption">W&aumlhle den Erscheinungszeitraum</p>
 	
-			<label for="form">From:</label> 
+			<label for="form">Von:</label> 
 			<input  class="metadata-control"type="date" id="fromdate" name="fromdate"> 
 			<br><br> 
-			<label for="until">Until:</label> 
+			<label for="until">Bis:</label> 
 			<input  class="metadata-control" type="date" id="untildate" name="untildate">
 			<br><br> 
 			
-			<button class=" btn btn-block btn-outline-success btn-lg " type="submit" onClick="processValidations()">Send</button>
+			<button class=" btn btn-block btn-outline-success btn-lg " type="submit" onClick="processValidations()">Senden</button>
 	</form>
 
 

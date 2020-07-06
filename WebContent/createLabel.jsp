@@ -14,13 +14,13 @@
      	<%=HtmlDefaults.generateHtmlNavbar(user)%>
 		<div class="container">
 			<form class=" form-signin " method="post" action="CreateLabel">
-				<h2 class=" form-signin-heading ">Create Label</h2>
+				<h2 class=" form-signin-heading ">Label erstellen</h2>
 				<label for=" inputLabel" class=" sr-only "> Label</label>
 				<input type="text" name="inputLabel" id=" inputLabel " class=" form-control " placeholder=" Label " required autofocus>
   
-				<label for=" inputLink " class=" sr-only ">Link of the label</label>
+				<label for=" inputLink " class=" sr-only ">Link zum Label</label>
 				<input type="url" name="inputLink" id=" inputLink " class=" form-control " placeholder=" Link " required>
-				<button class="  btn btn-block btn-outline-success btn-lg " type="submit">Send</button>
+				<button class="  btn btn-block btn-outline-success btn-lg " type="submit">Senden</button>
    			</form>
 		</div>  
     	<%=HtmlDefaults.generateHtmlFooter()%>

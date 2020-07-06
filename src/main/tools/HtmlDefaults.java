@@ -31,23 +31,23 @@ public class HtmlDefaults {
 		StringBuilder addition = new StringBuilder(""); 
 		if(user != null) {
 			if(user.getUsertype().getId() == 1) { //Admin
-				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong\">Create Song</a>");
-				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateArtist\">Create Artist</a>");
-				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateLabel\">Create Label</a>");
-				addition.append("<a class=\"nav-link nav-item text-light\"href=\"UserControl\">User Control</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong\">Song hinzuf&uumlgen</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateArtist\">K&uumlnstler anlegen</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateLabel\">Label anlegen</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"UserControl\">Benutzerverwaltung</a>");
 			}else if(user.getUsertype().getId() == 3) { //Moderator
-				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong\">Create Song</a>");
-				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateArtist\">Create Artist</a>");
-				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateLabel\">Create Label</a>");				
-				addition.append("<a class=\"nav-link nav-item text-light\"href=\"UserControl\">User Control</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong\">Song hinzuf&uumlgen</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateArtist\">K&uumlnstler anlegen</a>");
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"CreateLabel\">Label anlegen</a>");				
+				addition.append("<a class=\"nav-link nav-item text-light\"href=\"UserControl\">Benutzerverwaltung</a>");
 			}else if(user.getUsertype().getId() == 4) { //Artist
-				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong\">Create Song</a>");				
+				addition.append("<a class=\"nav-link nav-item text-light\" href=\"CreateSong\">Song hinzuf&uumlgen");				
 			}else if(user.getUsertype().getId() == 5) { //Label
 			}
-			addition.append("<a class=\"nav-link nav-item text-light\" href=\"userpage.jsp\">My Account</a>");
-			addition.append("<a href=\"Logout_Servlet\"><button class=\"btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0\">LogOut</button></a>");
+			addition.append("<a class=\"nav-link nav-item text-light\" href=\"userpage.jsp\">Mein Konto</a>");
+			addition.append("<a href=\"Logout\"><button class=\"btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0\">Abmelden</button></a>");
 		}else {
-			addition.append("<a href=\"Login_Servlet\"><button class=\"btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0\">LogIn</button></a>");
+			addition.append("<a href=\"Login\"><button class=\"btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0\">Anmelden</button></a>");
 		}
 		
 		addition.append("</nav>");		
@@ -159,7 +159,7 @@ public class HtmlDefaults {
 	public static String generateSongSearchResults(Song[] songs) {
 		StringBuilder strb = new StringBuilder();
 		strb.append("<p>");
-		strb.append("<h3>Results: </h3>");
+		strb.append("<h3>Suchergebnisse: </h3>");
 		strb.append("</p>");
 		 if(songs.length > 0){
 			 for(Song s : songs){
@@ -192,7 +192,8 @@ public class HtmlDefaults {
 		 }else {
 			 //No songs found!
 		 }
-		 strb.append("<label>Don\'t we have your favourite songs yet? Add them <a href=\"createSong.jsp\" title=\"Add Song\">here</a>!</label>");	
+		 //strb.append("<label>Don\'t we have your favourite songs yet? Add them <a href=\"createSong.jsp\" title=\"Add Song\">here</a>!</label>");
+		 strb.append("<label> Song nicht gefunden? <a href=\"createSong.jsp\" title=\"Add Song\">Hier</a> kannst du ihn hinzuf&uumlgen!</label>");
 		 return strb.toString();
 
 	}

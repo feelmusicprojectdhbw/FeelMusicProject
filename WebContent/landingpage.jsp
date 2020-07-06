@@ -46,7 +46,7 @@
         	<div class="explanationContainerChild">
             <h3>Starte deine Musikkarriere!</h3><br>
                 <p>
-                 Mit einem Account kannst du dir einen eigenen Artist Account erstellen und deine eigenen Songs hochladen. Nachdem kann jeder deine Lieder hören und feiern. Starte direkt <a href ="http://localhost:8080/FeelMusic_Servlet/createSong.jsp">hier</a>!
+                 Mit einem Account kannst du dir einen eigenen Artist Account erstellen und deine eigenen Songs hochladen. Nachdem kann jeder deine Lieder hören und feiern. Starte direkt <a href ="CreateSong">hier</a>!
                 </p>
             </div>
             <div class="explanationContainerChild">
@@ -64,7 +64,7 @@
         </div>
         
         <div class="informationContainer">
-        <p>Hast du weitere Fragen? <a href="http://localhost:8080/FeelMusic_Servlet/faq.jsp">Hier</a> gehts zum FAQ, wo du viele beantwortete Fragen findest! <br>
+        <p>Hast du weitere Fragen? <a href="FAQ">Hier</a> gehts zum FAQ, wo du viele beantwortete Fragen findest! <br>
         
         *Aktuell mit Soundcloud und Youtube kompartibel. </p>
         </div>
