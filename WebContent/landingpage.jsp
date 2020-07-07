@@ -66,7 +66,7 @@
         <div class="informationContainer">
         <p>Hast du weitere Fragen? <a href="FAQ">Hier</a> gehts zum FAQ, wo du viele beantwortete Fragen findest! <br>
         
-        *Aktuell mit Soundcloud und Youtube kompartibel. </p>
+        *Aktuell nur mit Soundcloud und Youtube kompatibel. </p>
         </div>
         
     </div>

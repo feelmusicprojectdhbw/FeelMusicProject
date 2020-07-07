@@ -192,6 +192,7 @@ playlistMapObject.forEach((el, index) =>{
 	loadNextSong(playlistState, 0);
 })()
 
+//load the next Song by index and a Trycounter (Counter is for nullcheck if a Platformn doesn't have a song)
 function loadNextSong(index, trycounter){
 	hideAllPlayers();
 	if(!isEmpty(player)){

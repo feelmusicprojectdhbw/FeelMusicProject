@@ -15,8 +15,8 @@
 		<div class="container">
 			<form class=" form-signin " method="post" action="CreateLabel">
 				<h2 class=" form-signin-heading ">Label erstellen</h2>
-				<label for=" inputLabel" class=" sr-only "> Label</label>
-				<input type="text" name="inputLabel" id=" inputLabel " class=" form-control " placeholder=" Label " required autofocus>
+				<label for="inputLabel" class=" sr-only "> Label</label>
+				<input type="text" name="inputLabel" id="inputLabel" class=" form-control " placeholder=" Label " required autofocus>
   
 				<label for=" inputLink " class=" sr-only ">Link zum Label</label>
 				<input type="url" name="inputLink" id=" inputLink " class=" form-control " placeholder=" Link " required>

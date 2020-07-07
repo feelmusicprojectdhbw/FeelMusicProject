@@ -17,11 +17,11 @@
     </head>
     
     <body>
-    	<div class="container">	
+    	
     	<% if(user != null){ %>   
 			<%=HtmlDefaults.generateHtmlNavbar(user)%>		
+		<div class="container">	
 			<h2 class="form-signin-heading">Willkommen zur&uumlck,  <%= user.getUsername() %>!</h2>
-		
 			<label>Benutzername: <%= user.getUsername() %></label> <br>
 			<label>E-Mail: <%= user.getEmailAddress() %></label> <br>
 			<label>Geburtsdatum: <%= user.getBirthdate() %></label> <br>
