@@ -1,3 +1,4 @@
+
 package main.servlets;
 
 import java.io.IOException;
@@ -17,7 +18,7 @@ import main.obj.User;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/Login_Servlet")
+@WebServlet("/Login")
 public class Login_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

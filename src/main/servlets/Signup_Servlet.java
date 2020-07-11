@@ -18,7 +18,7 @@ import main.obj.Usertype;
 /**
  * Servlet implementation class Signup_Servlet
  */
-@WebServlet("/Signup_Servlet")
+@WebServlet("/Signup")
 public class Signup_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

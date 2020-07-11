@@ -7,20 +7,21 @@
 <%@page import="main.servlets.*"%>
 <%=HtmlDefaults.generateHtmlHeader()%>
 
-<title>Search Song</title>
+<title>Song suchen</title>
 <link rel="stylesheet" href="css/stylesongsearch.css">
 </head>
 
 <body>
      <%	User user = (User) session.getAttribute("user");%>
      <%=HtmlDefaults.generateHtmlNavbar(user)%>
+     <div class="container">
 	<div class="wholewrapper">
 	<div class="formwrapper">
-		<h2>Search for a Songname or Artist</h2>
-			<p><label for=" inputSearch" ><b>Search:</b></label>	
+		<h2>Suche nach einem Songtitel und einem K&uumlnstler</h2>
+			<p><label for=" inputSearch" ><b>Suchen:</b></label>	
 			<input type="text" name="inputSearch" id="inputSearch" class="form-control" placeholder=" Songname " autofocus></p>
 			<br>	 
-			<p><label for="artist" > <b>Artist</b> </label>		
+			<p><label for="artist" > <b>K&uumlnstler</b> </label>		
 			<select class=" form-control "id="artist" name="artist">
 			<% Artist[] artists = Database.getAllArtists();
 	   	 	if(artists != null){
@@ -35,7 +36,7 @@
 			}%>
 			</select> </p>
 			<p>
-			<button class=" btn btn-lg btn-primary btn-block " onClick="searchSongs()">Search</button> </p>
+			<button class=" btn btn-success btn-lg " onClick="searchSongs()">Suchen</button> </p>
 			<br>
 			<br>
 		</div>
@@ -43,8 +44,10 @@
 		 			 
 		 </div>
 	 </div>
+	 </div>
+	 <%=HtmlDefaults.generateHtmlFooter()%>
 </body>
-<%=HtmlDefaults.generateHtmlFooter()%>
+
 
 <script src="https://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
 <script src="js/searchSong.js" type="text/javascript"></script>

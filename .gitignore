@@ -10,3 +10,6 @@ feelmusic/seg0/README_DO_NOT_TOUCH_FILES.txt
 feelmusic/service.properties
 *.class
 *.prefs
+/bin/
+.settings/org.eclipse.wst.common.project.facet.core.xml
+.settings/org.eclipse.wst.common.project.facet.core.xml

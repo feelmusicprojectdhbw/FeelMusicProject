@@ -6,7 +6,7 @@
 <%@page import="main.tools.*"%>
 <%@page import="main.servlets.*"%>
 <%=HtmlDefaults.generateHtmlHeader()%>
-        <title>Logout</title>
+        <title>Abgemeldet</title>
 		<link rel="stylesheet" href="css/login.css">
     </head>
     
@@ -14,7 +14,7 @@
      <%	User user = (User) session.getAttribute("user");%>
      <%=HtmlDefaults.generateHtmlNavbar(user)%>
 	<div class=" container ">
-      	<h2 class="form-signin-heading">You logged out successfully!</h2>
+      	<h2 class="form-signin-heading">Sie haben sich erfolgreich abgemeldet!</h2>
  	 </div> 
 	<%=HtmlDefaults.generateHtmlFooter()%>
 </body>

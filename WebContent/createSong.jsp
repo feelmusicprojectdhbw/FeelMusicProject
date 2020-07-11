@@ -9,41 +9,7 @@
 
 <title>createSong</title>
 <link rel="stylesheet" href="css/stylesongcreation.css">
-<script>
-	function processValidations(){
-		processFeelings();
-		processStyles();
-	}
-
-    function processFeelings()
-    {
-        var feelings = document.getElementsByName("feeling");
-        var selectedFeelings = [];
-        for (var i = 0; i < feelings.length; i++) {
-            if (feelings[i].checked) {
-            	selectedFeelings.push(feelings[i].value);
-            }
-        }
-        
-        var hiddenSelectedFeelings = document.getElementById("selectedFeelings");
-        hiddenSelectedFeelings.value = selectedFeelings.join(";");
-    }
-    
-    function processStyles()
-    {
-        var styles = document.getElementsByName("style");
-        var selectedStyles = [];
-        for (var i = 0; i < styles.length; i++) {
-            if (styles[i].checked) {
-            	selectedStyles.push(styles[i].value);
-            }
-        }
-        
-        var hiddenSelectedStyles = document.getElementById("selectedStyles");
-        hiddenSelectedStyles.value = selectedStyles.join(";");
-        
-    }
-</script>
+<script type="text/javascript" src="js/songCreation.js"></script>
 </head>
 
 <body>
@@ -51,9 +17,9 @@
      <%=HtmlDefaults.generateHtmlNavbar(user)%>
 <div class="container">
 <%if(user != null){ %>
-	<h2 class=" form-signin-heading ">Create Song</h2>
+	<h2 class=" form-signin-heading ">Song hinzuf&uumlgen</h2>
 
-			<form id="songcreation" class="form-signin " method="post" action="CreateSong_Servlet">
+			<form id="songcreation" class="form-signin " method="post" action="CreateSong">
 			
 
 			<label for=" inputSong" ><b>Song</b></label> 	
@@ -61,7 +27,7 @@
 	
 	<div class="songmetadatawrapperdiv">
 		<div class="artistsdiv">
-			<label for="artist" > <b>Artist</b> </label>		
+			<label for="artist" > <b>K&uumlnstler</b> </label>		
 			<select class=" form-control "id="artist" name="artist">
 		<% 	Artist[] artists = null; 
 			if(user.getUsertype().getId() == 1 || user.getUsertype().getId() == 3 ||user.getUsertype().getId() == 4){
@@ -79,7 +45,7 @@
 			}%>
 			</select>		
 			
-			<label for="coartist1 coartist2 coartist3 coartist4 " ><b>Co-Artists</b></label>
+			<label for="coartist1 coartist2 coartist3 coartist4 " ><b>Co-Produzenten</b></label>
 			<div class="coartistsdiv">
 			<select class=" form-control " id="coartist1" name="coartist1">
 	 		<% if(artists != null){
@@ -122,7 +88,7 @@
 			</div>
 		</div>
 		<div class="songmetadatadiv">	
-			<label for="releaseDate"> <b>Releasedate</b></label> <br>
+			<label for="releaseDate"> <b>Erscheinungsdatum</b></label> <br>
 			<input type="date" id="releaseDate" name="releaseDate" class=" metadata-control " required> 
 			
 			<label for="genre" ><b>Genre</b></label> 
@@ -158,7 +124,7 @@
 				}%>
 			</select>
 			
-			<label for=" inputLanguage " ><b>Language</b></label> 
+			<label for=" inputLanguage " ><b>Sprache</b></label> 
 			<select class=" metadata-control " name = inputLanguage>
 			 <% 
 			 if(Languages.getLanguages() != null && Languages.getLanguages().length > 0){
@@ -171,7 +137,7 @@
 		</div>	
 	</div>
 	<div class="linksdiv">	
-		<label><b>Feelings</b></label> 
+		<label><b>Gef&uumlhle</b></label> 
 	
 		<div class="tlayoutdiv">
 			<table class="tlayout">
@@ -236,8 +202,7 @@
 			<label for=" inputScLink " ><b>Soundcloud Link</b></label>
 			<input type=" url " name="inputScLink" id=" inputLink " class=" form-control " placeholder=" scLink ">
 
-			<button class=" btn btn-lg btn-primary btn-block " type="submit" onClick="processValidations()">Send</button>
-			<button class=" btn btn-lg btn-primary btn-block " type="reset">Delete</button>
+			<button class="  btn btn-block btn-outline-success btn-lg " type="submit" onClick="processValidations()">Senden</button>
 		</form>
 		<%}else{%>
 			<%=HtmlDefaults.generateNotLoggedInMessage()%>

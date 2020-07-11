@@ -4,13 +4,13 @@
 }
 #playlistlistdiv{
 	float:left;
-	width: 20%;
+	width: 30%;
 	height: 500px;
     overflow:auto;  
 }
 #playlistsongsdiv{
 	float:left; 	
-	width: 79%;
+	width: 69%;
  	overflow:auto;  
 }
 #table-wrapper {
@@ -34,28 +34,4 @@
 	z-index:2;
 	height:20px;
 	width:35%;
-}
-
-html{ 
-	height:100%; 
-}
-
-body{
-	position: relative;
-	min-height: 100%;
-	padding:0; 
-	margin:0; 
-}
-
-body::after {
-  content: '';
-  display: block;
-  height: 56px; /* Set same as footer's height */
-}
-
-footer{
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 56px;
 }

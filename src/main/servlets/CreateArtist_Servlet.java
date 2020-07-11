@@ -15,77 +15,65 @@ import main.dao.Database;
 /**
  * Servlet implementation class CreateArtist_Servlet
  */
-@WebServlet("/CreateArtist_Servlet")
+@WebServlet("/CreateArtist")
 public class CreateArtist_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Database db;
 	private static CreateArtist_Servlet me;
-   
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CreateArtist_Servlet() {
-        super();
-        CreateArtist_Servlet.me = this;
-        if (db == null) {
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public CreateArtist_Servlet() {
+		super();
+		CreateArtist_Servlet.me = this;
+		if (db == null) {
 			try {
 				db = Database.getDatabase();
 			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
-        }
-    }
+		}
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.sendRedirect("createArtist.jsp");
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String creation = request.getParameter("createOrDelete");
-		String artistToDelete = request.getParameter("artistToDelete");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String name = request.getParameter("inputArtist");
 		String link = request.getParameter("inputLink");
-		
-		if(creation != null) {
-			if(creation.equalsIgnoreCase("create")) {
-				
-				try {
-					if(!db.checkArtistAlreadyExists(name)) {
-						db.insertArtist(name.trim(), link);
-					}else {
-						System.out.println("Artist with that Name already exists.");
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+
+		if (name != null && !name.trim().isEmpty()) {
+			try {
+				if (!db.checkArtistAlreadyExists(name)) {
+					db.insertArtist(name.trim(), link);
+				} else {
+					System.out.println("Artist with that Name already exists.");
 				}
-			}else if(creation.equalsIgnoreCase("delete")){			
-				if(artistToDelete != null && db != null) {
-					String[] spl = artistToDelete.split(";");
-					if(spl.length == 2) {
-						try {
-							db.deleteArtist(Integer.parseInt(spl[1]), spl[0]);
-						}catch(Exception e) {
-							e.printStackTrace();
-						};
-						
-					}
-				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
+
 		doGet(request, response);
 	}
-	
+
 	public static ServletContext getServerContext() {
 		return me.getServletContext();
 	}
-	
+
 	public static CreateArtist_Servlet getMe() {
 		return me;
 	}

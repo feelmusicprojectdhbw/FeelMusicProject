@@ -32,7 +32,7 @@ function changedUsertype(currentusertype, currentconnection){
 function searchUser(ownusertypeid){
 	var srch = document.getElementById('inputSearch').value;
 	$.ajax({
-		url : 'UserControl_Servlet',
+		url : 'UserControl',
 		data : {
 			inputSearch : srch,
 		},

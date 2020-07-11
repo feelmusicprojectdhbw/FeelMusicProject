@@ -3,7 +3,7 @@ function searchSongs(){
 	var slctArtist = document.getElementById("artist");
 	var art = slctArtist.options[slctArtist.selectedIndex].text;
 	$.ajax({
-		url : 'SearchSong_Servlet',
+		url : 'SearchSong',
 		data : {
 			inputSearch : srch,
 			artist: art

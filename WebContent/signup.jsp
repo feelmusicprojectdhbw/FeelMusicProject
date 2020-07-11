@@ -6,7 +6,7 @@
 <%@page import="main.tools.*"%>
 <%@page import="main.servlets.*"%>
 <%=HtmlDefaults.generateHtmlHeader()%>
-    <title>SingUp</title>
+    <title>Account erstellen</title>
 	<link rel="stylesheet" href="css/login.css">
 </head>
 
@@ -24,19 +24,19 @@
 	String birthdate = (String) request.getAttribute("birthdate");
 	%>
 
-    <form class=" form-signin " method="post" action="Signup_Servlet">
-		<h2 class=" form-signin-heading ">Please Sign up</h2>
+    <form class=" form-signin " method="post" action="Signup">
+		<h2 class=" form-signin-heading ">Bitte geben Sie ihre Daten ein</h2>
                                        
-		<label for="username">Username</label>
-		<input type="text" required autocomplete="username" id="username" name="inputusername" class=" form-control " placeholder="Username" minlength="4" maxlength="20" value="<%=((username!=null)?username:"") %>" required autofocus>                              
+		<label for="username">Benutzername</label>
+		<input type="text" required autocomplete="username" id="username" name="inputusername" class=" form-control " placeholder="Benutzername" minlength="4" maxlength="20" value="<%=((username!=null)?username:"") %>" required autofocus>                              
                                        
-		<label for="inputEmail">Email address</label>
+		<label for="inputEmail">E--Mail Addresse</label>
 		<input type="email" required  autocomplete="email" autocorrect="on" id="inputEmail" name="inputemail" class=" form-control " placeholder="name@example.com" value="<%=((mailaddress!=null)?mailaddress:"") %>" required>
 		
 		<label for="inputPassword">Password</label>
 		<input type="password" id="inputPassword" name="inputpassword" class="form-control" placeholder="Password" minlength="8" required>
       
-		<label for="birthdate">Birthdate</label> 
+		<label for="birthdate">Geburtsdatum</label> 
 		<input class="form-control"type="date" id="birthdate" name="inputbirthdate" value="<%=((birthdate!=null)?birthdate:"") %>" required>                                                                                     
      <% if(useralreadyexists != null && useralreadyexists == Boolean.TRUE){%>
 			<div class="loginfaildiv">
@@ -50,10 +50,10 @@
 		<%}%>
 		<% if(loginfailed != null && loginfailed == Boolean.TRUE){%>
 			<div class="loginfaildiv">
-				<label class="loginfaillabel"><b>Error in Database, try again later!</b></label>
+				<label class="loginfaillabel"><b>Fehler in der Datenbank, bitte versuchen Sie es zu einem sp&aumlteren Zeitpunkt noch einmal.</b></label>
 			</div>
 		<%}%>
-      <button class=" btn btn-lg btn-primary btn-block " type="submit">Sign up</button>     
+      <button class=" btn btn-lg btn-primary btn-block " type="submit">Registrieren</button>     
     </form>
   </div>
   <%=HtmlDefaults.generateHtmlFooter()%>

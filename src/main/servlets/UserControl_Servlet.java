@@ -16,7 +16,7 @@ import main.obj.User;
 /**
  * Servlet implementation class UserControl_Servlet
  */
-@WebServlet("/UserControl_Servlet")
+@WebServlet("/UserControl")
 public class UserControl_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
  

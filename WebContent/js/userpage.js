@@ -16,14 +16,14 @@ function focusPlaylist(id){
 }
 
 function playPlaylist(p, u){
-	window.location.href = ("PlaylistAction_Servlet?a=play&p=" + p + "&u=" + u);
+	window.location.href = ("PlaylistAction?a=play&p=" + p + "&u=" + u);
 }
 
 function deletePlaylist(pllst, usr){	
 	var result = confirm("Are you sure you want to delete this playlist?");
 	if (result) {
 		$.ajax({
-			url : 'PlaylistAction_Servlet',
+			url : 'PlaylistAction',
 			data : {
 				a : 'delete',
 				p : pllst,

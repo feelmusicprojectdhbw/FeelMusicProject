@@ -21,7 +21,7 @@ import main.tools.HtmlDefaults;
 /**
  * Servlet implementation class SearchSong_Servlet
  */
-@WebServlet("/SearchSong_Servlet")
+@WebServlet("/SearchSong")
 public class SearchSong_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

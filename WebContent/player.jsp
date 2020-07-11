@@ -8,7 +8,7 @@
 <%@page import="main.servlets.ajax.*"%>
 
 <%=HtmlDefaults.generateHtmlHeader()%>
-    <title>Home</title>
+    <title>Feel Music Player</title>
     <link rel="stylesheet" href="css/styleplayer.css">
 </head>
 <body>
@@ -36,8 +36,8 @@
         <!--    <div id="sfplayer" style="visibility: hidden;">
           <iframe src="https://open.spotify.com/embed/track/1CFv4FqqeaZkNViwWSdk47" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
           </div>-->
-          <p><button class="btn btn-outline-warning" id="previous">Previous</button>
-            <button class="btn btn-outline-warning" id="next">Next</button></p>
+          <p><button class="btn btn-outline-warning" id="previous">Vorheriges</button>
+            <button class="btn btn-outline-warning" id="next">N&aumlchstes</button></p>
             <p><label id="songname"> </label> - <a id="artist" href="" title="" target="_blank" rel="noopener noreferrer"> </a> <label id="coartists"> </label></p>
             <p>Label: <a id="label" href="" title="" target="_blank" rel="noopener noreferrer"> </a></p>
         </div>
@@ -48,18 +48,18 @@
 		    		<% if(p.getId() == 0){ %>
 		    		<label>
 		    			<input type="text" id="playlistname" name="playlistname" maxlength="20" value="<%=p.getName() %>">
-		    			<button id="savebutton" onclick="doSave()" class="btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0">Save</button>
+		    			<button id="savebutton" onclick="doSave()" class="btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0">Speichern</button>
 		    		</label>
 					<% }else{%>	
 					<h2><%=p.getName() %></h2>
 					<% }%>	    	
 					
 		    	<% }else{%>
-		    		<h2>Empty Playlist</h2>
+		    		<h2>Leere Playlist</h2>
 		    	<% }%>
 		    
 		  <%}else{%>
-          	<h2>New Playlist</h2>
+          	<h2>Neue Playlist</h2>
           <%}%>
           <div class='table-responsive'>
             <!--Table-->
@@ -69,9 +69,9 @@
 		              <!--Table head-->
 		              <thead>
 		                <tr>
-		                  <th>ID</th>
-		                  <th>Title</th>
-		                  <th>Artist</th>
+		                  <th>Nummer</th>
+		                  <th>Titel</th>
+		                  <th>K&uumlnstler</th>
 		                  
 		                </tr>
 		              </thead>
@@ -192,6 +192,7 @@ playlistMapObject.forEach((el, index) =>{
 	loadNextSong(playlistState, 0);
 })()
 
+//load the next Song by index and a Trycounter (Counter is for nullcheck if a Platformn doesn't have a song)
 function loadNextSong(index, trycounter){
 	hideAllPlayers();
 	if(!isEmpty(player)){
