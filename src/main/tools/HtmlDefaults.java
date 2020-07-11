@@ -79,8 +79,8 @@ public class HtmlDefaults {
 		File f = null;
 		if(FeelMusic_Servlet.getMe() != null) {
 			f = new File(FeelMusic_Servlet.getServerContext().getRealPath(path));			
-		}else if(CreatePlaylist_Servlet.getMe() != null) {
-			f = new File(CreatePlaylist_Servlet.getServerContext().getRealPath(path));
+		//}else if(CreatePlaylist_Servlet.getMe() != null) {
+		//	f = new File(CreatePlaylist_Servlet.getServerContext().getRealPath(path));
 		}else if(CreateArtist_Servlet.getMe() != null) {
 			f = new File(CreateArtist_Servlet.getServerContext().getRealPath(path));
 		}else if(CreateLabel_Servlet.getMe() != null) {

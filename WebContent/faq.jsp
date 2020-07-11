@@ -62,6 +62,7 @@
 	       <h2>Deine Frage wurde nicht beantwortet?   </h2>		        
 	       <p>
 	        Wenn du noch weitere Fragen hast kannst du uns gerne kontaktieren. Die Kontaktdaten findest du <a href="impressum.jsp">hier</a>.  </br>
+	        Du willst wissen, wie unsere Seite aufgebaut ist? In der <a href="FAQ?d=TechnischeDokuFeelMusic.pdf" download> Technischen Dokumentation </a> kannst du den gesamten Aufbau nachlesen. 
 	      </p>
 		</div>
         </div>

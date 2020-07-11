@@ -266,6 +266,7 @@
 			<br><br> 
 			
 			<button class=" btn btn-block btn-outline-success btn-lg " type="submit" onClick="processValidations()">Senden</button>
+			<br>
 	</form>
 
 

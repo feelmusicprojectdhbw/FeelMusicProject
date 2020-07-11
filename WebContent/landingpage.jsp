@@ -43,10 +43,10 @@
         </div>
         
         <div class="explanationContainer">
-        	<div class="explanationContainerChild">
-            <h3>Starte deine Musikkarriere!</h3><br>
+        	<div class="explanationContainerChild" >
+            <h3>Ganz einfaches erweitern deiner Playlist</h3><br>
                 <p>
-                 Mit einem Account kannst du dir einen eigenen Artist Account erstellen und deine eigenen Songs hochladen. Nachdem kann jeder deine Lieder hören und feiern. Starte direkt <a href ="CreateSong">hier</a>!
+                 Wenn ein Lied nicht bei deiner Playlist dabei sein sollte, kannst du es suchen. Falls es kein Ergebnis geben sollte, kannst du dieses Lied mit wenigen Klicks es hinzufügen.  
                 </p>
             </div>
             <div class="explanationContainerChild">
@@ -56,9 +56,9 @@
         	<div class="explanationContainerChild">
         	</div>
         	<div class="explanationContainerChild" >
-            <h3>Ganz einfaches erweitern deiner Playlist</h3><br>
+            <h3>Unterstütze uns</h3><br>
                 <p>
-                 Wenn ein Lied nicht bei deiner Playlist dabei sein sollte, kannst du es suchen. Falls es kein Ergebnis geben sollte, kannst du dieses Lied mit wenigen Klicks es hinzufügen.  
+                 Du hast deine eigenen Lieder schon auf anderen* Plattformen? Dann registriere dich mit einem Artist Account und lade deine Musik hoch. Daduch hilfst du uns, unser Angebot zu erweitern.  
                 </p>
             </div>
         </div>
