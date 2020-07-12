@@ -3,6 +3,15 @@ package main.tools;
 import java.util.ArrayList;
 
 public class Validations {
+	
+	public static String formatBirthdate(int bd) {
+		char[] cs = Integer.toString(bd).toCharArray();
+		if(cs.length == 8) {
+			return "" + cs[6] + cs[7] + "." + cs[4] + cs[5] + "." + cs[0] + cs[1] + cs[2] + cs[3];
+		}else {
+			return "";
+		}
+	}
 
 	public static int[] entferneDoppelte(int... ids) {
 		ArrayList<Integer> idslist = new ArrayList<Integer>();

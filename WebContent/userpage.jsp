@@ -24,7 +24,7 @@
 			<h2 class="form-signin-heading">Willkommen zur&uumlck,  <%= user.getUsername() %>!</h2>
 			<label>Benutzername: <%= user.getUsername() %></label> <br>
 			<label>E-Mail: <%= user.getEmailAddress() %></label> <br>
-			<label>Geburtsdatum: <%= user.getBirthdate() %></label> <br>
+			<label>Geburtsdatum: <%= Validations.formatBirthdate(user.getBirthdate()) %></label> <br>
 			<label>Benutzertyp: <%= user.getUsertype().getType() %></label><br>
 			<% Playlist[] pls = Database.loadPlaylistsByUser(user); 
 			   if(pls != null && pls.length > 0){%>
