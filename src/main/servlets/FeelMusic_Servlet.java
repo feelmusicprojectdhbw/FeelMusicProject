@@ -33,7 +33,7 @@ public class FeelMusic_Servlet extends HttpServlet {
 		if (db == null) {
 			try {
 				db = Database.getDatabase();
-		//		dump(db);
+				dump(db);
 				Genres.requery(db);
 				Languages.reloadLanguages(db);
 				Feelings.reloadFeelings(db);

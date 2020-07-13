@@ -29,7 +29,7 @@ public class Database {
 	private String host, database, user, pw;
 	private Connection connection;
 	
-	private static final boolean mySQL = true;
+	private static final boolean mySQL = false;
 
 	private static boolean isInstantiated() {
 		return thisDB != null;
