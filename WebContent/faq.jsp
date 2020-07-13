@@ -5,13 +5,11 @@
 <%@page import="main.dao.*"%>
 <%@page import="main.tools.*"%>
 <%@page import="main.servlets.*"%>
-        <%=HtmlDefaults.generateHtmlHeader()%>  
-        <title>FAQ</title>
-    </head>
-    
-    <body>
-     <%	User user = (User) session.getAttribute("user");%>
-     <%=HtmlDefaults.generateHtmlNavbar(user)%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<t:app>
+ 	<jsp:body> 
      	<div class="container">
         <div class="jumbotron">
         <h2>Wie kann ich eine Playlist erstellen? </h2>
@@ -62,12 +60,9 @@
 	       <h2>Deine Frage wurde nicht beantwortet?   </h2>		        
 	       <p>
 	        Wenn du noch weitere Fragen hast kannst du uns gerne kontaktieren. Die Kontaktdaten findest du <a href="impressum.jsp">hier</a>.  </br>
+	        Du willst wissen, wie unsere Seite aufgebaut ist? In der <a href="FAQ?d=TechnischeDokuFeelMusic.pdf" download> Technischen Dokumentation </a> kannst du den gesamten Aufbau nachlesen. 
 	      </p>
 		</div>
         </div>
-
-    <%=HtmlDefaults.generateHtmlFooter()%>
-    
-</body>
-
-</html>
+	</jsp:body>
+</t:app>

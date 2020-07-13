@@ -5,13 +5,11 @@
 <%@page import="main.dao.*"%>
 <%@page import="main.tools.*"%>
 <%@page import="main.servlets.*"%>
-<%=HtmlDefaults.generateHtmlHeader()%>
-        <title>Impressum</title>
-    </head>
-    
-    <body>
-     <%	User user = (User) session.getAttribute("user");%>
-     <%=HtmlDefaults.generateHtmlNavbar(user)%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<t:app>
+ 	<jsp:body>
  	<div class="bigWrapper, container">
         <div class="headerContainerImage">
             <div class="headerContainerContent">
@@ -69,7 +67,5 @@
             </div>
         </div>
     </div>
-    <%=HtmlDefaults.generateHtmlFooter()%>
-</body>
-
-</html>
+	</jsp:body>
+</t:app>

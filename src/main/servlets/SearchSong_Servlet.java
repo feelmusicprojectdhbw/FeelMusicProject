@@ -61,8 +61,8 @@ public class SearchSong_Servlet extends HttpServlet {
 			try {
 				if(db != null) {
 						Song[] songs = null;
-						if(Integer.parseInt(artist.split(";")[1]) != 1) {
-							songs = db.searchForSongByNameAndArtist(searchSong, Integer.parseInt(artist.split(";")[1]));							
+						if(Integer.parseInt(artist) != 1) {
+							songs = db.searchForSongByNameAndArtist(searchSong, Integer.parseInt(artist));							
 							response.getWriter().write(HtmlDefaults.generateSongSearchResults(songs));
 						}else {
 							songs = db.searchForSongByName(searchSong);

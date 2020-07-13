@@ -4,7 +4,7 @@ public class Song {
 	
 	private int id;
 	private int releasedate;
-	private String name;
+	private String songname;
 	private Artist artist;
 	private CoArtists coArtists;
 	private Album album;
@@ -18,7 +18,7 @@ public class Song {
 		super();
 		this.id = id;
 		this.releasedate = releasedate;
-		this.name = name;
+		this.songname = name;
 		this.artist = artist;
 		this.coArtists = coArtists;
 		this.album = album;
@@ -45,11 +45,11 @@ public class Song {
 	}
 
 	public String getName() {
-		return name;
+		return songname;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.songname = name;
 	}
 
 	public Artist getArtist() {

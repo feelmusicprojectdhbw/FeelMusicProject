@@ -47,7 +47,7 @@ function searchUser(ownusertypeid){
 					document.getElementById("hiddenid").value = splitted[0];
 					document.getElementById("usernameSpan").innerHTML = splitted[1];
 					document.getElementById("emailSpan").innerHTML = splitted[2];
-					document.getElementById("birthdateSpan").innerHTML = splitted[3];	
+					document.getElementById("birthdateSpan").innerHTML = "" + splitted[3].charAt(6) + splitted[3].charAt(7) + "." + splitted[3].charAt(4) + splitted[3].charAt(5) + "." + splitted[3].charAt(0) + splitted[3].charAt(1) + splitted[3].charAt(2) + splitted[3].charAt(3);	
 					var usertypeselector = document.getElementById("usertypeselector");
 					
 					usertypeselector.setAttribute('onchange','changedUsertype(' + splitted[4] + ', ' + splitted[5] + ')');

@@ -5,14 +5,11 @@
 <%@page import="main.dao.*"%>
 <%@page import="main.tools.*"%>
 <%@page import="main.servlets.*"%>
-<%=HtmlDefaults.generateHtmlHeader()%>
-        <title>Anmelden</title>
-		<link rel="stylesheet" href="css/login.css">
-    </head>
-    
-    <body>
-     <%	User user = (User) session.getAttribute("user");%>
-     <%=HtmlDefaults.generateHtmlNavbar(user)%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<t:app>
+ 	<jsp:body>
 	<div class=" container ">
 
     <form class="form-signin" method="post" action="Login">
@@ -26,17 +23,15 @@
           <input type="checkbox" name="rlabel" value="remember-me" id="rlabel"> Remember me
         </label>
       </div>-->
-      <% Boolean fail = (Boolean)request.getAttribute("loginfailed");
-        if(fail != null && fail == Boolean.TRUE){%>
-			<div class="loginfaildiv">
+      	<c:if test="${not empty loginfailed}">
+      		<div class="loginfaildiv">
 				<label class="loginfaillabel"><b>Benutzername oder Kennwort falsch!</b></label>
 			</div>
-		<%}%>
+      	</c:if>
       	<button class="btn btn-block btn-outline-success btn-lg " type="submit">Anmelden</button>
 		<label>You don't have a Account yet? Klick here to <a style="margin: 1px;" href="Signup">Registrieren</a></label>
     </form>
 
   </div>
-	<%=HtmlDefaults.generateHtmlFooter()%>
-</body>
-</html>
+	</jsp:body>
+</t:app>

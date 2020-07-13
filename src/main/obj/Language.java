@@ -5,6 +5,8 @@ public class Language {
 	private int id;
 	private String name;
 	
+	public Language() {}
+	
 	public Language(int id, String name) {
 		super();
 		this.id = id;
@@ -18,6 +20,9 @@ public class Language {
 	}
 	public String getName() {
 		return name;
+	}
+	public String getTrimmedName() {
+		return name.replace(" ", "");
 	}
 	public void setName(String name) {
 		this.name = name;

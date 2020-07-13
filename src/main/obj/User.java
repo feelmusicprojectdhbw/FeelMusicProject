@@ -4,6 +4,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
+import main.dao.Database;
+import main.tools.Validations;
+
 public class User {
 	
 	private int id;
@@ -23,6 +28,30 @@ public class User {
 
 	public int getId() {
 		return id;
+	}
+	
+	public boolean isAdmin() {
+		return usertype.getId() == 1;
+	}
+	
+	public boolean isDefault() {
+		return usertype.getId() == 2;
+	}
+	
+	public boolean isModerator() {
+		return usertype.getId() == 3;
+	}
+	
+	public boolean isArtist() {
+		return usertype.getId() == 4;
+	}
+	
+	public boolean hasElevatedPermissions() {
+		return isAdmin() || isModerator();
+	}
+	
+	public boolean isLabel() {
+		return usertype.getId() == 5;
 	}
 
 	public void setId(int id) {
@@ -47,6 +76,10 @@ public class User {
 
 	public int getBirthdate() {
 		return birthdate;
+	}
+	
+	public String getFormattedBirthdate() {
+		return Validations.formatBirthdate(birthdate);
 	}
 
 	public void setBirthdate(int birthdate) {
@@ -98,6 +131,15 @@ public class User {
 			
 		}
 		return salt;
+	}
+	
+	public static User getCurrentUser(HttpSession ses) {
+		return null;
+		
+	}
+	
+	public Playlist[] loadUserplaylists() {
+		return Database.loadPlaylistsByUser(this);
 	}
 
 	public Optional<User> findByLoginToken(String token) {

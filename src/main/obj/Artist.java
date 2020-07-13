@@ -15,6 +15,10 @@ public class Artist {
 	public String getName() {
 		return name;
 	}
+	
+	public boolean isNoDefault() {
+		return id != 1;
+	}
 
 	public void setName(String name) {
 		this.name = name;

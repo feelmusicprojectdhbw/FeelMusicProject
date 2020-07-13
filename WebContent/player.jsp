@@ -6,15 +6,11 @@
 <%@page import="main.tools.*"%>
 <%@page import="main.servlets.*"%>
 <%@page import="main.servlets.ajax.*"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%=HtmlDefaults.generateHtmlHeader()%>
-    <title>Feel Music Player</title>
-    <link rel="stylesheet" href="css/styleplayer.css">
-</head>
-<body>
-     <%	User user = (User) session.getAttribute("user");
-        Playlist p = (Playlist)request.getAttribute("playlist");%>
-     <%=HtmlDefaults.generateHtmlNavbar(user)%>
+<t:app>
+ <jsp:body>   
 
 	<div class=" container">
 	<p>
@@ -42,26 +38,27 @@
             <p>Label: <a id="label" href="" title="" target="_blank" rel="noopener noreferrer"> </a></p>
         </div>
         <div class="col-md">
-          <%if(user != null){%>    	
-		    	<% if(p != null && p.getSongs().length > 0){ %>
-		    	 
-		    		<% if(p.getId() == 0){ %>
-		    		<label>
-		    			<input type="text" id="playlistname" name="playlistname" maxlength="20" value="<%=p.getName() %>">
-		    			<button id="savebutton" onclick="doSave()" class="btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0">Speichern</button>
-		    		</label>
-					<% }else{%>	
-					<h2><%=p.getName() %></h2>
-					<% }%>	    	
-					
-		    	<% }else{%>
-		    		<h2>Leere Playlist</h2>
-		    	<% }%>
-		    
-		  <%}else{%>
-          	<h2>Neue Playlist</h2>
-          <%}%>
-          <div class='table-responsive'>
+        <c:if test="${not empty user}">
+        	<c:choose>
+        	<c:when test="${not empty playlist}">
+	        	<c:choose>
+	        	<c:when test="${playlist.isDefault()}">
+	        		<label>
+			    		<input type="text" id="playlistname" name="playlistname" maxlength="20" value="${playlist.getName()}">
+			    		<button id="savebutton" onclick="doSave()" class="btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0">Speichern</button>
+			    	</label>
+	        	</c:when>
+	        	<c:otherwise>
+	        		<h2>${playlist.getName()}</h2>
+	        	</c:otherwise>
+	        	</c:choose>
+        	</c:when>
+        	<c:otherwise>
+        		<h2>Leere Playlist</h2>
+        	</c:otherwise>
+        	</c:choose>
+        </c:if>
+		<div class='table-responsive'>
             <!--Table-->
             <div id="table-wrapper">
  				<div id="table-scroll">
@@ -89,24 +86,13 @@
       </div>
       <hr>
       </div>
-      <%=HtmlDefaults.generateHtmlFooter()%>
-</body>
+</jsp:body>
+</t:app>
 <!--<script type="text/javascript" src="js/scApi.js"></script>-->
 <script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
 <script>
-var playlistMapObject = [
-	<% if(p != null){
- 		
-		for (Song s : p.getSongs()) { %>
-  			{ytlink: "<%= s.getLinks()[0] %>", sflink: "<%= s.getLinks()[1] %>", sclink: "<%= s.getLinks()[2] %>", title: "<%= s.getName() %>", 
-	  		 artist: "<%= s.getArtist().getName() %> %ARTISTLINK% <%= s.getArtist().getLink() %>", songid: "<%= s.getId() %>",
-	  		 coartists: "<% if(s.getCoArtists() != null && s.getCoArtists().getCoartists().length > 0){for(Artist a : s.getCoArtists().getCoartists()){ %><%= a.getName()%>%ARTISTLINK%<%= a.getLink()%>;<%}}%>",
-	  		 label: "<%=s.getLabel().getName()%>%LABELLINK%<%=s.getLabel().getLink()%>"
-	  		},
-     <% } 
-	  	} %>
-   ]
+var playlistMapObject = JSON.parse('${playlist.asJSON()}').songs;
 var playlistState = 0;  
 var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
@@ -118,7 +104,7 @@ function onYouTubeIframeAPIReady() {
 	player = new YT.Player('ytplayer', {
 		height: '360',
 		width: '640',
-		videoId: playlistMapObject[0].ytlink,
+		videoId: playlistMapObject[0].links[0],
 		events: {
 			'onReady': onPlayerReady,
 			'onStateChange': onPlayerStateChange
@@ -177,8 +163,8 @@ playlistMapObject.forEach((el, index) =>{
 	let cell3 = row.insertCell(2);
   
 	cell.innerHTML = index;
-	cell2.innerHTML = el.title;
-	cell3.innerHTML = el.artist.split("%ARTISTLINK%")[0];
+	cell2.innerHTML = el.songname;
+	cell3.innerHTML = el.artist.name;
 
 	row.style = 'cursor: pointer;';
 	row.addEventListener('click', function () {
@@ -194,16 +180,16 @@ playlistMapObject.forEach((el, index) =>{
 
 //load the next Song by index and a Trycounter (Counter is for nullcheck if a Platformn doesn't have a song)
 function loadNextSong(index, trycounter){
-	hideAllPlayers();
+	hideAllPlayers();	
 	if(!isEmpty(player)){
 		player.pauseVideo();
 	}
 	soundcloud.pause();
 	if(document.getElementById('chooseYtPlayer').checked) {
-		if(!isEmpty(playlistMapObject[index].ytlink)){
+		if(!isEmpty(playlistMapObject[index].links[0])){
 			document.getElementById("ytplayerdiv").style.visibility = "visible";
 			document.getElementById("ytplayerdiv").style.display = "block";
-	 		player.loadVideoById(playlistMapObject[index].ytlink, 0, "large");
+	 		player.loadVideoById(playlistMapObject[index].links[0], 0, "large");
 		}else{
 			trycounter++;
 			if(trycounter >= document.getElementsByName('playerChooser').length){
@@ -215,10 +201,10 @@ function loadNextSong(index, trycounter){
 			}
 		}
 	}else if(document.getElementById('chooseScPlayer').checked) {
-		if(!isEmpty(playlistMapObject[index].sclink)){
+		if(!isEmpty(playlistMapObject[index].links[2])){
 			document.getElementById("scplayerdiv").style.visibility = "visible";
 			document.getElementById("scplayerdiv").style.display = "block";
-			soundcloud.load('https%3A//api.soundcloud.com/tracks/' + playlistMapObject[index].sclink);
+			soundcloud.load('https%3A//api.soundcloud.com/tracks/' + playlistMapObject[index].links[2]);
 			soundcloud.bind(SC.Widget.Events.READY, function() {
 				soundcloud.play();
 				soundcloud.unbind(SC.Widget.Events.READY);
@@ -268,53 +254,51 @@ function isEmpty(e) {
 }
  
 function refreshInfo(n){
-    document.getElementById("songname").innerHTML = playlistMapObject[n].title;
-    let arti =  playlistMapObject[n].artist.split("%ARTISTLINK%");      
-    if(arti[1]){
-        document.getElementById("artist").innerHTML = "<a href=\"" + arti[1] + "\" title=\"" + arti[0] + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + arti[0] + "</a>";	  
+    document.getElementById("songname").innerHTML = playlistMapObject[n].songname;
+    let arti =  playlistMapObject[n].artist;      
+    if(arti.link){
+        document.getElementById("artist").innerHTML = "<a href=\"" + arti.link + "\" title=\"" + arti.name + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + arti.name + "</a>";	  
     }else{
   	  document.getElementById("artist").innerHTML = arti[0];
     }
     
     let coartistcell = "";
-    let coart = playlistMapObject[n].coartists;
-    if(coart !== ""){
-  	  coart.split(";").forEach((item, index) =>{
-	    	let art = item.split("%ARTISTLINK%");
-	    	if(art[1] !== "" && art[0] !== ""){
-	    		coartistcell = coartistcell.concat(((index == 0)?"feat. ":", ") + "<a href=\"" + art[1] + "\" title=\"" + art[0] + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + art[0] + "</a>");
-	    	}else if(art[0] !== ""){
-	    		coartistcell = coartistcell.concat(((index == 0)?"feat. ":", ") + art[0]);
-	    	}
-	    });
- 	}
+    let coart = playlistMapObject[n].coArtists.coartists;
+    if(coart){
+	  	coart.forEach((item, index) =>{
+		    	if(item.link !== "" && item.name !== ""){
+		    		coartistcell = coartistcell.concat(((index == 0)?"feat. ":", ") + "<a href=\"" + item.link + "\" title=\"" + item.name + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + item.name + "</a>");
+		    	}else if(art[0] !== ""){
+		    		coartistcell = coartistcell.concat(((index == 0)?"feat. ":", ") + item.name);
+		    	}
+		 });
+	}
     
     document.getElementById("coartists").innerHTML = coartistcell;
     
     
-    let lbl =  playlistMapObject[n].label.split("%LABELLINK%");      
-    if(lbl[1]){
-        document.getElementById("label").innerHTML = "<a href=\"" + lbl[1] + "\" title=\"" + lbl[0] + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + lbl[0] + "</a>";	  
+    let lbl =  playlistMapObject[n].label;      
+    if(lbl.link){
+        document.getElementById("label").innerHTML = "<a href=\"" + lbl.link + "\" title=\"" + lbl.name + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + lbl.name + "</a>";	  
     }else{
-  	  document.getElementById("label").innerHTML = lbl[0];
+  	  document.getElementById("label").innerHTML = lbl.name;
     }
 }
 
 function doSave(){
-	<% if(user != null){ %>
 	var ajaxreqdata = "";
 
 	playlistMapObject.forEach((el, index) =>{
 		if(index != 0){
 			ajaxreqdata = ajaxreqdata.concat(";");	
 		}
-		ajaxreqdata = ajaxreqdata.concat(el.songid);
+		ajaxreqdata = ajaxreqdata.concat(el.id);
 	});
 
 	$.ajax({
 		url : 'SavePlaylist_Ajax_Servlet',
 		data : {
-			userid : <%=user.getId()%>,
+			userid : "${user.getId()}",
 			playlistname : document.getElementById("playlistname").value,
 			playlist : ajaxreqdata
 		},
@@ -326,7 +310,6 @@ function doSave(){
 			}
 		}
 	});
-	<% } %>
 }
 
 </script>

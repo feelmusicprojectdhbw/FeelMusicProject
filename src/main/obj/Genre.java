@@ -7,6 +7,10 @@ public class Genre {
 	
 	private Genre[] subgenres;
 	
+	public Genre() {
+		subgenres = new Genre[0];
+	};
+	
 	public Genre(int id, String name, int parentID) {
 		this.name = name;
 		this.id = id;
@@ -36,6 +40,14 @@ public class Genre {
 
 	public String getName() {
 		return name;
+	}
+	
+	public boolean hasSubgenres() {
+		return this.getSubgenres() != null;
+	}
+	
+	public String getTrimmedName() {
+		return name.replace(" ", "");
 	}
 
 	public Genre searchParentId(int n) {

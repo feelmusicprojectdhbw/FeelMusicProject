@@ -49,9 +49,17 @@ public class Feelings {
 	public static Feeling[] getFeelings() {
 		return feelings;
 	}
+	
+	public static boolean hasFeelings() {
+		return feelings != null;
+	}
 
 	public static void setFeelings(Feeling[] feelings) {
 		Feelings.feelings = feelings;
+	}
+	
+	public static int calc() {
+		return ((Feelings.getFeelings().length / 5) + ((Feelings.getFeelings().length%5==0)?0:1));
 	}
 
 }

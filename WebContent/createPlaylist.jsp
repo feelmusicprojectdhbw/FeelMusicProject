@@ -5,99 +5,82 @@
 <%@page import="main.dao.*"%>
 <%@page import="main.tools.*"%>
 <%@page import="main.servlets.*"%>
-<%=HtmlDefaults.generateHtmlHeader()%>
-<title>createPlaylist</title>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link rel="stylesheet" href="css/styleplaylistcreation.css">
-<script src="js/playlistCreation.js" type="text/javascript" ></script>
-</head>
-<body>
-     <%	User user = (User) session.getAttribute("user");%>
-     <%=HtmlDefaults.generateHtmlNavbar(user)%>
-	
-<div class="container">
+<t:app>
+ <jsp:body>	
+	<div class="container">
 	<form id="playlistcreation" class=" form-signin " method="post" action="CreatePlaylist">
   		<!-- <h4 class="pt-3 pl-3"><b>Genres</b></h4> -->
   		<label for="exampleFormControlSelect2">Genres</label>
  		<hr>		
 		<div class="genrediv">
-		<% 	
-		if(Genres.getGenres() != null){%>
+		<c:if test="${Genres.hasGenres()}">
 			<table>
 			<tbody>
 			<tr>
-			<%for (Genre g : Genres.getGenres()) {%>
+			<c:forEach var="g" items="${Genres.getGenres()}">
 			<td class="genretd">
 			<ul class="treeview-animated-list mb-3" id="genreTreeUlCheckbox">
 
-				<% String mainG = g.getName().replace(" ", "");
-				%>
 				<li class="treeview-animated-items">
-					<input class="<%= mainG %>radio" type="radio" value="#6c757d" checked hidden>
-					<input class="<%= mainG %>radio" type="radio" value="green" hidden>
-					<input class="<%= mainG %>radio" type="radio" value="red" hidden>
-					<div id="<%= mainG %>div">
-						<genre id="<%= mainG %>btn" name="genre" class="btn btn-secondary" onclick="doGenre('<%= mainG %>')" value="<%= mainG %>" selection="0"><%= g.getName() %></genre>
-						<% if(g.getSubgenres() != null){%>
-	    				<ul class="nested">
-    					<% for(Genre g1 : g.getSubgenres()){ 
-	    					String secondG = g1.getName().replace(" ", "");%>
+					<input class="${g.getTrimmedName()}radio" type="radio" value="#6c757d" checked hidden>
+					<input class="${g.getTrimmedName()}radio" type="radio" value="green" hidden>
+					<input class="${g.getTrimmedName()}radio" type="radio" value="red" hidden>
+					<div id="${g.getTrimmedName()}div">
+						<genre id="${g.getTrimmedName()}btn" name="genre" class="btn btn-secondary" onclick="doGenre('${g.getTrimmedName()}')" value="${g.getTrimmedName()}" selection="0">${g.getName()}</genre>
+						<c:if test="${g.hasSubgenres()}">
+	    				<ul class="nested"> 
+	    				<c:forEach var="g1" items="${g.getSubgenres()}">   				
 	   			 			<li class="genreli">
-	   			 			<input class="<%= secondG %>radio" type="radio" value="#6c757d" checked hidden>
-							<input class="<%= secondG %>radio" type="radio" value="green" hidden>
-							<input class="<%= secondG %>radio" type="radio" value="red" hidden>
-							<div id="<%= secondG %>div">
-	   			 			<genre id="<%= secondG %>btn" name="genre" class="btn btn-secondary" onclick="doGenre('<%= secondG %>')" value="<%= secondG %>" selection="0"><%= g1.getName()%></genre>	       		 	
-							<% if(g1.getSubgenres() != null){
-								%>
+	   			 			<input class="${g1.getTrimmedName()}radio" type="radio" value="#6c757d" checked hidden>
+							<input class="${g1.getTrimmedName()}radio" type="radio" value="green" hidden>
+							<input class="${g1.getTrimmedName()}radio" type="radio" value="red" hidden>
+							<div id="${g1.getTrimmedName()}div">
+	   			 			<genre id="${g1.getTrimmedName()}btn" name="genre" class="btn btn-secondary" onclick="doGenre('${g1.getTrimmedName()}')" value="${g1.getTrimmedName()}" selection="0">${g1.getName()}</genre>	       		 	
+							<c:if test="${g1.hasSubgenres()}">
 								<ul class="nested">
-								<%
-					   			 	for(Genre g2 : g1.getSubgenres()){ 
-					   			 		String thirdG = g2.getName().replace(" ", "");%>
+								<c:forEach var="g2" items="${g1.getSubgenres()}">
 			   			 			<li class="genreli">
-			   			 				<input class="<%= thirdG %>radio" type="radio" value="#6c757d" checked hidden>
-										<input class="<%= thirdG %>radio" type="radio" value="green" hidden>
-										<input class="<%= thirdG %>radio" type="radio" value="red" hidden>
-										<div id="<%= thirdG %>div">
-			   			 					<genre id="<%= thirdG %>btn" name="genre" class="btn btn-secondary" onclick="doGenre('<%= thirdG %>')" value="<%= thirdG %>" selection="0"><%= g2.getName()%></genre>
-			   			 				<% if(g2.getSubgenres() != null){
-											%>
-											<ul class="nested">
-											<%
-								   			 	for(Genre g3 : g2.getSubgenres()){ 
-								   			 		String fourthG = g3.getName().replace(" ", "");%>
-						   			 			<li class="genreli">
-						   			 				<input class="<%= fourthG %>radio" type="radio" value="#6c757d" checked hidden>
-													<input class="<%= fourthG %>radio" type="radio" value="green" hidden>
-													<input class="<%= fourthG %>radio" type="radio" value="red" hidden>
-													<div id="<%= fourthG %>div">
-						   			 					<genre id="<%= fourthG %>btn" name="genre" class="btn btn-secondary" onclick="doGenre('<%= fourthG %>')" value="<%= fourthG %>" selection="0"><%= g3.getName()%></genre>
-						   			 				</div>
-												</li>		       		 	
-												<%}%>
-											</ul>
-											</div>
-					    					<%}%>
-			   			 				
+			   			 				<input class="${g2.getTrimmedName()}radio" type="radio" value="#6c757d" checked hidden>
+										<input class="${g2.getTrimmedName()}radio" type="radio" value="green" hidden>
+										<input class="${g2.getTrimmedName()}radio" type="radio" value="red" hidden>
+										<div id="${g2.getTrimmedName()}div">
+			   			 					<genre id="${g2.getTrimmedName()}btn" name="genre" class="btn btn-secondary" onclick="doGenre('${g2.getTrimmedName()}')" value="${g2.getTrimmedName()}" selection="0">${g2.getName()}</genre>
+				   			 				<c:if test="${g2.hasSubgenres()}">
+												<ul class="nested">
+												<c:forEach var="g3" items="${g2.getSubgenres()}">
+							   			 			<li class="genreli">
+							   			 				<input class="${g3.getTrimmedName()}radio" type="radio" value="#6c757d" checked hidden>
+														<input class="${g3.getTrimmedName()}radio" type="radio" value="green" hidden>
+														<input class="${g3.getTrimmedName()}radio" type="radio" value="red" hidden>
+														<div id="${g3.getTrimmedName()}div">
+							   			 					<genre id="${g3.getTrimmedName()}btn" name="genre" class="btn btn-secondary" onclick="doGenre('${g3.getTrimmedName()}')" value="${g3.getTrimmedName()}" selection="0">${g3.getName()}</genre>
+							   			 				</div>
+													</li>		       		 	
+												</c:forEach>
+												</ul>
+											</c:if>		
+										</div>
 									</li>		       		 	
-									<%}%>
-								</ul>	
-								</div>						
-		    					<%}%>
+								</c:forEach>
+								</ul>						
+		    				</c:if>	    
+							</div>						
 		    				</li>
-						<%}%>
-					</ul>
-					</div>
-	    		<%}%>
+						</c:forEach>
+						</ul>					
+	    		</c:if>
+	    		</div>
 	    		</li>
 	    		</ul>
-	    		</td>
-	    		
-	    	<%} %>
+	    		</td>    		
+	    	</c:forEach>
 	    	</tr>
 	    	</tbody>
 			</table>
-		<%}%> 
+		</c:if>
 		<input type="hidden" name="selectedGenres" id="selectedGenres" />
 		<input type="hidden" name="blockedGenres" id="blockedGenres" />
 		</div>
@@ -109,38 +92,42 @@
 		<table class="tlayout">
 			<tbody>
 			<tr>
-		<% 	
-		if(Feelings.getFeelings() != null){
-			int i = 0;
-			for (Feeling f : Feelings.getFeelings()) {
-				if(f.getId() == 1)continue;
-				String feel = f.getName().replace(" ", "");
-				if(i < ((Feelings.getFeelings().length / 5) + ((Feelings.getFeelings().length%5==0)?0:1))){
-				i += 1;%>
-				<td class="table-elements">
-			 	<div id="<%= f.getName() %>div">
-					<input class="<%= feel %>radio" type="radio" value="#6c757d" checked hidden>
-					<input class="<%= feel %>radio" type="radio" value="green" hidden>
-					<input class="<%= feel %>radio" type="radio" value="red" hidden>
-			 		<div id="<%= feel %>btn" name="feeling" class="btn btn-secondary" onclick="doFeeling('<%= feel %>')" value="<%= feel %>" selection="0"><%= f.getName() %></div>
-			 	</div>
-			 	</td><%
-				}else{
-					i = 1;%>
+			<c:if test="${Feelings.hasFeelings()}">
+					<c:forEach var="i" items="${CounterBean.newArrayInstance()}"> 				
+					${i.reset()}
+					<c:forEach var="f" items="${Feelings.getFeelings()}"> 
+							<c:choose>
+							<c:when test="${i.isSmaller(Feelings.calc())}">
+							${i.increment()}
+						<td class="table-elements">
+						 	<div id="${f.getName()}div">
+								<input class="${f.getTrimmedName()}radio" type="radio" value="#6c757d" checked hidden>
+								<input class="${f.getTrimmedName()}radio" type="radio" value="green" hidden>
+								<input class="${f.getTrimmedName()}radio" type="radio" value="red" hidden>
+						 		<div id="${f.getTrimmedName()}btn" name="feeling" class="btn btn-secondary" onclick="doFeeling('${f.getTrimmedName()}')" value="${f.getTrimmedName()}" selection="0">${f.getName()}</div>
+						 	</div>
+					 	</td>
+						 	</c:when>
+
+							<c:otherwise>	
+						 	${i.reset()}
+						 	${i.increment()}					
 					</tr>
 					<tr>
-					<td class="table-elements">
-					<div id="<%= f.getName() %>div">
-					<input class="<%= feel %>radio" type="radio" value="#6c757d" checked hidden>
-					<input class="<%= feel %>radio" type="radio" value="green" hidden>
-					<input class="<%= feel %>radio" type="radio" value="red" hidden>
-			 		<div id="<%= feel %>btn" name="feeling" class="btn btn-secondary" onclick="doFeeling('<%= feel %>')" value="<%= feel %>" selection="0"><%= f.getName() %></div>
-			 		</div>
-			 		</td>
-				<%
-				}
-			}			
-		}%>
+						<td class="table-elements">
+						 	<div id="${f.getName()}div">
+								<input class="${f.getTrimmedName()}radio" type="radio" value="#6c757d" checked hidden>
+								<input class="${f.getTrimmedName()}radio" type="radio" value="green" hidden>
+								<input class="${f.getTrimmedName()}radio" type="radio" value="red" hidden>
+						 		<div id="${f.getTrimmedName()}btn" name="feeling" class="btn btn-secondary" onclick="doFeeling('${f.getTrimmedName()}')" value="${f.getTrimmedName()}" selection="0">${f.getName()}</div>
+						 	</div>
+					 	</td>
+						</c:otherwise>
+						</c:choose>
+					</c:forEach>	
+
+					</c:forEach>
+			</c:if>	
 		</tr>
 		</tbody>
 			
@@ -160,39 +147,42 @@
 		<div class="scrollContainer">
 		<table class="tlayout">
 			<tbody>
-				<tr>	
-			<%
-			if(Styles.getStyles()!= null) {
-				int i = 0;
-				for (Style s : Styles.getStyles()) {
-					String style = s.getName().replace(" ", "");
-					if(i < ((Styles.getStyles().length / 5) + ((Styles.getStyles().length%5==0)?0:1))){
-						i += 1;%>
+				<tr>
+				<c:if test="${Styles.hasStyles()}">
+					<c:forEach var="i" items="${CounterBean.newArrayInstance()}"> 				
+					${i.reset()}
+					<c:forEach var="s" items="${Styles.getStyles()}"> 
+							<c:choose>
+							<c:when test="${i.isSmaller(Styles.calc())}">
+							${i.increment()}
 						<td class="table-elements">
-				 	<div id="<%= s.getName() %>div">
-						<input class="<%= style %>radio" type="radio" value="#6c757d" checked hidden>
-						<input class="<%= style %>radio" type="radio" value="green" hidden>
-						<input class="<%= style %>radio" type="radio" value="red" hidden>
-				 		<div id="<%= style %>btn" name="style" class="btn btn-secondary" onclick="doStyle('<%= style %>')" value="<%= style %>" selection="0"><%= s.getName() %></div>
-				 	</div>
-				 	</td>
-				<%}else{
-					i = 1;%>
-					</tr>
-					<tr>
-					<td class="table-elements">
-					<div id="<%= s.getName()%> ">
-						<input class="<%= style %>radio" type="radio" value="#6c757d" checked hidden>
-						<input class="<%= style %>radio" type="radio" value="green" hidden>
-						<input class="<%= style %>radio" type="radio" value="red" hidden>
-				 		<div id="<%= style %>btn" name="style" class="btn btn-secondary" onclick="doStyle('<%= style %>')" value="<%= style %>" selection="0"><%= s.getName() %></div>
-				 	</div>
-					</td>
-					<%
-				  	}
-				}	
-			}
-			%>
+						 	<div id="${s.getName()}div">
+								<input class="${s.getTrimmedName()}radio" type="radio" value="#6c757d" checked hidden>
+								<input class="${s.getTrimmedName()}radio" type="radio" value="green" hidden>
+								<input class="${s.getTrimmedName()}radio" type="radio" value="red" hidden>
+						 		<div id="${s.getTrimmedName()}btn" name="style" class="btn btn-secondary" onclick="doStyle('${s.getTrimmedName()}')" value="${s.getTrimmedName()}" selection="0">${s.getName()}</div>
+						 	</div>
+					 	</td>
+						 	</c:when>
+							<c:otherwise>	
+						 	${i.reset()}
+						 	${i.increment()}					
+							</tr>
+							<tr>
+								<td class="table-elements">
+								 	<div id="${s.getName()}div">
+										<input class="${s.getTrimmedName()}radio" type="radio" value="#6c757d" checked hidden>
+										<input class="${s.getTrimmedName()}radio" type="radio" value="green" hidden>
+										<input class="${s.getTrimmedName()}radio" type="radio" value="red" hidden>
+								 		<div id="${s.getTrimmedName()}btn" name="style" class="btn btn-secondary" onclick="doStyle('${s.getTrimmedName()}')" value="${s.getTrimmedName()}" selection="0">${s.getName()}</div>
+								 	</div>
+							 	</td>
+						</c:otherwise>
+						</c:choose>
+					</c:forEach>	
+
+					</c:forEach>
+				</c:if>	
 			</tr>
 		</tbody>
 			
@@ -213,38 +203,42 @@
 		<table class="tlayout">
 			<tbody>
 				<tr>	
-				<%
-				if(Languages.getLanguages()!=null) {
-					int i = 0;
-					for (Language l : Languages.getLanguages()) {
-						String language = l.getName().replace(" ", "");
-						if(i < ((Languages.getLanguages().length / 2) + ((Languages.getLanguages().length%2==0)?0:1))){
-							i += 1;%>
-					<td class="table-elements">
-					 	<div id="<%= l.getName() %>div">
-							<input class="<%= language %>radio" type="radio" value="#6c757d" checked hidden>
-							<input class="<%= language %>radio" type="radio" value="green" hidden>
-							<input class="<%= language %>radio" type="radio" value="red" hidden>
-					 		<div id="<%= language %>btn" name="language" class="btn btn-secondary" onclick="doLanguage('<%= language %>')" value="<%= language %>" selection="0"><%= l.getName() %></div>
-					 	</div>
-				 	</td>
-					 	<%}else{
-						i = 1;%>						
-				</tr>
-				<tr>
-					<td class="table-elements">
-					 	<div id="<%= l.getName() %>div">
-							<input class="<%= language %>radio" type="radio" value="#6c757d" checked hidden>
-							<input class="<%= language %>radio" type="radio" value="green" hidden>
-							<input class="<%= language %>radio" type="radio" value="red" hidden>
-					 		<div id="<%= language %>btn" name="language" class="btn btn-secondary" onclick="doLanguage('<%= language %>')" value="<%= language %>" selection="0"><%= l.getName() %></div>
-					 	</div>
-				 	</td>
-						<%
-					  	}
-					}	
-				}
-				%>
+				<c:if test="${Languages.hasLanguages()}">
+					<c:forEach var="i" items="${CounterBean.newArrayInstance()}"> 				
+					${i.reset()}
+					<c:forEach var="l" items="${Languages.getLanguages()}"> 
+							<c:choose>
+							<c:when test="${i.isSmaller(Languages.calc())}">
+							${i.increment()}
+						<td class="table-elements">
+						 	<div id="${l.getName()}div">
+								<input class="${l.getTrimmedName()}radio" type="radio" value="#6c757d" checked hidden>
+								<input class="${l.getTrimmedName()}radio" type="radio" value="green" hidden>
+								<input class="${l.getTrimmedName()}radio" type="radio" value="red" hidden>
+						 		<div id="${l.getTrimmedName()}btn" name="language" class="btn btn-secondary" onclick="doLanguage('${l.getTrimmedName()}')" value="${l.getTrimmedName()}" selection="0">${l.getName()}</div>
+						 	</div>
+					 	</td>
+						 	</c:when>
+
+							<c:otherwise>	
+						 	${i.reset()}
+						 	${i.increment()}					
+					</tr>
+					<tr>
+						<td class="table-elements">
+						 	<div id="${l.getName()}div">
+								<input class="${l.getTrimmedName()}radio" type="radio" value="#6c757d" checked hidden>
+								<input class="${l.getTrimmedName()}radio" type="radio" value="green" hidden>
+								<input class="${l.getTrimmedName()}radio" type="radio" value="red" hidden>
+						 		<div id="${l.getTrimmedName()}btn" name="language" class="btn btn-secondary" onclick="doLanguage('${l.getTrimmedName()}')" value="${l.getTrimmedName()}" selection="0">${l.getName()}</div>
+						 	</div>
+					 	</td>
+						</c:otherwise>
+						</c:choose>
+					</c:forEach>	
+
+					</c:forEach>
+				</c:if>
 				</tr>
 			</tbody>
 			
@@ -266,12 +260,12 @@
 			<br><br> 
 			
 			<button class=" btn btn-block btn-outline-success btn-lg " type="submit" onClick="processValidations()">Senden</button>
+			<br>
 	</form>
 
 
 
 </div>
-<%=HtmlDefaults.generateHtmlFooter()%>
-</body>
+</jsp:body>
 
-</html>
+</t:app>

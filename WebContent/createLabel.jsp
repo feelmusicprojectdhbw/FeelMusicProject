@@ -5,13 +5,11 @@
 <%@page import="main.dao.*"%>
 <%@page import="main.tools.*"%>
 <%@page import="main.servlets.*"%>
-<%=HtmlDefaults.generateHtmlHeader()%>
-        <title>createLabel</title>
-	</head>
-    
-	<body>
-     	<% User user = (User) session.getAttribute("user");%>
-     	<%=HtmlDefaults.generateHtmlNavbar(user)%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<t:app>
+ 	<jsp:body> 
 		<div class="container">
 			<form class=" form-signin " method="post" action="CreateLabel">
 				<h2 class=" form-signin-heading ">Label erstellen</h2>
@@ -23,7 +21,5 @@
 				<button class="  btn btn-block btn-outline-success btn-lg " type="submit">Senden</button>
    			</form>
 		</div>  
-    	<%=HtmlDefaults.generateHtmlFooter()%>
-	</body>
-
-</html>
+	</jsp:body>
+</t:app>

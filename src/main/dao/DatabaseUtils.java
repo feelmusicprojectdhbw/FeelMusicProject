@@ -29,12 +29,18 @@ public class DatabaseUtils {
 			
 			Album album = new Album(Integer.parseInt(songArr[6]), songArr[7], Integer.parseInt(songArr[8]));
 			Genre g = Genres.searchGenreById(Integer.parseInt(songArr[9]));
-			MusicLabel mlbl = new MusicLabel(Integer.parseInt(songArr[10]), songArr[11], songArr[12]);
+			MusicLabel mlbl = null;
+			try {
+				mlbl = new MusicLabel(Integer.parseInt(songArr[10]), songArr[11], songArr[12]);
+			}catch(NumberFormatException e) {
+				System.out.println(songID + " " + songArr[2]);
+			}
 			Language lang = Languages.getLanguageById(Integer.parseInt(songArr[13]));
 			String[] links = new String[songArr.length - 14];
 			for (int j = 0; j < links.length; j++) {
 				links[j] = songArr[14+j];
 			}
+			
 			
 			ret[i] = new Song(songID, songReleasedate, songArr[2], artist, co, album, g, mlbl, lang, links);
 		}
@@ -79,11 +85,6 @@ public class DatabaseUtils {
 				"LEFT JOIN artists ON songs.artist = artists.id " + 
 				"LEFT JOIN albums ON songs.album = albums.id " + 
 				"LEFT JOIN labels ON songs.label = labels.id ";
-	}
-
-	public static boolean checkArtistExists() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	public static Artist[] parseArtists(ArrayList<String[]> arr) {

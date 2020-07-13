@@ -10,7 +10,6 @@ import main.obj.Song;
 import main.obj.User;
 import main.servlets.CreateArtist_Servlet;
 import main.servlets.CreateLabel_Servlet;
-import main.servlets.CreatePlaylist_Servlet;
 import main.servlets.CreateSong_Servlet;
 import main.servlets.FeelMusic_Servlet;
 import main.servlets.Login_Servlet;
@@ -26,6 +25,7 @@ public class HtmlDefaults {
 	private static String footer;
 	private static String notLoggedIn;
 
+	public HtmlDefaults() {}
 	
 	public static String generateHtmlNavbar(User user) {
 		StringBuilder addition = new StringBuilder(""); 
@@ -79,8 +79,8 @@ public class HtmlDefaults {
 		File f = null;
 		if(FeelMusic_Servlet.getMe() != null) {
 			f = new File(FeelMusic_Servlet.getServerContext().getRealPath(path));			
-		}else if(CreatePlaylist_Servlet.getMe() != null) {
-			f = new File(CreatePlaylist_Servlet.getServerContext().getRealPath(path));
+		//}else if(CreatePlaylist_Servlet.getMe() != null) {
+		//	f = new File(CreatePlaylist_Servlet.getServerContext().getRealPath(path));
 		}else if(CreateArtist_Servlet.getMe() != null) {
 			f = new File(CreateArtist_Servlet.getServerContext().getRealPath(path));
 		}else if(CreateLabel_Servlet.getMe() != null) {
