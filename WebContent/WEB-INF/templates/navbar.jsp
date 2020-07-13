@@ -17,7 +17,7 @@
 			<c:if test="${user.isAdmin()}">		
 				<a class="nav-link nav-item text-light" href="CreateSong">Song hinzuf&uumlgen</a>
 				<a class="nav-link nav-item text-light" href="CreateArtist">K&uumlnstler anlegen</a>
-				<a class="nav-link nav-item text-light" href="CreateLabel">Label anlegen</a>");
+				<a class="nav-link nav-item text-light" href="CreateLabel">Label anlegen</a>
 				<a class="nav-link nav-item text-light" href="UserControl">Benutzerverwaltung</a>
 			</c:if>
 			<c:if test="${user.isModerator()}">
@@ -32,8 +32,8 @@
 			</c:if>
 			<c:if test="${user.isLabel()}">
 			</c:if>	
-			<a class="nav-link nav-item text-light" href="userpage.jsp">Mein Konto</a>");
-			<a href="Logout"><button class="btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0\">Abmelden</button></a>");
+			<a class="nav-link nav-item text-light" href="userpage.jsp">Mein Konto</a>
+			<a href="Logout"><button class="btn btn-outline-success px-2 px-3 mx-3 my-2 my-sm-0\">Abmelden</button></a>
 				
 		</c:otherwise>
 	</c:choose>
