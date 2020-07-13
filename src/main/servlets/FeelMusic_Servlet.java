@@ -33,7 +33,7 @@ public class FeelMusic_Servlet extends HttpServlet {
 		if (db == null) {
 			try {
 				db = Database.getDatabase();
-		//		dump(db);
+				dump(db);
 				Genres.requery(db);
 				Languages.reloadLanguages(db);
 				Feelings.reloadFeelings(db);
@@ -947,7 +947,7 @@ public class FeelMusic_Servlet extends HttpServlet {
 				"	(25, 'Uplifting'),\r\n" + 
 				"	(26, 'Vocal'),\r\n" + 
 				"	(42, 'Woodwinds')");
-		db.getConnection().createStatement().execute("Delete from style where name = 'deleted'");
+		db.getConnection().createStatement().execute("Delete from styles where name = 'deleted'");
 		
 		
 		try {
