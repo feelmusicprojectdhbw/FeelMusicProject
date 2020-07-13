@@ -23,6 +23,10 @@ public class Languages {
 	public static Language[] getLanguages() {
 		return languages;
 	}
+	
+	public static boolean hasLanguages() {
+		return languages != null;
+	}
 
 	public static void setLanguages(Language[] languages) {
 		Languages.languages = languages;
@@ -37,5 +41,9 @@ public class Languages {
 			}
 		}
 		return 0;
+	}
+	
+	public static int calc() {
+		return ((Languages.getLanguages().length / 2) + ((Languages.getLanguages().length%2==0)?0:1));
 	}
 }

@@ -1,7 +1,7 @@
 function searchSongs(){
 	var srch = document.getElementById('inputSearch').value;
 	var slctArtist = document.getElementById("artist");
-	var art = slctArtist.options[slctArtist.selectedIndex].text;
+	var art = slctArtist.value;
 	$.ajax({
 		url : 'SearchSong',
 		data : {

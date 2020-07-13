@@ -10,7 +10,6 @@ import main.obj.Song;
 import main.obj.User;
 import main.servlets.CreateArtist_Servlet;
 import main.servlets.CreateLabel_Servlet;
-import main.servlets.CreatePlaylist_Servlet;
 import main.servlets.CreateSong_Servlet;
 import main.servlets.FeelMusic_Servlet;
 import main.servlets.Login_Servlet;
@@ -26,6 +25,7 @@ public class HtmlDefaults {
 	private static String footer;
 	private static String notLoggedIn;
 
+	public HtmlDefaults() {}
 	
 	public static String generateHtmlNavbar(User user) {
 		StringBuilder addition = new StringBuilder(""); 

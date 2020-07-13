@@ -4,6 +4,8 @@ public class Feeling {
 	private int id;
 	private String name;
 	
+	public Feeling() {}
+	
 	public Feeling(int id, String name) {
 		super();
 		this.id = id;
@@ -24,5 +26,8 @@ public class Feeling {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getTrimmedName() {
+		return name.replace(" ", "");
 	}
 }

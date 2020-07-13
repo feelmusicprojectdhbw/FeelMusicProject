@@ -5,15 +5,11 @@
 <%@page import="main.dao.*"%>
 <%@page import="main.tools.*"%>
 <%@page import="main.servlets.*"%>
-<%=HtmlDefaults.generateHtmlHeader()%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<title>Song suchen</title>
-<link rel="stylesheet" href="css/stylesongsearch.css">
-</head>
-
-<body>
-     <%	User user = (User) session.getAttribute("user");%>
-     <%=HtmlDefaults.generateHtmlNavbar(user)%>
+<t:app>
+ <jsp:body>
      <div class="container">
 	<div class="wholewrapper">
 	<div class="formwrapper">
@@ -23,17 +19,12 @@
 			<br>	 
 			<p><label for="artist" > <b>K&uumlnstler</b> </label>		
 			<select class=" form-control "id="artist" name="artist">
-			<% Artist[] artists = Database.getAllArtists();
-	   	 	if(artists != null){
-	   	 		%><option>?;1</option><%
-				for (Artist a : artists) {
-					if(a.getId() == 1){
-						continue;
-					}else{
-						%><option><%= a.getName() %>;<%= a.getId() %></option><%
-					}			
-				}
-			}%>
+				<option value="1">?</option>
+				<c:forEach var="a" items="${Database.getAllArtists()}"> 
+					<c:if test="${a.isNoDefault()}">
+					<option value="${a.getId()}">${a.getName()}</option>
+					</c:if>			
+				</c:forEach>
 			</select> </p>
 			<p>
 			<button class=" btn btn-success btn-lg " onClick="searchSongs()">Suchen</button> </p>
@@ -45,8 +36,8 @@
 		 </div>
 	 </div>
 	 </div>
-	 <%=HtmlDefaults.generateHtmlFooter()%>
-</body>
+</jsp:body>
+</t:app>
 
 
 <script src="https://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>

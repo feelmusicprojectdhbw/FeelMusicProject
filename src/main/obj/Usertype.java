@@ -5,6 +5,8 @@ public class Usertype {
 	private int id;
 	private String type;
 	
+	public Usertype() {}
+	
 	public Usertype(int id, String type) {
 		super();
 		this.id = id;

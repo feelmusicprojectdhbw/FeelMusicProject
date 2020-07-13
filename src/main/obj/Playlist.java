@@ -1,16 +1,18 @@
 package main.obj;
 
+import com.google.gson.Gson;
+
 public class Playlist {
 	
 	private int id;
-	private String name;
+	private String playlistname;
 	private User user;
 	private Song[] songs;
 	
 	public Playlist(int id, String name, User user, Song... songs) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.playlistname = name;
 		this.user = user;
 		this.songs = songs;
 	}
@@ -22,10 +24,13 @@ public class Playlist {
 		this.id = id;
 	}
 	public String getName() {
-		return name;
+		return playlistname;
+	}
+	public boolean isDefault() {
+		return id == 0;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.playlistname = name;
 	}
 	public User getUser() {
 		return user;
@@ -39,4 +44,8 @@ public class Playlist {
 	public void setSongs(Song[] songs) {
 		this.songs = songs;
 	}	
+	
+	public String asJSON() {
+		return new Gson().toJson(this);
+	}
 }

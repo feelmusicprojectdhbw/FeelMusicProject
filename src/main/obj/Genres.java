@@ -42,6 +42,10 @@ public class Genres {
 		return genres;
 	}
 	
+	public static boolean hasGenres() {
+		return genres != null;
+	}
+	
 	private static void addGenre(Genre g) {
 		if(genres == null) {
 			genres = new Genre[0];

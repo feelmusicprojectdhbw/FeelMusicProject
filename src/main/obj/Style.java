@@ -4,6 +4,8 @@ public class Style {
 	private int id;
 	private String name;
 	
+	public Style() {}
+	
 	public Style(int id, String name) {
 		super();
 		this.id = id;
@@ -21,5 +23,8 @@ public class Style {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getTrimmedName() {
+		return name.replace(" ", "");
 	}
 }

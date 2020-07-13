@@ -38,6 +38,10 @@ private static Style[] styles;
 	public static Style[] getStyles() {
 		return styles;
 	}
+	
+	public static boolean hasStyles() {
+		return styles != null;
+	}
 
 	public static void setStyles(Style[] styles) {
 		Styles.styles = styles;
@@ -52,5 +56,9 @@ private static Style[] styles;
 			}
 		}
 		return 0;
+	}
+	
+	public static int calc() {
+		return ((Styles.getStyles().length / 5) + ((Styles.getStyles().length%5==0)?0:1));
 	}
 }
