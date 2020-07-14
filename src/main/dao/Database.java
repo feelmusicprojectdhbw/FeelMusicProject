@@ -1111,7 +1111,6 @@ public class Database {
 			stmt.executeQuery("select * from languages");
 			stmt.executeQuery("select * from styles");
 		} catch (SQLException e) {
-			e.printStackTrace();
 			return false;
 		}
 		return true;

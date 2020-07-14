@@ -34,7 +34,6 @@ public class FeelMusic_Servlet extends HttpServlet {
 			try {
 				db = Database.getDatabase();
 				if(!db.isDumped()) {
-					System.out.println("Dumped");
 					dump(db);
 				}
 				Genres.requery(db);
