@@ -1,8 +1,8 @@
-.bigWrapper {
+.bigWrapperl {
     background-color: #ffffff;
 }
 
-.headerContainerImage {
+.headerContainerImagel {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11,12 +11,12 @@
     position: relative;
 }
 
-.headerContainerContent {
+.headerContainerContentl {
     color: #1e2123;
     z-index: 20;
 }
 
-.headerContainerImage::before {
+.headerContainerImagel::before {
     content: "";
     position: absolute;
     width: 100%;
@@ -29,7 +29,7 @@
     z-index: 10;
 }
 
-.informationContainer {
+.informationContainerl {
     width: screen;
     display: flex;
     flex-direction: row;
@@ -37,18 +37,18 @@
     background-color: #ffffff;
 }
 
-.informationContainer:nth-of-type(odd) {
+.informationContainer:nth-of-typel(odd) {
     background-color: #f9f9f9;
 }
 
-.informationContainerChild {
+.informationContainerChildl {
     padding: 40px;
     flex-grow: 1;
     width: 33%;
 }
 
 
-.explanationContainer {
+.explanationContainerl {
     width: screen;
     display: flex;
     flex-direction: row;
@@ -56,22 +56,22 @@
     background-color: #ffffff;
 }
 
-.explanationContainer:nth-of-type(odd) {
+.explanationContainer:nth-of-typel(odd) {
     background-color: #f9f9f9;
 }
 
-.explanationContainerChild {
+.explanationContainerChildl {
     padding: 40px;
     flex-grow: 1;
     width: 50%;
 }
 
-.underline {
+.underlinel {
     position: relative;
     display: block;
 }
 
-.underline::after {
+.underlinel::after {
     content: "";
     position: absolute;
     bottom: -.4em;

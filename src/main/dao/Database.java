@@ -29,7 +29,7 @@ public class Database {
 	private String host, database, user, pw;
 	private Connection connection;
 	
-	private static final boolean mySQL = true;
+	private static final boolean mySQL = false;
 
 	private static boolean isInstantiated() {
 		return thisDB != null;
@@ -85,6 +85,8 @@ public class Database {
 			return null;
 		}
 	}
+	
+	
 
 	public Connection getConnection() {
 		return connection;
@@ -1098,6 +1100,20 @@ public class Database {
 			stmt.executeUpdate("insert into z_userconnector(userid, label) VALUES(" + userid + ", " + labelToConnect + ")");
 		}
 		stmt.close();
+	}
+
+	public boolean isDumped() {
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.executeQuery("select * from feelings");
+			stmt.executeQuery("select * from genres");
+			stmt.executeQuery("select * from songs");
+			stmt.executeQuery("select * from languages");
+			stmt.executeQuery("select * from styles");
+		} catch (SQLException e) {
+			return false;
+		}
+		return true;
 	}
 	
 }
